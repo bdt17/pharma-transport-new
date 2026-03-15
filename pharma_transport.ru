@@ -32,27 +32,6 @@ class PharmaTransportApp
         [200, {
           "Content-Type" => "application/pdf",
           "Content-Disposition" => "attachment; filename=CoC-#{batch_id}.pdf"
-        }, [coc_pdf(batch_id)]]
-      }
-    when "/health", "/batches", "/billing", "/subscribe", "/landing", "/signup", "/vehicles"
-      [200, {"Content-Type" => "text/html"}, [page_html(path)]]
-    when "/auth/enterprise"
-      [302, {"Location" => "/dashboard"}, []]
-    else
-      [404, {"Content-Type" => "application/json"}, [{"error": "Not Found", "request_id": THREAD_LOCAL[:request_id]}.to_json]]
-    end
-  ensure
-    THREAD_LOCAL[:request_id] = nil  # Clean up
-  end
-
-  def self.landing_html
-    @landing_html ||= freeze_string(<<~HTML)
-      <!DOCTYPE html>
-      <html>
-      <head><title>Pharma Transport - Thomas IT</title>
-      <meta charset='utf-8'>
-      <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0'>
-      <style>
         body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
         .landing { text-align: center; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         h1 { color: #2c5aa0; font-size: 3em; margin-bottom: 10px; }
@@ -141,27 +120,6 @@ class PharmaTransportApp
     }.freeze.to_json
   end
 
-  def self.coc_pdf(batch_id)
-    @coc_template ||= freeze_string("Thomas IT Pharma Transport\nPHASE 10 Chain of Custody\nBatch ID: %s\nFDA 21 CFR Part 11 Compliant\nPhoenix, AZ\n42 Queclink GV55 Devices LIVE\nGenerated: %s\nTHOMAS IT LOGISTICS")
-    @coc_template % [batch_id, Time.now.strftime('%Y-%m-%d %H:%M:%S')]
-  end
-
-  def self.page_html(path)
-    @page_template ||= freeze_string(<<~HTML)
-      <!DOCTYPE html>
-      <html><head><title>%s - Thomas IT</title>
-      <meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>
-      <style>body{font-family:Arial,sans-serif;max-width:800px;margin:0 auto;padding:20px;background:#f5f5f5;}
-      .landing{text-align:center;background:white;padding:40px;border-radius:10px;box-shadow:0 4px 6px rgba(0,0,0,0.1);}
-      h1.pharma-layout{color:#2c5aa0;font-size:3em;margin-bottom:20px;}h2{color:#333;font-size:2em;}</style></head>
-      <body><div class='landing'>
-        <h1 class='pharma-layout'>PHASE 10</h1>
-        <h2>%s</h2>
-        <p>Placeholder content for %s.</p>
-        <p class='mobile_warning'>Mobile layouts temporarily disabled.</p>
-        <p>From Phoenix, Arizona · 2026</p>
-      </div></body></html>
-    HTML
     @page_template % [path, path, path]
   end
 
@@ -171,27 +129,6 @@ class PharmaTransportApp
 end
 
 run PharmaTransportApp
-# /coc_pdf endpoint - 21 CFR Part 11 Certificate of Compliance
-run Rack::Builder.new do
-  use Rack::Deflater
-  use Rack::Reloader
-
-  map '/coc_pdf' do
-    response = lambda do |env|
-      batch_id = env['rack.input'].read.match(/batch_id=(\d+)/)&.captures&.first || 'TEST123'
-      
-      # THREAD-SAFE PDF WITH PRAWN
-      require 'thread'
-      $PDF_MUTEX ||= Mutex.new
-      
-      $PDF_MUTEX.synchronize do
-        require 'prawn'
-        request_id = SecureRandom.uuid
-        
-        Prawn::Document.generate("/tmp/coc_#{batch_id}_#{Time.now.strftime('%Y%m%d_%H%M')}.pdf", page_size: 'LETTER') do |pdf|
-          pdf.font 'Helvetica'
-          pdf.fill_color [0.17, 0.35, 0.65]
-          pdf.text_box "CERTIFICATE OF COMPLIANCE", {
             at: [70, 750], size: 28, style: :bold
           }
           
@@ -223,3 +160,27 @@ run Rack::Builder.new do
     end
   end
 end
+  # FIXED: /coc_pdf endpoint - 21 CFR Part 11 (no Rack::Builder conflict)
+  map '/coc_pdf' do
+    run lambda do |env|
+      require 'thread'
+      require 'prawn'
+      require 'securerandom'
+      
+      $PDF_MUTEX ||= Mutex.new
+      batch_id = env['QUERY_STRING'] =~ /batch_id=(\w+)/ ? $1 : 'TEST123'
+      request_id = SecureRandom.uuid
+      
+      $PDF_MUTEX.synchronize do
+        Prawn::Document.generate("/tmp/coc_#{batch_id}_#{Time.now.strftime('%Y%m%d_%H%M')}.pdf") do |pdf|
+          pdf.text "21 CFR Part 11 CoC - #{batch_id}", size: 24, style: :bold
+          pdf.text "Request: #{request_id}", size: 14
+          pdf.text "Generated: #{Time.now.utc}", size: 12
+          pdf.text "Phoenix AZ Pharma Transport", size: 16, style: :bold
+        end
+      end
+      
+      [200, {'Content-Type' => 'application/json'}, 
+       [{status: 'PDF_GENERATED', batch_id: batch_id, filename: "coc_#{batch_id}.pdf"}.to_json]]
+    end
+  end
