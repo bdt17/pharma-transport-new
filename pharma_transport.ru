@@ -68,7 +68,7 @@ end
           <h2>Pharma Transport</h2>
           <p>Logistics for the modern pharmaceutical supply chain.</p>
           <p class='mobile_warning'>Mobile layouts temporarily disabled.</p>
-          <p><a href='https://billing.stripe.com/p/login/eedhVS4HbbjJ13a4gg' target='_blank'>Billing Portal</a></p>
+           <p><a href='/billing'>🧾 Stripe Billing Portal</a> | <a href='/dashboard'>📊 Dashboard</a></p>
           <p>From Phoenix, Arizona · 2026</p>
         </div>
       </body>
