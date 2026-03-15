@@ -1,0 +1,24 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rack (3.2.5)
+    rackup (0.2.3)
+      rack (>= 3.0.0.beta1)
+      webrick
+    webrick (1.9.2)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  rack (~> 3.0)
+  rackup (~> 0.2)
+
+CHECKSUMS
+  rack (3.2.5) sha256=4cbd0974c0b79f7a139b4812004a62e4c60b145cba76422e288ee670601ed6d3
+  rackup (0.2.3) sha256=284044c0300697cee56e98d8a6e2a83ff6db8aabf1ba62a9cd37ea3fb51872f8
+  webrick (1.9.2) sha256=beb4a15fc474defed24a3bda4ffd88a490d517c9e4e6118c3edce59e45864131
+
+BUNDLED WITH
+  4.0.3
