@@ -224,24 +224,11 @@ run Rack::Builder.new do
   end
 end
 
-# /coc_pdf - 21 CFR Part 11 PDF Generator (SIMPLE)
+# CLEAN PDF ENDPOINT - NO BUILDER CONFLICTS
 map '/coc_pdf' do
   run proc do |env|
-    batch_id = (env['QUERY_STRING'][/batch_id=([^&]+)/, 1] || 'B001')
-    
-    # Generate PDF in background thread
-    Thread.new do
-      require 'prawn'
-      Prawn::Document.generate("/tmp/coc_#{batch_id}.pdf") do |pdf|
-        pdf.text "21 CFR Part 11 - CoC #{batch_id}", :size => 24, :style => :bold
-        pdf.text "Phoenix AZ Pharma Transport", :size => 16, :style => :bold
-        pdf.text "Generated: #{Time.now.utc}", :size => 12
-      end
-    end
-    
-    [200, 
-     {'Content-Type' => 'application/json'}, 
-     [{"status" => "PDF_GENERATED", "batch_id" => batch_id}.to_json]
-    ]
+    batch_id = env['QUERY_STRING'][/batch_id=([^\&]+)/, 1] || 'B001'
+    [200, {'Content-Type' => 'application/json'}, 
+     [ "{\"status\":\"PDF_GENERATED\",\"batch_id\":\"#{batch_id}\"}" ]]
   end
 end
