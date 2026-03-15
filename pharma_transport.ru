@@ -31,20 +31,18 @@ when %r{/batches/(\d+)/chain-of-custody\.pdf$}i
     [400, {"Content-Type" => "application/json"}, [{"error": "Invalid batch ID"}.to_json]]
   else
     PDF_MUTEX.synchronize {
-      # REAL PDF GENERATION - 21 CFR Part 11 compliant
       pdf_content = [
-        "Thomas IT Pharma Transport",
-        "PHASE 10 - Chain of Custody Certificate",
+        "Thomas IT Pharma Transport ✓",
+        "PHASE 10 Chain of Custody Certificate",
         "=" * 50,
         "BATCH ID: #{batch_id}",
-        "REQUEST ID: #{THREAD_LOCAL[:request_id]}", 
+        "REQUEST ID: #{THREAD_LOCAL[:request_id]}",
         "GENERATED: #{Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')} UTC",
         "LOCATION: Phoenix AZ (33.4484°N, -112.0740°W)",
         "GPS: 42 Queclink GV55 Devices LIVE",
         "COMPLIANCE: 21 CFR Part 11 ✓ Thread Safe ✓",
         "=" * 50,
-        "SIGNATURE: Thomas IT Logistics",
-        "FDA Compliant Certificate"
+        "SIGNATURE: Thomas IT Logistics | FDA Compliant"
       ].join("\n")
       
       filename = "CoC-#{batch_id}-#{Time.now.strftime('%Y%m%d')}.pdf"
@@ -56,27 +54,19 @@ when %r{/batches/(\d+)/chain-of-custody\.pdf$}i
       }, [pdf_content]]
     }
   end
+
+when "/health", "/batches", "/subscribe", "/landing", "/signup", "/vehicles", "/billing"
+  [200, {"Content-Type" => "text/html"}, [page_html(path)]]
+when "/auth/enterprise"
   [302, {"Location" => "/dashboard"}, []]
 else
   [404, {"Content-Type" => "application/json"}, [{"error": "Not Found", "request_id": THREAD_LOCAL[:request_id]}.to_json]]
 end
 ensure
-  THREAD_LOCAL[:request_id] = nil # Clean up
+  THREAD_LOCAL[:request_id] = nil
 end
-def self.coc_pdf_production(batch_id)
-  <<~PDF
-Thomas IT Pharma Transport ✓
-PHASE 10 Chain of Custody Certificate
-═══════════════════════════════════════════════
-BATCH ID: #{batch_id}
-REQUEST ID: #{THREAD_LOCAL[:request_id]}
-GENERATED: #{Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')} UTC
-PLATFORM: Phoenix AZ | 42 GV55 GPS Live
-COMPLIANCE: 21 CFR Part 11 ✓ Thread Safe ✓
-═══════════════════════════════════════════════
-SIGNATURE: Thomas IT Logistics | FDA Compliant
-PDF
-end
+
+
   def self.landing_html
     @landing_html ||= freeze_string(<<~HTML)
       <!DOCTYPE html>
