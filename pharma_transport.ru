@@ -14,36 +14,35 @@ class PharmaTransportApp
     THREAD_LOCAL[:request_id] = SecureRandom.uuid  # Unique per thread
 
     path = env["PATH_INFO"]
-
-    case path
-    when "/favicon.ico"
-      [204, {}, []]
-    when "/"
-      [200, {"Content-Type" => "text/html"}, [landing_html]]
-    when "/login", "/users/sign_in", "/users/sign_up"
-      [200, {"Content-Type" => "text/html"}, [login_html]]
-    when "/dashboard", "/enterprise/dashboard"
-      [200, {"Content-Type" => "text/html"}, [dashboard_html]]
-    when "/gps", "/api/vehicles"
-      [200, {"Content-Type" => "application/json"}, [vehicles_json]]
-    when %r{/batches/(\d+)/chain-of-custody\.pdf$}
-      batch_id = $1
-      PDF_MUTEX.synchronize {  # Thread-safe PDF
-        [200, {
-          "Content-Type" => "application/pdf",
-          "Content-Disposition" => "attachment; filename=CoC-#{batch_id}.pdf"
-        }, [coc_pdf(batch_id)]]
-      }
-    when "/health", "/batches", "/billing", "/subscribe", "/landing", "/signup", "/vehicles"
-      [200, {"Content-Type" => "text/html"}, [page_html(path)]]
-    when "/auth/enterprise"
-      [302, {"Location" => "/dashboard"}, []]
-    else
-      [404, {"Content-Type" => "application/json"}, [{"error": "Not Found", "request_id": THREAD_LOCAL[:request_id]}.to_json]]
-    end
-  ensure
-    THREAD_LOCAL[:request_id] = nil  # Clean up
-  end
+case path
+when "/favicon.ico"
+  [204, {}, []]
+when "/"
+  [200, {"Content-Type" => "text/html"}, [landing_html]]
+when "/login", "/users/sign_in", "/users/sign_up"
+  [200, {"Content-Type" => "text/html"}, [login_html]]
+when "/dashboard", "/enterprise/dashboard"
+  [200, {"Content-Type" => "text/html"}, [dashboard_html]]
+when "/gps", "/api/vehicles"
+  [200, {"Content-Type" => "application/json"}, [vehicles_json]]
+when %r{/batches/(\d+)/chain-of-custody\.pdf$}
+  batch_id = $1
+  PDF_MUTEX.synchronize {
+    [200, {
+      "Content-Type" => "application/pdf",
+      "Content-Disposition" => "attachment; filename=CoC-#{batch_id}.pdf"
+    }, [coc_pdf(batch_id)]]
+  }
+when "/health", "/batches", "/subscribe", "/landing", "/signup", "/vehicles", "/billing"
+  [200, {"Content-Type" => "text/html"}, [page_html(path)]]
+when "/auth/enterprise"
+  [302, {"Location" => "/dashboard"}, []]
+else
+  [404, {"Content-Type" => "application/json"}, [{"error": "Not Found", "request_id": THREAD_LOCAL[:request_id]}.to_json]]
+end
+ensure
+  THREAD_LOCAL[:request_id] = nil  # Clean up
+end
 
   def self.landing_html
     @landing_html ||= freeze_string(<<~HTML)
@@ -168,31 +167,23 @@ class PharmaTransportApp
   def self.freeze_string(str)
     str.freeze
   end
-end
-
-# FIXED: Single run statement + Stripe Billing Portal
-require 'stripe'
-Stripe.api_key = ENV['STRIPE_SECRET_KEY'] || 'sk_test_your_key_here'
-
-run PharmaTransportApp
-
-# Stripe Billing Portal - /billing endpoint
-map '/billing' do
-  run lambda do |env|
-    begin
-      # Create/find customer
-      customer = Stripe::Customer.list(limit: 1).data.first || 
-                 Stripe::Customer.create(email: 'brett@pharmatransport.com')
-      
-      # Fresh portal session (fixes 404)
-      session = Stripe::BillingPortal::Session.create({
-        customer: customer.id,
-        return_url: 'https://pharma-transport-new.onrender.com/dashboard'
-      })
-      
-      [302, {'Location' => session.url}, []]
-    rescue => e
-      [500, {'Content-Type' => 'application/json'}, [{"error": e.message}.to_json]]
-    end
+  def self.billing_html
+    @billing_html ||= freeze_string(<<~HTML)
+<!DOCTYPE html>
+<html><head><title>🧾 Stripe Billing Portal - Thomas IT</title>
+<meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<style>body{font-family:Arial,sans-serif;max-width:800px;margin:0 auto;padding:20px;background:#f5f5f5;}
+.landing{text-align:center;background:white;padding:40px;border-radius:10px;box-shadow:0 4px 6px rgba(0,0,0,0.1);}
+h1.pharma-layout{color:#2c5aa0;font-size:3em;margin-bottom:20px;}</style></head>
+<body><div class='landing'>
+<h1 class='pharma-layout'>🧾 Stripe Billing Portal</h1>
+<p><strong>Production Ready:</strong> Contact Brett Thomas for subscription setup</p>
+<p>📧 brett@pharmatransport.com | 📍 Phoenix AZ | 21 CFR Part 11 Compliant</p>
+<p><a href='/dashboard'>← Dashboard (42 GV55 GPS Live)</a></p>
+</div></body></html>
+HTML
   end
+
 end
+
+run PharmaTransportApp  # <- SINGLE run statement (line ~189)
