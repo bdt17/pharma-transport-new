@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 # Thomas IT Pharma Transport - PHASE 23 PRO PORTAL (RENDER LIVE - FIXED)
-# ✅ COMPLETE: No middleware, WEBrick server, production ready
+# ✅ COMPLETE: Render-ready Rack app - NO custom server needed
 
 require 'bundler/setup'
 require 'rack'
@@ -175,5 +175,5 @@ class PharmaTransportProPortal
   end
 end
 
-# WEBrick server for Render deployment (FIXES NoMethodError)
-Rack::Handler::WEBrick.run(PharmaTransportProPortal.new, Port: ENV['PORT'] || 3000)
+# Render auto-detects Rack apps - just run the app directly
+run PharmaTransportProPortal.new
