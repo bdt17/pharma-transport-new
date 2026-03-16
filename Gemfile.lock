@@ -1,40 +1,29 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bigdecimal (3.3.1)
-    matrix (0.4.3)
-    pdf-core (0.10.0)
-    prawn (2.5.0)
-      matrix (~> 0.4)
-      pdf-core (~> 0.10.0)
-      ttfunk (~> 1.8)
+    json (2.19.1)
+    nio4r (2.7.5)
+    puma (7.2.0)
+      nio4r (~> 2.0)
     rack (3.2.5)
-    rackup (0.2.3)
-      rack (>= 3.0.0.beta1)
-      webrick
-    ttfunk (1.8.0)
-      bigdecimal (~> 3.1)
-    webrick (1.9.2)
 
 PLATFORMS
   ruby
   x86_64-linux
 
 DEPENDENCIES
-  prawn (~> 2.5)
+  json
+  puma
   rack (~> 3.2)
-  rackup (~> 0.2)
-  webrick (~> 1.9)
 
 CHECKSUMS
-  bigdecimal (3.3.1) sha256=eaa01e228be54c4f9f53bf3cc34fe3d5e845c31963e7fcc5bedb05a4e7d52218
-  matrix (0.4.3) sha256=a0d5ab7ddcc1973ff690ab361b67f359acbb16958d1dc072b8b956a286564c5b
-  pdf-core (0.10.0) sha256=0a5d101e2063c01e3f941e1ee47cbb97f1adfc1395b58372f4f65f1300f3ce91
-  prawn (2.5.0) sha256=f4e20e3b4f30bf5b9ae37dad15eb421831594553aa930b2391b0fa0a99c43cb6
+  json (2.19.1) sha256=dd94fdc59e48bff85913829a32350b3148156bc4fd2a95a2568a78b11344082d
+  nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
+  puma (7.2.0) sha256=bf8ef4ab514a4e6d4554cb4326b2004eba5036ae05cf765cfe51aba9706a72a8
   rack (3.2.5) sha256=4cbd0974c0b79f7a139b4812004a62e4c60b145cba76422e288ee670601ed6d3
-  rackup (0.2.3) sha256=284044c0300697cee56e98d8a6e2a83ff6db8aabf1ba62a9cd37ea3fb51872f8
-  ttfunk (1.8.0) sha256=a7cbc7e489cc46e979dde04d34b5b9e4f5c8f1ee5fc6b1a7be39b829919d20ca
-  webrick (1.9.2) sha256=beb4a15fc474defed24a3bda4ffd88a490d517c9e4e6118c3edce59e45864131
+
+RUBY VERSION
+  ruby 3.2.2
 
 BUNDLED WITH
   4.0.3

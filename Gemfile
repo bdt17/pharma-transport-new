@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
+ruby '3.2.2'
 gem 'rack', '~> 3.2'
-gem 'rackup', '~> 0.2'
-gem 'webrick', '~> 1.9'
-gem 'prawn', '~> 2.5'
+gem 'puma'
+gem 'json'
