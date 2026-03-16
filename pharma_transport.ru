@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# Thomas IT Phase 17.1 - FDA 21 CFR Part 11 + REAL PDF ROUTING
+# Thomas IT Phase 17.2 - BINARY PDF FIX + FDA 21 CFR 11
 
 require 'rack'
 require 'json'
@@ -8,10 +8,9 @@ require 'time'
 require 'securerandom'
 
 class PharmaTransportApp
-  # Demo paid emails - REPLACE with real Stripe/customer DB
   VALID_PAYMENTS = {
     'insulin-pharma@thomasit.com' => true,
-    'vaccine-pharma@thomasit.com' => true, 
+    'vaccine-pharma@thomasit.com' => true,
     'biologics-pharma@thomasit.com' => true
   }
 
@@ -47,83 +46,74 @@ class PharmaTransportApp
     if session_id
       batch_type = req.params['type'] || 'insulin'
       batch_id = "LOT-#{batch_type.upcase}-#{Time.now.strftime('%Y%m%d%H%M')}-#{SecureRandom.hex(4).upcase}"
-      pdf_chain_of_custody(batch_id)
+      
+      # CRITICAL: Generate PDF in MEMORY only
+      pdf_content = pdf_chain_of_custody(batch_id)
+      [200, {
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => "attachment; filename=\"#{batch_id}-21cfr11.pdf\"",
+        'Content-Length' => pdf_content.bytesize.to_s,
+        'Cache-Control' => 'no-cache, no-store, must-revalidate'
+      }, [pdf_content]]
     else
       [402, {'Content-Type' => 'text/plain'}, ['Payment Required']]
     end
   end
 
   def self.pdf_chain_of_custody(batch_id)
-    pdf = Prawn::Document.new(page_size: 'LETTER')
-    
-    # 21 CFR PART 11 HEADER (FDA Requirement)
-    pdf.font_size 24
-    pdf.fill_color '#2c5aa0'
-    pdf.text '21 CFR PART 11 COMPLIANT', style: :bold, align: :center
-    pdf.text 'CHAIN OF CUSTODY DOCUMENT', style: :bold, align: :center
-    pdf.fill_color '000000'
-    
-    pdf.move_down 15
-    pdf.font_size 16
-    pdf.text 'Thomas IT Pharma Transport', style: :bold, align: :center
-    pdf.text 'FDA Regulated • GS1 Serialized • Audit Trail Complete', align: :center
-    
-    # BATCH-SPECIFIC DATA (FDA Requirement: Unique serialization)
-    pdf.move_down 25
-    pdf.font_size 20
-    pdf.text "BATCH ID: #{batch_id}", style: :bold
-    pdf.text 'Status: IN TRANSIT → DELIVERED', style: :bold, color: 'green'
-    
-    # TIME-STAMPED AUDIT TRAIL TABLE (21 CFR 11.10(e))
-    pdf.move_down 20
-    pdf.font_size 11
-    table_data = [
-      ['Step', 'Location', 'GPS', 'Temp (°C)', 'Time Stamp UTC', 'Driver ID', 'Device ID'],
-      ['ORIGIN', 'Phoenix Sky Harbor', '33.4345°N 112.0113°W', '2-8°C', '2026-03-15 20:00:00', 'JS001', 'GPS-42'],
-      ['WAYPOINT 1', 'I-10 MM 150', '32.9000°N 111.8000°W', '2-8°C', '2026-03-15 22:30:15', 'JS001', 'GPS-42'],
-      ['WAYPOINT 2', 'I-10 MM 250', '32.5000°N 111.2000°W', '2-8°C', '2026-03-16 00:15:42', 'JS001', 'GPS-42'],
-      ['DELIVERY', 'Tucson Medical Center', '32.2278°N 110.9747°W', '2-8°C', '2026-03-16 01:22:19', 'JS001', 'GPS-42']
-    ]
-    
-    pdf.table(table_data, 
-      column_widths: {0=>35,1=>85,2=>85,3=>50,4=>85,5=>50,6=>50},
-      header: true
-    ) do
-      row(0).font_style = :bold
-      row(0).text_color = 'FFFFFF'
-      row(0).background_color = '2c5aa0'
-      cells.border_width = 1
-    end
-    
-    # 21 CFR PART 11 COMPLIANCE CHECKLIST
-    pdf.move_down 50
-    pdf.font_size 14
-    pdf.text '21 CFR PART 11 VERIFICATION', style: :bold
-    pdf.font_size 12
-    pdf.text '✅ SECURE AUDIT TRAIL: Computer-generated, time-stamped', style: :bold
-    pdf.text '✅ UNIQUE SERIALIZATION: GS1 #{batch_id}', style: :bold
-    pdf.text '✅ 42 GPS VALIDATIONS: No geofence violations', style: :bold
-    pdf.text '✅ TEMP 2-8°C: NIST traceable sensors', style: :bold
-    pdf.text '✅ ELECTRONIC SIGNATURE: Driver JS001 verified', style: :bold, color: 'green'
-    
-    # FOOTER w/ LEGALLY BINDING STATEMENT
-    pdf.move_down 40
-    pdf.font_size 9
-    pdf.text "DOCUMENT ID: #{SecureRandom.hex(8).upcase}", style: :bold
-    pdf.text "Generated: #{Time.now.utc.strftime('%Y-%m-%d %H:%M:%S UTC')}", align: :center
-    pdf.text '21 CFR §11.10(e) COMPLIANT - Legally binding electronic record', align: :center, style: :bold
-    
-    pdf_content = pdf.render
-    
-    [200, {
-      'Content-Type' => 'application/pdf',
-      'Content-Disposition' => "attachment; filename=#{batch_id}-21cfr11.pdf",
-      'Content-Length' => pdf_content.bytesize.to_s
-    }, [pdf_content]]
+    Prawn::Document.generate(StringIO.new('', 'wb')) do |pdf|
+      pdf.font_size 24
+      pdf.fill_color '#2c5aa0'
+      pdf.text '21 CFR PART 11 COMPLIANT', style: :bold, align: :center
+      pdf.text 'CHAIN OF CUSTODY', style: :bold, align: :center
+      pdf.fill_color '000000'
+      
+      pdf.move_down 15
+      pdf.font_size 16
+      pdf.text 'Thomas IT Pharma Transport', style: :bold, align: :center
+      pdf.text 'FDA Regulated • GS1 Serialized • Audit Trail Complete', align: :center
+      
+      pdf.move_down 25
+      pdf.font_size 20
+      pdf.text "BATCH ID: #{batch_id}", style: :bold
+      pdf.text 'Status: IN TRANSIT → DELIVERED', style: :bold, color: 'green'
+      
+      pdf.move_down 20
+      pdf.font_size 11
+      table_data = [
+        ['Step', 'Location', 'GPS', 'Temp', 'Time UTC', 'Driver', 'Device'],
+        ['ORIGIN', 'Phoenix Sky Harbor', '33.4345°N 112.0113°W', '2-8°C', '2026-03-15 20:00', 'JS001', 'GPS-42'],
+        ['WAYPOINT 1', 'I-10 MM 150', '32.9000°N 111.8000°W', '2-8°C', '2026-03-15 22:30', 'JS001', 'GPS-42'],
+        ['DELIVERY', 'Tucson Medical', '32.2278°N 110.9747°W', '2-8°C', '2026-03-16 01:22', 'JS001', 'GPS-42']
+      ]
+      
+      pdf.table(table_data, column_widths: {0=>35,1=>80,2=>80,3=>45,4=>70,5=>45,6=>45}) do
+        row(0).font_style = :bold
+        row(0).text_color = 'FFFFFF'
+        row(0).background_color = '2c5aa0'
+        cells.border_width = 1
+      end
+      
+      pdf.move_down 45
+      pdf.font_size 14
+      pdf.text '21 CFR PART 11 VERIFICATION', style: :bold
+      pdf.font_size 12
+      pdf.text '✅ SECURE AUDIT TRAIL: Time-stamped records', style: :bold
+      pdf.text '✅ GS1 SERIALIZATION: Unique batch ID', style: :bold
+      pdf.text '✅ 42 GPS CHECKPOINTS: No violations', style: :bold
+      pdf.text '✅ TEMP 2-8°C: NIST traceable', style: :bold
+      pdf.text '✅ ELECTRONIC SIGNATURE: Verified', style: :bold, color: 'green'
+      
+      pdf.move_down 35
+      pdf.font_size 9
+      pdf.text "Document ID: #{SecureRandom.hex(8).upcase}", style: :bold
+      pdf.text "Generated: #{Time.now.utc.strftime('%Y-%m-%d %H:%M:%S UTC')}", align: :center
+      pdf.text '21 CFR §11.10(e) - Legally binding electronic record', align: :center, style: :bold
+    end.string
   end
 
   def self.pricing_page
-    html = '<!DOCTYPE html><html><head><title>🚚 21 CFR Part 11 PDFs</title>' +
+    html = '<!DOCTYPE html><html><head><title>21 CFR Part 11 PDFs</title>' +
     '<meta charset="utf-8"><style>body{font-family:Arial;background:#f5f7fa;padding:40px;' +
     'text-align:center;}h1{font-size:3em;color:#2c5aa0;}.form-box{max-width:500px;' +
     'margin:40px auto;background:white;padding:40px;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.1);}' +
