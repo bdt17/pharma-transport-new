@@ -1,1 +1,2 @@
-require './pharma_transport.ru'\nrun PharmaTransportApp
+require './pharma_transport.ru'
+run PharmaTransportApp
