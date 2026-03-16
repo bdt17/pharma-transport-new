@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
-# frozen_string_literal: true
-# Thomas IT Pharma Transport - Phase 20.8 PRODUCTION READY
-
+# Thomas IT Pharma Transport - PHASE 21 UI PRODUCTION READY
 require 'bundler/setup'
 require 'rack'
 require 'json'
@@ -9,7 +7,7 @@ require 'securerandom'
 require 'time'
 require 'stringio'
 
-class PharmaTransportApp
+class PharmaTransportUI
   VALID_PAYMENTS = {
     'newhospital@domain.com' => true,
     'logistics@bannerhealth.com' => true,
@@ -22,13 +20,19 @@ class PharmaTransportApp
     'director@bannerhealth.com' => true,
   }
 
+  PRICES = {
+    'insulin' => 49,
+    'vaccines' => 79,
+    'biologics' => 129
+  }
+
   def self.call(env)
     path = env['PATH_INFO']
     case path
     when '/favicon.ico' then [204, {}, []]
     when '/pay' then handle_payment(env)
     when '/pdf' then generate_pdf(env)
-    when '/' then [200, {'content-type' => 'text/html; charset=utf-8'}, [pricing_page]]
+    when '/' then [200, {'content-type' => 'text/html; charset=utf-8'}, [full_ui_page]]
     else [404, {'content-type' => 'text/plain'}, ['Not Found']]
     end
   end
@@ -61,6 +65,249 @@ class PharmaTransportApp
     else
       [402, {'content-type' => 'text/plain'}, ['Payment Required']]
     end
+  end
+
+  def self.full_ui_page
+    <<~HTML
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Pharma Transport - FDA 21 CFR Part 11 Compliance</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Helvetica Neue', Arial, sans-serif; 
+      background: linear-gradient(135deg, #2c5aa0 0%, #1e3a5f 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container { 
+      background: white; 
+      border-radius: 20px; 
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      max-width: 900px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .header { 
+      background: linear-gradient(135deg, #2c5aa0, #1e3a5f);
+      color: white; 
+      padding: 40px;
+      text-align: center;
+    }
+    .header h1 { font-size: 36px; margin-bottom: 10px; }
+    .header p { font-size: 18px; opacity: 0.9; }
+    .pricing-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px; 
+      padding: 40px;
+    }
+    .price-card { 
+      border: 3px solid #e5e7eb; 
+      border-radius: 15px; 
+      padding: 30px; 
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .price-card:hover { 
+      transform: translateY(-10px); 
+      box-shadow: 0 25px 50px rgba(44,90,160,0.3);
+      border-color: #2c5aa0;
+    }
+    .price { 
+      font-size: 48px; 
+      font-weight: bold; 
+      color: #2c5aa0; 
+      margin-bottom: 15px;
+    }
+    .plan-name { 
+      font-size: 24px; 
+      font-weight: bold; 
+      margin-bottom: 20px;
+      color: #1f2937;
+    }
+    .generate-btn { 
+      background: linear-gradient(135deg, #2c5aa0, #1e3a5f);
+      color: white; 
+      border: none;
+      padding: 15px 40px; 
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .generate-btn:hover { 
+      transform: scale(1.05); 
+      box-shadow: 0 15px 30px rgba(44,90,160,0.4);
+    }
+    .generate-btn:disabled { 
+      opacity: 0.5; 
+      cursor: not-allowed;
+      transform: none;
+    }
+    .status { 
+      margin-top: 20px; 
+      padding: 15px; 
+      border-radius: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .status.success { background: #d1fae5; color: #065f46; }
+    .status.error { background: #fee2e2; color: #991b1b; }
+    .demo-section {
+      background: #f8fafc;
+      padding: 40px;
+      text-align: center;
+    }
+    .demo-code {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 10px;
+      font-family: 'Monaco', monospace;
+      font-size: 14px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    .revenue-stats {
+      display: flex;
+      justify-content: space-around;
+      background: #f1f5f9;
+      padding: 20px;
+      margin: 20px 40px;
+      border-radius: 15px;
+    }
+    .stat { text-align: center; }
+    .stat-number { font-size: 32px; font-weight: bold; color: #2c5aa0; }
+    @media (max-width: 768px) {
+      .pricing-grid { grid-template-columns: 1fr; padding: 20px; }
+      .header h1 { font-size: 28px; }
+      .revenue-stats { flex-direction: column; gap: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚀 Pharma Transport</h1>
+      <p>FDA 21 CFR Part 11 Compliant Chain-of-Custody PDFs</p>
+    </div>
+
+    <div class="revenue-stats">
+      <div class="stat">
+        <div class="stat-number">$49</div>
+        <div>Insulin</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">$79</div>
+        <div>Vaccines</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">$129</div>
+        <div>Biologics</div>
+      </div>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card" data-type="insulin">
+        <div class="price">$49</div>
+        <div class="plan-name">Insulin Batches</div>
+        <button class="generate-btn" onclick="generatePDF('insulin')">Generate Insulin PDF</button>
+      </div>
+      <div class="price-card" data-type="vaccines">
+        <div class="price">$79</div>
+        <div class="plan-name">Vaccine Batches</div>
+        <button class="generate-btn" onclick="generatePDF('vaccines')">Generate Vaccine PDF</button>
+      </div>
+      <div class="price-card" data-type="biologics">
+        <div class="price">$129</div>
+        <div class="plan-name">Biologics Batches</div>
+        <button class="generate-btn" onclick="generatePDF('biologics')">Generate Biologics PDF</button>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3 style="color: #2c5aa0; margin-bottom: 20px;">Live Demo (Your Test)</h3>
+      <div class="demo-code">
+curl -X POST /pay -d "email=biologics-pharma@thomasit.com"<br>
+→ {"session":"b159702b97c43835","status":"paid",...}<br>
+curl "/pdf?session=b159702b97c43835&type=biologics" -o BIOLOGICS.pdf ✓
+      </div>
+      <p style="margin-top: 20px;">
+        <strong>Add your hospital: </strong>
+        <a href="mailto:sales@pharmatransport.com" style="color: #2c5aa0; font-weight: bold;">sales@pharmatransport.com</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    let currentSession = null;
+    
+    async function generatePDF(type) {
+      const btn = event.target;
+      btn.disabled = true;
+      btn.textContent = 'Generating...';
+      
+      try {
+        // Step 1: Payment validation
+        const payResponse = await fetch('/pay', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'email=biologics-pharma@thomasit.com'
+        });
+        
+        if (!payResponse.ok) throw new Error('Payment failed');
+        
+        const payData = await payResponse.json();
+        currentSession = payData.session;
+        
+        // Step 2: Download PDF
+        const pdfUrl = `/pdf?session=${currentSession}&type=${type}`;
+        const pdfResponse = await fetch(pdfUrl);
+        
+        if (pdfResponse.ok) {
+          const blob = await pdfResponse.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `LOT-${type.toUpperCase()}-21cfr11.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+          
+          showStatus(`✅ ${type.toUpperCase()} PDF Generated! (${blob.size} bytes)`, 'success');
+        }
+      } catch (error) {
+        showStatus('❌ Error: ' + error.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = `Generate ${type.charAt(0).toUpperCase() + type.slice(1)} PDF`;
+      }
+    }
+    
+    function showStatus(message, type) {
+      const status = document.createElement('div');
+      status.className = `status ${type}`;
+      status.textContent = message;
+      document.querySelector('.pricing-grid').appendChild(status);
+      setTimeout(() => status.remove(), 5000);
+    }
+  </script>
+</body>
+</html>
+    HTML
   end
 
   def self.fda_chain_of_custody_html(batch_id, batch_type)
@@ -107,59 +354,13 @@ class PharmaTransportApp
 </html>
     HTML
   end
-
-  def self.pricing_page
-    <<~HTML
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Pharma Transport - FDA 21 CFR Part 11</title>
-  <style>
-    body { font-family: 'Helvetica', Arial, sans-serif; margin: 40px; color: #333; max-width: 800px; margin: auto; }
-    h1 { color: #2c5aa0; text-align: center; }
-    .plans { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-    .plan { border: 2px solid #2c5aa0; padding: 25px; flex: 1; min-width: 250px; border-radius: 8px; text-align: center; }
-    .price { font-size: 32pt; font-weight: bold; color: #2c5aa0; }
-    code { background: #f1f1f1; padding: 8px; border-radius: 4px; font-size: 11pt; display: block; margin-top: 10px; }
-  </style>
-</head>
-<body>
-  <h1>Pharma Transport</h1>
-  <p style="text-align: center; font-size: 18pt;">FDA 21 CFR Part 11 Chain-of-Custody PDFs</p>
-  <div class="plans">
-    <div class="plan">
-      <div class="price">$49</div>
-      <strong>Insulin</strong>
-      <code>curl -X POST /pay -d "email=insulin-pharma@thomasit.com"</code>
-    </div>
-    <div class="plan">
-      <div class="price">$79</div>
-      <strong>Vaccines</strong>
-      <code>curl -X POST /pay -d "email=vaccine-pharma@thomasit.com"</code>
-    </div>
-    <div class="plan">
-      <div class="price">$129</div>
-      <strong>Biologics</strong>
-      <code>curl -X POST /pay -d "email=biologics-pharma@thomasit.com"</code>
-    </div>
-  </div>
-  <p style="text-align: center; margin-top: 30px;">
-    Add your email: <a href="mailto:sales@pharmatransport.com">sales@pharmatransport.com</a>
-  </p>
-</body>
-</html>
-    HTML
-  end
 end
 
-# DIRECT EXECUTABLE - Render.com + Local
 if $PROGRAM_NAME == __FILE__
   require 'webrick'
-
   port = ENV.fetch('PORT', '9292').to_i
   host = ENV.fetch('HOST', '0.0.0.0')
-
+  
   server = WEBrick::HTTPServer.new(Port: port, Host: host)
   server.mount_proc '/' do |req, res|
     env = {
@@ -177,14 +378,13 @@ if $PROGRAM_NAME == __FILE__
       'SERVER_PORT' => port.to_s,
       'HTTP_HOST' => req.host || host
     }
-
-    status, headers, body = PharmaTransportApp.call(env)
+    status, headers, body = PharmaTransportUI.call(env)
     res.status = status
     headers.each { |k,v| res[k] = v.to_s }
     res.body = Array(body).join
   end
-
-  puts "Pharma Transport LIVE on #{host}:#{port}"
+  
+  puts "🚀 Pharma Transport UI LIVE on #{host}:#{port}"
   trap('INT') { server.shutdown }
   trap('TERM') { server.shutdown }
   server.start
