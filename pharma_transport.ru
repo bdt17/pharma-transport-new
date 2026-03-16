@@ -176,4 +176,4 @@ class PharmaTransportProPortal
 end
 
 # Render auto-detects Rack apps - just run the app directly
-run PharmaTransportProPortal.new
+
