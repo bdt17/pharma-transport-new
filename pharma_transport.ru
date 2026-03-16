@@ -13,9 +13,10 @@ VALID_PAYMENTS = {
   'client@pharma.com' => true,
   'realclient@hospital.com' => true,
   'pharmamanager@chain.com' => true,
-  'director@bannerhealth.com' => true,      # ← NEW
-  'logistics@bannerhealth.com' => true,     # ← NEW
-  'supplychain@tenethealth.com' => true     # ← NEW
+  'director@bannerhealth.com' => true,        # Banner Health
+  'logistics@bannerhealth.com' => true,       # Banner Logistics  
+  'supplychain@tenethealth.com' => true,      # Tenet Health
+  'operations@bannerhealth.org' => true       # Banner Operations
 }
 
 class PharmaTransportApp
