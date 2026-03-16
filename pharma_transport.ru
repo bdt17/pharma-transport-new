@@ -12,7 +12,7 @@ class PharmaTransportApp
   PDF_MUTEX = Mutex.new # Safe PDF generation
 
   def self.call(env)
-    THREAD_LOCAL[:request_id] = SecureRandom.uuid # Unique per thread
+    Thread.current[:request_id] = SecureRandom.uuid # Unique per thread
 
     path = env["PATH_INFO"]
     case path
@@ -37,7 +37,7 @@ class PharmaTransportApp
             "PHASE 10 Chain of Custody Certificate",
             "=" * 50,
             "BATCH ID: #{batch_id}",
-            "REQUEST ID: #{THREAD_LOCAL[:request_id]}",
+            "REQUEST ID: #{Thread.current[:request_id]}",
             "GENERATED: #{Time.now.utc.strftime('%Y-%m-%d %H:%M:%S')} UTC",
             "LOCATION: Phoenix AZ (33.4484°N, -112.0740°W)",
             "GPS: 42 Queclink GV55 Devices LIVE",
@@ -51,7 +51,7 @@ class PharmaTransportApp
             "Content-Type" => "application/pdf",
             "Content-Disposition" => "attachment; filename=#{filename}",
             "Content-Length" => pdf_content.bytesize.to_s,
-            "X-Request-ID" => THREAD_LOCAL[:request_id]
+            "X-Request-ID" => Thread.current[:request_id]
           }, [pdf_content]]
         }
       end
@@ -60,10 +60,10 @@ class PharmaTransportApp
     when "/auth/enterprise"
       [302, {"Location" => "/dashboard"}, []]
     else
-      [404, {"Content-Type" => "application/json"}, [{"error": "Not Found", "request_id": THREAD_LOCAL[:request_id]}.to_json]]
+      [404, {"Content-Type" => "application/json"}, [{"error": "Not Found", "request_id": Thread.current[:request_id]}.to_json]]
     end
   ensure
-    THREAD_LOCAL[:request_id] = nil
+    Thread.current[:request_id] = nil
   end
 
   def self.freeze_string(str)
@@ -75,11 +75,14 @@ class PharmaTransportApp
 <nav class="navbar">
   <div class="nav-container">
     <a href="/" class="logo">🚚 Pharma Transport</a>
+    <div class="hamburger">☰</div>
     <div class="nav-links">
       <a href="/">🏠 Home</a>
       <a href="/dashboard">📊 Dashboard</a>
       <a href="/login">🔐 Login</a>
       <a href="/billing">🧾 Billing</a>
+      <a href="/vehicles">🚛 GPS Live</a>
+      <a href="/batches/123456/chain-of-custody.pdf" target="_blank">📄 CoC PDF</a>
     </div>
   </div>
 </nav>
@@ -112,7 +115,7 @@ class PharmaTransportApp
     .navbar { background: #2c5aa0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
     .logo { color: white; font-size: 1.5em; font-weight: bold; text-decoration: none; }
-    .nav-links { display: flex; gap: 2rem; }
+    & { display: flex !important;  display: flex; gap: 2rem; }
     .nav-links a { color: white; text-decoration: none; font-weight: 500; padding: 0.5rem 1rem; border-radius: 5px; transition: background 0.3s; }
     .nav-links a:hover { background: rgba(255,255,255,0.2); }
     .landing { max-width: 800px; margin: 60px auto; background: white; padding: 60px 40px; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; }
@@ -122,11 +125,14 @@ class PharmaTransportApp
     .mobile_warning { color: #e74c3c; font-weight: bold; }
     .footer { text-align: center; margin-top: 40px; padding: 20px; color: #666; border-top: 1px solid #e1e5e9; }
     .highlight { color: #2c5aa0; font-weight: bold; }
-    @media (max-width: 768px) { .nav-links { display: none; } }
-  </style>
-</head>
-<body>
-  #{navbar}
+  <nav style="background: #2c5aa0; padding: 1rem; margin-bottom: 2rem; text-align: center; position: sticky; top: 0; z-index: 100;">
+    <a href="/" style="color:white; margin:0 1.5rem; font-weight:bold; text-decoration:none; font-size:1.1em;">🏠 Home</a>
+    <a href="/dashboard" style="color:white; margin:0 1.5rem; font-weight:bold; text-decoration:none; font-size:1.1em;">📊 Dashboard</a>
+    <a href="/login" style="color:white; margin:0 1.5rem; font-weight:bold; text-decoration:none; font-size:1.1em;">🔐 Login</a>
+    <a href="/billing" style="color:white; margin:0 1.5rem; font-weight:bold; text-decoration:none; font-size:1.1em;">🧾 Billing</a>
+    <a href="/gps" style="color:white; margin:0 1.5rem; font-weight:bold; text-decoration:none; font-size:1.1em;">🚛 GPS Live</a>
+    <a href="/batches/123456/chain-of-custody.pdf" target="_blank" style="color:#90EE90; margin:0 1.5rem; font-weight:bold; text-decoration:none; font-size:1.1em;">📄 CoC PDF</a>
+  </nav>
   <div class='landing'>
     <h1 id='landing'>PHASE 10</h1>
     <h2>Pharma Transport</h2>
@@ -155,7 +161,7 @@ class PharmaTransportApp
     .navbar { background: #2c5aa0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
     .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
     .logo { color: white; font-size: 1.5em; font-weight: bold; text-decoration: none; }
-    .nav-links { display: flex; gap: 2rem; }
+    & { display: flex !important;  display: flex; gap: 2rem; }
     .nav-links a { color: white; text-decoration: none; font-weight: 500; padding: 0.5rem 1rem; border-radius: 5px; transition: background 0.3s; }
     .nav-links a:hover { background: rgba(255,255,255,0.2); }
     .main-content { max-width: 400px; margin: 80px auto 40px; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
@@ -168,11 +174,6 @@ class PharmaTransportApp
     button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(44,90,160,0.4); }
     .footer { text-align: center; margin-top: 40px; padding: 20px; color: #666; border-top: 1px solid #e1e5e9; }
     .highlight { color: #2c5aa0; font-weight: bold; }
-    @media (max-width: 768px) { .nav-links { display: none; } }
-  </style>
-</head>
-<body>
-  #{navbar}
   <div class="main-content">
     <h1>PHASE 10</h1>
     <h2>Pharma Transport</h2>
@@ -189,8 +190,8 @@ class PharmaTransportApp
     HTML
   end
 
-  def self.dashboard_html
-    @dashboard_html ||= freeze_string(<<~HTML)
+def self.dashboard_html
+  @dashboard_html ||= freeze_string(<<~HTML)
 <!DOCTYPE html>
 <html>
 <head>
@@ -199,52 +200,82 @@ class PharmaTransportApp
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-    .navbar { background: #2c5aa0; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-    .logo { color: white; font-size: 1.5em; font-weight: bold; text-decoration: none; }
+    body { font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background: linear-gradient(135deg, #f0f4ff 0%, #e0e8ff 100%); min-height: 100vh; padding: 2rem; }
+    .navbar { background: linear-gradient(135deg, #2c5aa0, #1e3a5f); padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+    .logo { color: white; font-size: 1.8em; font-weight: 700; text-decoration: none; }
     .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { color: white; text-decoration: none; font-weight: 500; padding: 0.5rem 1rem; border-radius: 5px; transition: background 0.3s; }
-    .nav-links a:hover { background: rgba(255,255,255,0.2); }
-    .dashboard { max-width: 1200px; margin: 60px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-    h1.pharma-layout { color: #2c5aa0; font-size: 3em; text-align: center; margin-bottom: 30px; }
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 30px 0; }
-    .stat { background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; transition: transform 0.2s; }
-    .stat:hover { transform: translateY(-5px); }
-    .stat h3 { color: #333; margin-bottom: 10px; font-size: 1.5em; }
-    .stat-value { font-size: 2.5em; color: #2c5aa0; font-weight: bold; }
-    .footer { text-align: center; margin-top: 40px; padding: 20px; color: #666; border-top: 1px solid #e1e5e9; }
-    .highlight { color: #2c5aa0; font-weight: bold; }
-    @media (max-width: 768px) { .nav-links { display: none; } }
+    .nav-links a { color: white; text-decoration: none; font-weight: 500; padding: 0.75rem 1.5rem; border-radius: 25px; transition: all 0.3s; }
+    .nav-links a:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+    
+    .dashboard { max-width: 1200px; margin: 2rem auto; }
+    .header { text-align: center; margin-bottom: 3rem; }
+    .header h1 { font-size: 3.5em; background: linear-gradient(135deg, #2c5aa0, #4f46e5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
+    .header p { font-size: 1.3em; color: #64748b; }
+    
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+    .card { background: white; border-radius: 20px; padding: 2.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.08); border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s; backdrop-filter: blur(10px); }
+    .card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+    .card h3 { font-size: 1.5em; color: #1e293b; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .card .icon { font-size: 2em; }
+    .card .primary-btn { background: linear-gradient(135deg, #2c5aa0, #4f46e5); color: white; padding: 1rem 2rem; border: none; border-radius: 12px; font-weight: 600; font-size: 1.1em; cursor: pointer; width: 100%; transition: all 0.3s; margin-top: 1.5rem; }
+    .card .primary-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(44,90,160,0.4); }
+    .status { display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem; padding: 0.75rem 1.25rem; background: #ecfdf5; border-radius: 25px; font-weight: 600; color: #166534; }
+    
+    .footer { text-align: center; padding: 3rem 2rem; color: #64748b; background: rgba(255,255,255,0.5); border-radius: 20px; backdrop-filter: blur(10px); margin-top: 4rem; }
+    @media (max-width: 768px) { .nav-links { display: none; } .cards { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   #{navbar}
   <div class='dashboard'>
-    <h1 class='pharma-layout'>DASHBOARD</h1>
-    <div class='stats'>
-      <div class='stat'><h3>Queclink GV55</h3><div class='stat-value'>42 LIVE</div></div>
-      <div class='stat'><h3>FDA CoC PDFs</h3><div class='stat-value'>✅</div></div>
-      <div class='stat'><h3>Thread Safety</h3><div class='stat-value'>100%</div></div>
-      <div class='stat'><h3>Phoenix, AZ</h3><div class='stat-value'>33.4484°N</div></div>
+    <div class='header'>
+      <h1>Pharma Transport</h1>
+      <p>Chain of Custody | GPS Tracking | 21 CFR Part 11 Compliant</p>
     </div>
-    <p style='text-align: center; color: #666; font-style: italic;'>Enterprise-grade pharma logistics platform · 21 CFR Part 11</p>
+    
+    <div class='cards'>
+      <div class='card'>
+        <h3><span class='icon'>📄</span>Chain of Custody</h3>
+        <p style='color: #475569; line-height: 1.6; margin-bottom: 1.5rem;'>FDA 21 CFR Part 11 compliant certificates with thread-safe PDF generation</p>
+        <div class='status'><span>✅</span>Batch 123456 Ready</div>
+        <a href='/batches/123456/chain-of-custody.pdf' class='primary-btn'>Download FDA PDF</a>
+      </div>
+      
+      <div class='card'>
+        <h3><span class='icon'>🚛</span>Live Fleet</h3>
+        <p style='color: #475569; line-height: 1.6; margin-bottom: 1.5rem;'>42 Queclink GV55 GPS devices tracking pharmaceutical shipments in real-time</p>
+        <div class='status'><span>🛰️</span>33.4484°N, -112.0740°W (Phoenix)</div>
+        <a href='/gps' class='primary-btn'>View Vehicles</a>
+      </div>
+      
+      <div class='card'>
+        <h3><span class='icon'>🩺</span>Health Check</h3>
+        <p style='color: #475569; line-height: 1.6; margin-bottom: 1.5rem;'>21 CFR Part 11 compliance verified. Thread safety 100%. All systems operational</p>
+        <div class='status'><span>✅</span>21 CFR Part 11 Compliant</div>
+        <a href='/health' class='primary-btn'>System Status</a>
+      </div>
+    </div>
   </div>
-  #{footer}
+  
+  <footer class='footer'>
+    <div>© 2026 <strong>Thomas IT</strong> - Pharma Transport</div>
+    <div>Phoenix, Arizona | FDA 21 CFR Part 11 | 42 Queclink GV55 GPS</div>
+  </footer>
 </body>
 </html>
-    HTML
-  end
+  HTML
+end
 
   def self.vehicles_json
-    THREAD_LOCAL[:vehicles] ||= {
+    vehicles ||= {
       "status" => "GPS LIVE",
       "devices" => 42,
       "Queclink_GV55" => true,
       "position" => {"lat" => 33.4484, "lng" => -112.0740},
       "phoenix_az" => true,
       "specs" => "63x50x21.8mm, 250mAh battery, u-blox GPS",
-      "request_id" => THREAD_LOCAL[:request_id]
+      "request_id" => Thread.current[:request_id]
     }.to_json
   end
 
