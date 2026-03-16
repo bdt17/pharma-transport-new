@@ -5,7 +5,7 @@ require 'json'
 require 'securerandom'
 require 'time'
 require 'thread'
-require 'mutex'
+# require 'mutex'
 
 class PharmaTransportApp
   THREAD_LOCAL = Thread.current # Per-request isolation
