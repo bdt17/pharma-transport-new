@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
-gem 'rack', '~> 3.0'
+gem 'rack', '~> 3.2'
 gem 'rackup', '~> 0.2'
-gem "prawn", "~> 2.4"
-gem 'mutex'
-gem 'sqlite3', '~> 1.4'
+gem 'webrick', '~> 1.9'
+gem 'prawn', '~> 2.5'
