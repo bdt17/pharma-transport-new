@@ -8,6 +8,8 @@ require 'time'
 
 class PharmaTransportApp
   VALID_PAYMENTS = {
+    'realclient@hospital.com' => true,
+    'pharmamanager@chain.com' => true,
     'insulin-pharma@thomasit.com' => true,
     'vaccine-pharma@thomasit.com' => true,
     'biologics-pharma@thomasit.com' => true,
