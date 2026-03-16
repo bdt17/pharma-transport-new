@@ -36,6 +36,7 @@ class PharmaTransportApp
     when '/pay' then handle_payment(request)
     when '/pdf' then generate_pdf(request)
     when '/favicon.ico' then [204, {}, []]
+    when '/contact' then handle_contact(request)
     else [404, {'Content-Type' => 'text/plain'}, ['Not Found']]
     end
   end
@@ -59,6 +60,26 @@ class PharmaTransportApp
     request.env['rack.session'].clear
     [302, {'Location' => '/'}, []]
   end
+
+def self.handle_contact(request)
+  email = request.params['email']&.strip
+  name = request.params['name']&.strip || 'No name'
+  message = request.params['message']&.strip || 'No message'
+  
+  # Log hospital leads to Render (visible in logs)
+  log_msg = "#{Time.now}: PHARMA LEAD - #{name} <#{email}> - #{message}"
+  File.write('/tmp/pharma_leads.log', log_msg + "\n", mode: 'a')
+  
+  [200, {'Content-Type' => 'text/html; charset=utf-8'}, [
+    '<!DOCTYPE html><html><body style="font-family:Helvetica;margin:40px;">',
+    '<h1 style="color:#2c5aa0;">✅ Thank You!</h1>',
+    "<p><strong>New Lead:</strong> #{name} &lt;#{email}&gt;</p>",
+    '<p>Your pharma inquiry has been logged.</p>',
+    '<a href="/" style="background:#2c5aa0;color:white;padding:12px 24px;text-decoration:none;border-radius:6px;">← Dashboard</a>',
+    '</body></html>'
+  ]]
+end
+
 
   def self.handle_payment(request)
     email = request.params['email']&.strip
