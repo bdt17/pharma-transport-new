@@ -6,6 +6,18 @@ require 'json'
 require 'securerandom'
 require 'time'
 
+VALID_PAYMENTS = {
+  'insulin-pharma@thomasit.com' => true,
+  'vaccine-pharma@thomasit.com' => true,
+  'biologics-pharma@thomasit.com' => true,
+  'client@pharma.com' => true,
+  'realclient@hospital.com' => true,
+  'pharmamanager@chain.com' => true,
+  'director@bannerhealth.com' => true,      # ← NEW
+  'logistics@bannerhealth.com' => true,     # ← NEW
+  'supplychain@tenethealth.com' => true     # ← NEW
+}
+
 class PharmaTransportApp
   VALID_PAYMENTS = {
     'insulin-pharma@thomasit.com' => true,
