@@ -5,7 +5,9 @@ GEM
     nio4r (2.7.5)
     puma (7.2.0)
       nio4r (~> 2.0)
-    rack (3.2.5)
+    rack (3.0.0)
+    rack-session (1.0.0)
+      rack (<= 3)
 
 PLATFORMS
   ruby
@@ -15,12 +17,14 @@ DEPENDENCIES
   json
   puma
   rack (~> 3.0)
+  rack-session (~> 1.0)
 
 CHECKSUMS
   json (2.19.1) sha256=dd94fdc59e48bff85913829a32350b3148156bc4fd2a95a2568a78b11344082d
   nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
   puma (7.2.0) sha256=bf8ef4ab514a4e6d4554cb4326b2004eba5036ae05cf765cfe51aba9706a72a8
-  rack (3.2.5) sha256=4cbd0974c0b79f7a139b4812004a62e4c60b145cba76422e288ee670601ed6d3
+  rack (3.0.0) sha256=197adbbe5d585dca1909fe6c544f369919d795d54fc76f86b6ce458008f6e29c
+  rack-session (1.0.0) sha256=4f9b4b7536ac58664980465c836385bc02a21ceaff0def4dca30105d82c188e2
 
 RUBY VERSION
   ruby 3.2.2
