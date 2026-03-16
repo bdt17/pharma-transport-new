@@ -10,7 +10,8 @@ require 'stringio'
 
 class PharmaTransportApp
   VALID_PAYMENTS = {
-    'insulin-pharma@thomasit.com' => true,
+   'logistics@bannerhealth.com' => true,  
+   'insulin-pharma@thomasit.com' => true,
     'vaccine-pharma@thomasit.com' => true,
     'biologics-pharma@thomasit.com' => true,
     'client@pharma.com' => true,
