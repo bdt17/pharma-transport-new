@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
-# Thomas IT Pharma Transport - Phase 20.5 PRODUCTION READY
-require 'bundler/setup'  # ← FIXES Render gem loading
+# Thomas IT Pharma Transport - Phase 20.8 PRODUCTION READY
+
+require 'bundler/setup'
 require 'rack'
 require 'json'
 require 'securerandom'
@@ -41,7 +42,7 @@ class PharmaTransportApp
       [200, {'content-type' => 'application/json'}, body]
     else
       [402, {'content-type' => 'application/json'},
-        [{"error" => "Payment Required: Insulin=$49 | Vaccines=$79 | Biologics=$129\\nContact: sales@pharmatransport.com"}.to_json]]
+        [{"error" => "Payment Required: Insulin=$49 | Vaccines=$79 | Biologics=$129\nContact: sales@pharmatransport.com"}.to_json]]
     end
   end
 
