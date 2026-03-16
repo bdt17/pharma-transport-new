@@ -1,1 +1,3 @@
-require './pharma_transport.ru'; run PharmaTransportApp
+require 'bundler/setup'
+require './pharma_transport.ru'
+run PharmaTransportApp
