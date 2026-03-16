@@ -1,0 +1,32 @@
+invalid option: --threaded
+Usage: rackup [ruby options] [rack options] [rackup config]
+
+Ruby options:
+  -e, --eval LINE          evaluate a LINE of code
+  -d, --debug              set debugging flags (set $DEBUG to true)
+  -w, --warn               turn warnings on for your script
+  -q, --quiet              turn off logging
+  -I, --include PATH       specify $LOAD_PATH (may be used more than once)
+  -r, --require LIBRARY    require the library, before executing your script
+
+Rack options:
+  -b BUILDER_LINE,         evaluate a BUILDER_LINE of code as a builder script
+      --builder
+  -s, --server SERVER      serve using SERVER (thin/puma/webrick)
+  -o, --host HOST          listen on HOST (default: localhost)
+  -p, --port PORT          use PORT (default: 9292)
+  -O NAME[=VALUE],         pass VALUE to the server as option NAME. If no VALUE, sets it to true. Run '/home/zero/.rbenv/versions/3.2.2/bin/rackup -s SERVER -h' to get a list of options for SERVER
+      --option
+  -E, --env ENVIRONMENT    use ENVIRONMENT for defaults (default: development)
+  -D, --daemonize          run daemonized in the background
+      --daemonize-noclose  run daemonized in the background without closing stdout/stderr
+  -P, --pid FILE           file to store PID
+
+Profiling options:
+      --heap HEAPFILE      Build the application, then dump the heap to HEAPFILE
+      --profile PROFILE    Dump CPU or Memory profile to PROFILE (defaults to a tempfile)
+      --profile-mode MODE  Profile mode (cpu|wall|object)
+
+Common options:
+  -h, -?, --help           Show this message
+      --version            Show version
