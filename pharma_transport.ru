@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
-# Thomas IT Pharma Transport - PHASE 23 PRO PORTAL (RENDER LIVE - NO MIDDLEWARE)
-# SIMPLIFIED: Session handling INSIDE app - 100% Render compatible
+# Thomas IT Pharma Transport - PHASE 23 PRO PORTAL (RENDER LIVE - FIXED)
+# ✅ COMPLETE: No middleware, WEBrick server, production ready
 
 require 'bundler/setup'
 require 'rack'
@@ -28,13 +28,10 @@ class PharmaTransportProPortal
     'admin@pharmatransport.com' => 'pro2026'
   }.freeze
 
-  def self.call(env)
-    new.call(env)
-  end
-
   def call(env)
     @request = Rack::Request.new(env)
     @session = parse_session(env['HTTP_COOKIE'])
+    @session_changed = false
     
     response = dispatch
     
@@ -178,4 +175,5 @@ class PharmaTransportProPortal
   end
 end
 
-run PharmaTransportProPortal
+# WEBrick server for Render deployment (FIXES NoMethodError)
+Rack::Handler::WEBrick.run(PharmaTransportProPortal.new, Port: ENV['PORT'] || 3000)
