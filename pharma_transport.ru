@@ -8,6 +8,7 @@ require 'time'
 
 class PharmaTransportApp
   VALID_PAYMENTS = {
+    'client@pharma.com' => true,
     'insulin-pharma@thomasit.com' => true,
     'vaccine-pharma@thomasit.com' => true,
     'biologics-pharma@thomasit.com' => true
@@ -30,6 +31,7 @@ class PharmaTransportApp
     email = params['email']&.strip
     
     if VALID_PAYMENTS[email]
+    'client@pharma.com' => true,
       session_id = SecureRandom.hex(8)
       [200, {'Content-Type' => 'application/json'}, [{"session" => session_id, "status" => "paid", "pdf_url" => "/pdf?session=#{session_id}"}.to_json]]
     else
