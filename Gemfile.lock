@@ -1,34 +1,17 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    json (2.19.1)
-    nio4r (2.7.5)
-    puma (7.2.0)
-      nio4r (~> 2.0)
     rack (3.0.0)
-    rack-session (1.0.0)
-      rack (<= 3)
-    rackup (2.3.1)
-      rack (>= 3)
 
 PLATFORMS
   ruby
   x86_64-linux
 
 DEPENDENCIES
-  json
-  puma
   rack (~> 3.0)
-  rack-session (~> 1.0)
-  rackup
 
 CHECKSUMS
-  json (2.19.1) sha256=dd94fdc59e48bff85913829a32350b3148156bc4fd2a95a2568a78b11344082d
-  nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
-  puma (7.2.0) sha256=bf8ef4ab514a4e6d4554cb4326b2004eba5036ae05cf765cfe51aba9706a72a8
   rack (3.0.0) sha256=197adbbe5d585dca1909fe6c544f369919d795d54fc76f86b6ce458008f6e29c
-  rack-session (1.0.0) sha256=4f9b4b7536ac58664980465c836385bc02a21ceaff0def4dca30105d82c188e2
-  rackup (2.3.1) sha256=6c79c26753778e90983761d677a48937ee3192b3ffef6bc963c0950f94688868
 
 RUBY VERSION
   ruby 3.2.2
