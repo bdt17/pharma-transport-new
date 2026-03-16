@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
-# Thomas IT Pharma Transport - PHASE 23 PRO PORTAL (COMPLETE RENDER FIX)
-# Deploy-ready with Rack::Session, login portal, PDF generation
+# Thomas IT Pharma Transport - PHASE 23 PRO PORTAL (RENDER SESSION FIXED)
+# FIXED: Rack::Session::Cookie → correct Rack middleware usage
 
 require 'bundler/setup'
 require 'rack'
+require 'rack/session/cookie'
 require 'json'
 require 'securerandom'
 require 'time'
@@ -12,8 +13,12 @@ require 'stringio'
 require 'base64'
 require 'cgi'
 
-# Rack Session Fix for Render.com
-use Rack::Session::Cookie, key: '_pharma_session', secret: 'bannerhealth2026_secret_pro'
+# ✅ FIXED: Proper Rack::Session::Cookie middleware
+use Rack::Session::Cookie, 
+     key: '_pharma_session',
+     secret: 'bannerhealth2026_secret_pro',
+     expire_after: 3600*24*30,  # 30 days
+     secure: Rails.env.production?
 
 class PharmaTransportProPortal
   VALID_PAYMENTS = {
@@ -29,10 +34,6 @@ class PharmaTransportProPortal
 
   def self.call(env)
     new.call(env)
-  end
-
-  def initialize
-    @request = Rack::Request.new(nil)
   end
 
   def call(env)
@@ -108,7 +109,7 @@ class PharmaTransportProPortal
       if VALID_USERS[email] && VALID_USERS[email] == password
         @session['logged_in'] = true
         @session['email'] = email
-        Rack::Response.new('', 302, { 'Location' => '/dashboard', 'Set-Cookie' => @request.cookie.to_s }).finish
+        Rack::Response.new('', 302, { 'Location' => '/dashboard' }).finish
       else
         login_form(error: 'Invalid credentials')
       end
