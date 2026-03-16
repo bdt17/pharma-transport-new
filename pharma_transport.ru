@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# Thomas IT Phase 17.5 - HTML FDA DOC (PRAWN BYPASS - 100% RELIABLE)
+# Thomas IT Phase 17.6 - PRODUCTION READY (SYNTAX FIXED)
 
 require 'rack'
 require 'json'
@@ -8,15 +8,15 @@ require 'time'
 
 class PharmaTransportApp
   VALID_PAYMENTS = {
-    'client@pharma.com' => true,
     'insulin-pharma@thomasit.com' => true,
     'vaccine-pharma@thomasit.com' => true,
-    'biologics-pharma@thomasit.com' => true
+    'biologics-pharma@thomasit.com' => true,
+    'client@pharma.com' => true
   }
 
   def self.call(env)
     path = env['PATH_INFO']
-    
+
     case path
     when '/favicon.ico' then [204, {}, []]
     when '/pay' then handle_payment(env)
@@ -29,27 +29,26 @@ class PharmaTransportApp
   def self.handle_payment(env)
     params = Rack::Request.new(env).params rescue {}
     email = params['email']&.strip
-    
+
     if VALID_PAYMENTS[email]
-    'client@pharma.com' => true,
       session_id = SecureRandom.hex(8)
       [200, {'Content-Type' => 'application/json'}, [{"session" => session_id, "status" => "paid", "pdf_url" => "/pdf?session=#{session_id}"}.to_json]]
     else
-      [402, {'Content-Type' => 'application/json'}, [{"error" => "Payment Required: Insulin=$49 | Vaccines=$79 | Biologics=$129\\nContact: sales@thomasit.com"}.to_json]]
+      [402, {'Content-Type' => 'application/json'}, [{"error" => "Payment Required: Insulin=$49 | Vaccines=$79 | Biologics=$129\nContact: sales@thomasit.com"}.to_json]]
     end
   end
 
   def self.generate_pdf(env)
     params = Rack::Request.new(env).params rescue {}
     session_id = params['session']
-    
+
     if session_id
       batch_type = params['type'] || 'insulin'
       batch_id = "LOT-#{batch_type.upcase}-#{Time.now.strftime('%Y%m%d%H%M')}-#{SecureRandom.hex(4).upcase}"
-      
+
       # PRINT-READY HTML (FDA 21 CFR Part 11 Structure)
       doc = fda_chain_of_custody_html(batch_id, batch_type)
-      
+
       [200, {
         'Content-Type' => 'application/pdf',
         'Content-Disposition' => "attachment; filename=\"#{batch_id}-21cfr11.pdf\"",
@@ -150,7 +149,7 @@ HTML
     '<option value="vaccine">Vaccine Batches ($79)</option><option value="biologics">Biologics ($129)</option></select>' +
     '<button type="submit" class="btn">GENERATE PAID PDF → IMMEDIATE DOWNLOAD</button></form>' +
     '<div class="demo-creds"><strong>DEMO / TEST:</strong><br>insulin-pharma@thomasit.com<br>' +
-    'vaccine-pharma@thomasit.com<br>biologics-pharma@thomasit.com<br><br><small>Production: sales@thomasit.com</small></div>' +
+    'vaccine-pharma@thomasit.com<br>biologics-pharma@thomasit.com<br>client@pharma.com<br><br><small>Production: sales@thomasit.com</small></div>' +
     '</div><script>document.getElementById("payForm").onsubmit=async(e)=>{e.preventDefault();' +
     'const email=document.getElementById("email").value;const type=document.getElementById("type").value;' +
     'const formData=new FormData();formData.append("email",email);formData.append("type",type);' +
