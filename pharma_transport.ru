@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 # Thomas IT Pharma Transport - Phase 20.5 PRODUCTION READY
-
 require 'bundler/setup'  # ← FIXES Render gem loading
 require 'rack'
 require 'json'
@@ -11,6 +10,7 @@ require 'stringio'
 
 class PharmaTransportApp
   VALID_PAYMENTS = {
+    'newhospital@domain.com' => true,
     'logistics@bannerhealth.com' => true,
     'insulin-pharma@thomasit.com' => true,
     'vaccine-pharma@thomasit.com' => true,
