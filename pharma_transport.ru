@@ -18,7 +18,6 @@ class PharmaTransportApp
     'realclient@hospital.com' => true,
     'pharmamanager@chain.com' => true,
     'director@bannerhealth.com' => true,
-    'logistics@bannerhealth.com' => true
   }
 
   def self.call(env)
