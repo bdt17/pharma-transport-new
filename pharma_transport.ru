@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
-# Thomas IT Pharma Transport - Phase 19.6 PRODUCTION READY
+# Thomas IT Pharma Transport - Phase 20.5 PRODUCTION READY
 
+require 'bundler/setup'  # ← FIXES Render gem loading
 require 'rack'
 require 'json'
 require 'securerandom'
@@ -10,8 +11,8 @@ require 'stringio'
 
 class PharmaTransportApp
   VALID_PAYMENTS = {
-   'logistics@bannerhealth.com' => true,  
-   'insulin-pharma@thomasit.com' => true,
+    'logistics@bannerhealth.com' => true,
+    'insulin-pharma@thomasit.com' => true,
     'vaccine-pharma@thomasit.com' => true,
     'biologics-pharma@thomasit.com' => true,
     'client@pharma.com' => true,
@@ -39,8 +40,8 @@ class PharmaTransportApp
       body = [{"session" => session_id, "status" => "paid", "pdf_url" => "/pdf?session=#{session_id}"}.to_json]
       [200, {'content-type' => 'application/json'}, body]
     else
-      [402, {'content-type' => 'application/json'}, 
-        [{"error" => "Payment Required: Insulin=$49 | Vaccines=$79 | Biologics=$129\nContact: sales@pharmatransport.com"}.to_json]]
+      [402, {'content-type' => 'application/json'},
+        [{"error" => "Payment Required: Insulin=$49 | Vaccines=$79 | Biologics=$129\\nContact: sales@pharmatransport.com"}.to_json]]
     end
   end
 
@@ -86,21 +87,18 @@ class PharmaTransportApp
     <h1>Pharma Transport - FDA 21 CFR Part 11</h1>
     <p>Electronic Chain of Custody Record</p>
   </div>
-
   <div class="batch-info">
     <div class="batch-id">Batch ID: #{batch_id}</div>
     <p><strong>Type:</strong> #{batch_type.capitalize}</p>
     <p><strong>Generated:</strong> #{now}</p>
     <p><strong>Authority:</strong> Thomas IT Pharma Systems</p>
   </div>
-
   <table>
     <tr><th>Step</th><th>Timestamp (UTC)</th><th>Action</th><th>Operator</th></tr>
     <tr><td>1</td><td>#{now}</td><td>Material Accepted</td><td>System</td></tr>
     <tr><td>2</td><td>#{Time.now.utc.iso8601}</td><td>Batch ID Assigned</td><td>Automated</td></tr>
     <tr><td>3</td><td>#{Time.now.utc.iso8601}</td><td>Digital Signature</td><td>PharmaTransport</td></tr>
   </table>
-
   <footer>
     © #{Time.now.year} Pharma Transport — 21 CFR Part 11 Compliance Confirmed
   </footer>
@@ -123,13 +121,11 @@ class PharmaTransportApp
     .plan { border: 2px solid #2c5aa0; padding: 25px; flex: 1; min-width: 250px; border-radius: 8px; text-align: center; }
     .price { font-size: 32pt; font-weight: bold; color: #2c5aa0; }
     code { background: #f1f1f1; padding: 8px; border-radius: 4px; font-size: 11pt; display: block; margin-top: 10px; }
-    .contact { text-align: center; margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 6px; }
   </style>
 </head>
 <body>
   <h1>Pharma Transport</h1>
-  <p style="text-align: center; font-size: 18pt; margin-bottom: 40px;">FDA 21 CFR Part 11 Chain-of-Custody PDFs</p>
-  
+  <p style="text-align: center; font-size: 18pt;">FDA 21 CFR Part 11 Chain-of-Custody PDFs</p>
   <div class="plans">
     <div class="plan">
       <div class="price">$49</div>
@@ -147,10 +143,9 @@ class PharmaTransportApp
       <code>curl -X POST /pay -d "email=biologics-pharma@thomasit.com"</code>
     </div>
   </div>
-  
-  <div class="contact">
-    <p>Add your email: <a href="mailto:sales@pharmatransport.com">sales@pharmatransport.com</a></p>
-  </div>
+  <p style="text-align: center; margin-top: 30px;">
+    Add your email: <a href="mailto:sales@pharmatransport.com">sales@pharmatransport.com</a>
+  </p>
 </body>
 </html>
     HTML
