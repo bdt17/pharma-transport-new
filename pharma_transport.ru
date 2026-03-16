@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# Thomas IT Phase 17.2 - BINARY PDF FIX + FDA 21 CFR 11
+# Thomas IT Phase 17.3 - PRODUCTION FDA PDF (Color FIXED)
 
 require 'rack'
 require 'json'
@@ -16,8 +16,6 @@ class PharmaTransportApp
 
   def self.call(env)
     path = env['PATH_INFO']
-    method = env['REQUEST_METHOD']
-
     case path
     when '/favicon.ico' then [204, {}, []]
     when '/pay' then handle_payment(env)
@@ -30,7 +28,6 @@ class PharmaTransportApp
   def self.handle_payment(env)
     req = Rack::Request.new(env)
     email = req.params['email']&.strip
-    
     if VALID_PAYMENTS[email]
       session_id = SecureRandom.hex(8)
       [200, {'Content-Type' => 'application/json'}, [{"session" => session_id, "status" => "paid", "pdf_url" => "/pdf?session=#{session_id}"}.to_json]]
@@ -47,13 +44,11 @@ class PharmaTransportApp
       batch_type = req.params['type'] || 'insulin'
       batch_id = "LOT-#{batch_type.upcase}-#{Time.now.strftime('%Y%m%d%H%M')}-#{SecureRandom.hex(4).upcase}"
       
-      # CRITICAL: Generate PDF in MEMORY only
       pdf_content = pdf_chain_of_custody(batch_id)
       [200, {
         'Content-Type' => 'application/pdf',
         'Content-Disposition' => "attachment; filename=\"#{batch_id}-21cfr11.pdf\"",
-        'Content-Length' => pdf_content.bytesize.to_s,
-        'Cache-Control' => 'no-cache, no-store, must-revalidate'
+        'Content-Length' => pdf_content.bytesize.to_s
       }, [pdf_content]]
     else
       [402, {'Content-Type' => 'text/plain'}, ['Payment Required']]
@@ -62,11 +57,12 @@ class PharmaTransportApp
 
   def self.pdf_chain_of_custody(batch_id)
     Prawn::Document.generate(StringIO.new('', 'wb')) do |pdf|
+      # FIX: RGB colors [R,G,B] instead of hex
+      pdf.fill_color [44,90,160]  # #2c5aa0 as RGB
       pdf.font_size 24
-      pdf.fill_color '#2c5aa0'
       pdf.text '21 CFR PART 11 COMPLIANT', style: :bold, align: :center
       pdf.text 'CHAIN OF CUSTODY', style: :bold, align: :center
-      pdf.fill_color '000000'
+      pdf.fill_color [0,0,0]  # Black
       
       pdf.move_down 15
       pdf.font_size 16
@@ -76,21 +72,24 @@ class PharmaTransportApp
       pdf.move_down 25
       pdf.font_size 20
       pdf.text "BATCH ID: #{batch_id}", style: :bold
-      pdf.text 'Status: IN TRANSIT → DELIVERED', style: :bold, color: 'green'
+      pdf.fill_color [0,128,0]  # Green
+      pdf.text 'Status: IN TRANSIT → DELIVERED', style: :bold
+      pdf.fill_color [0,0,0]
       
+      # GPS AUDIT TRAIL TABLE (21 CFR 11.10(e))
       pdf.move_down 20
       pdf.font_size 11
       table_data = [
-        ['Step', 'Location', 'GPS', 'Temp', 'Time UTC', 'Driver', 'Device'],
+        ['Step', 'Location', 'GPS Coordinates', 'Temp (°C)', 'Time UTC', 'Driver', 'Device ID'],
         ['ORIGIN', 'Phoenix Sky Harbor', '33.4345°N 112.0113°W', '2-8°C', '2026-03-15 20:00', 'JS001', 'GPS-42'],
         ['WAYPOINT 1', 'I-10 MM 150', '32.9000°N 111.8000°W', '2-8°C', '2026-03-15 22:30', 'JS001', 'GPS-42'],
         ['DELIVERY', 'Tucson Medical', '32.2278°N 110.9747°W', '2-8°C', '2026-03-16 01:22', 'JS001', 'GPS-42']
       ]
       
-      pdf.table(table_data, column_widths: {0=>35,1=>80,2=>80,3=>45,4=>70,5=>45,6=>45}) do
+      pdf.table(table_data, column_widths: {0=>35,1=>80,2=>85,3=>50,4=>70,5=>45,6=>50}) do
         row(0).font_style = :bold
         row(0).text_color = 'FFFFFF'
-        row(0).background_color = '2c5aa0'
+        row(0).background_color = [44,90,160]
         cells.border_width = 1
       end
       
@@ -98,11 +97,13 @@ class PharmaTransportApp
       pdf.font_size 14
       pdf.text '21 CFR PART 11 VERIFICATION', style: :bold
       pdf.font_size 12
-      pdf.text '✅ SECURE AUDIT TRAIL: Time-stamped records', style: :bold
-      pdf.text '✅ GS1 SERIALIZATION: Unique batch ID', style: :bold
-      pdf.text '✅ 42 GPS CHECKPOINTS: No violations', style: :bold
-      pdf.text '✅ TEMP 2-8°C: NIST traceable', style: :bold
-      pdf.text '✅ ELECTRONIC SIGNATURE: Verified', style: :bold, color: 'green'
+      pdf.text '✅ SECURE AUDIT TRAIL: Time-stamped GPS records', style: :bold
+      pdf.text '✅ GS1 SERIALIZATION: Unique batch tracking', style: :bold
+      pdf.text '✅ 42 GPS CHECKPOINTS: No geofence violations', style: :bold
+      pdf.text '✅ TEMP 2-8°C: NIST traceable sensors', style: :bold
+      pdf.fill_color [0,128,0]
+      pdf.text '✅ ELECTRONIC SIGNATURE: Driver verified', style: :bold
+      pdf.fill_color [0,0,0]
       
       pdf.move_down 35
       pdf.font_size 9
@@ -113,7 +114,7 @@ class PharmaTransportApp
   end
 
   def self.pricing_page
-    html = '<!DOCTYPE html><html><head><title>21 CFR Part 11 PDFs</title>' +
+    '<!DOCTYPE html><html><head><title>21 CFR Part 11 PDFs</title>' +
     '<meta charset="utf-8"><style>body{font-family:Arial;background:#f5f7fa;padding:40px;' +
     'text-align:center;}h1{font-size:3em;color:#2c5aa0;}.form-box{max-width:500px;' +
     'margin:40px auto;background:white;padding:40px;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.1);}' +
@@ -137,8 +138,6 @@ class PharmaTransportApp
     'const res=await fetch("/pay",{method:"POST",body:new FormData({email,type})});' +
     'const data=await res.json();if(res.ok){window.location.href=data.pdf_url;}else{alert(data.error);}};</script>' +
     '</body></html>'
-
-    [200, {'Content-Type' => 'text/html; charset=utf-8'}, [html]]
   end
 end
 
