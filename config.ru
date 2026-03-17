@@ -9,6 +9,7 @@ Stripe.api_key = ENV['STRIPE_SECRET_KEY'] if defined?(Stripe)
 
 class PharmaTransportApp
   PRICES = {'insulin'=>49,'vaccines'=>79,'biologics'=>129}.freeze
+  PRIVATE_EMAIL = 'brett.thomas29.97@gmail.com'
 
   def self.call(env)
     req = Rack::Request.new(env)
@@ -17,7 +18,7 @@ class PharmaTransportApp
     when ['POST', '/pay']
       params = Rack::Utils.parse_query(req.body.read)
       type = params['type']&.downcase
-      email = params['email'] || 'brett@pharmatransport.com'
+      email = params['email'] || PRIVATE_EMAIL
       
       if PRICES[type]
         if defined?(Stripe) && ENV['STRIPE_SECRET_KEY']
@@ -28,41 +29,44 @@ class PharmaTransportApp
               line_items: [{price_data: {currency: 'usd', product_data: {name: "#{type.capitalize} CoC"}, unit_amount: PRICES[type]*100}, quantity: 1}],
               mode: 'payment',
               success_url: "#{req.scheme}://#{req.host}/success",
-              cancel_url: "#{req.scheme}://#{req.host}/"
+              cancel_url: "#{req.scheme}://#{req.host}/",
+              metadata: {email: email}
             })
             [{"url"=>session.url,"session"=>session.id}.to_json]
           rescue => e
-            [{"error"=>"Stripe error: #{e.message}"}.to_json]
+            [{"error"=>"Stripe: #{e.message}"}.to_json]
           end
         else
           session_id = "sess_#{SecureRandom.hex(8)}"
           [{"session"=>session_id,"price"=>PRICES[type],"type"=>type}.to_json]
         end
       else
-        [{"error"=>"#{type} invalid"}.to_json]
+        [{"error"=>"Invalid: #{type}"}.to_json]
       end
     when ['GET', '/pdf']
       type = req.params['type']
       session_id = req.params['session'] || "demo"
       
       pdf = Prawn::Document.new(page_size: 'LETTER')
-      pdf.fill_color '#0984C0' # Deep Ocean Blue
-      pdf.text "CHAIN OF CUSTODY", size: 28, style: :bold, align: :center
+      pdf.fill_color '#0984C0'
+      pdf.text "PHARMA TRANSPORT", size: 20, style: :bold, align: :center
+      pdf.text "CHAIN OF CUSTODY", size: 24, style: :bold, align: :center
       pdf.fill_color '000000'
-      pdf.text "#{type.upcase} TRANSPORT", size: 18, align: :center
+      pdf.text "#{type.upcase}", size: 18, align: :center
       pdf.stroke_color '#0984C0'
       pdf.stroke_horizontal_rule
       
       pdf.font_size 12
       pdf.text "Session: #{session_id}", align: :center
+      pdf.text "Customer: #{email}", align: :center
       pdf.text "Generated: #{Time.now.utc}", align: :center
-      pdf.move_down 40
+      pdf.move_down 30
       pdf.fill_color '#0984C0'
       pdf.text '21 CFR PART 11 COMPLIANT', size: 16, style: :bold
       pdf.fill_color '000000'
-      pdf.text 'Electronic Records & Signatures - FDA Regulated', align: :center
+      pdf.text 'FDA Electronic Records - Audit Ready', align: :center
       
-      [200,{'Content-Type'=>'application/pdf','Content-Disposition'=>"attachment; filename=#{type}_coc.pdf"},[pdf.render]]
+      [200,{'Content-Type'=>'application/pdf','Content-Disposition'=>"attachment; filename=pharma_transport_#{type}_coc.pdf"},[pdf.render]]
     else [404,{},['Not Found']]
     end
   end
@@ -72,7 +76,7 @@ class PharmaTransportApp
 <!DOCTYPE html>
 <html>
 <head>
-<title>Thomas IT - Pharma Transport</title>
+<title>Pharma Transport - Thomas IT</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -81,140 +85,117 @@ class PharmaTransportApp
   --sea-serpent: #60BDD1;
   --silver-sand: #C0BEC6;
   --metallic-silver: #AAA7B0;
-  --davy-grey: #565759;
-  --white: #FFFFFF;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body { 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
   background: #000; 
-  color: var(--white);
+  color: #FFFFFF;
   min-height: 100vh; 
   line-height: 1.6;
 }
-.container { max-width: 1400px; margin:0 auto; padding:2rem 1rem; }
+.container { max-width: 1200px; margin:0 auto; padding:1.5rem; }
 .header {
   text-align: center; 
-  padding: 3rem 0; 
+  padding: 2rem 0; 
   border-bottom: 3px solid var(--ocean-blue);
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 h1 { 
-  font-size: clamp(2.5rem, 6vw, 4.5rem); 
+  font-size: clamp(2rem, 5vw, 3.2rem); 
   background: linear-gradient(135deg, var(--ocean-blue), var(--sea-serpent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 800;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 .tagline { 
-  font-size: 1.4rem; 
+  font-size: 1.1rem; 
   color: var(--silver-sand); 
-  max-width: 600px; 
-  margin: 0 auto;
+  font-weight: 500;
 }
 .compliance { 
-  background: rgba(9,132,192,0.1); 
+  background: rgba(9,132,192,0.15); 
   border: 2px solid var(--ocean-blue);
-  border-radius: 20px; 
-  padding: 2.5rem; 
+  border-radius: 16px; 
+  padding: 2rem; 
   text-align: center; 
-  margin: 4rem 0;
-  backdrop-filter: blur(20px);
+  margin: 2.5rem 0;
 }
 .compliance h2 { 
   color: var(--ocean-blue); 
-  font-size: 2.2rem; 
-  margin-bottom: 1rem;
-  font-weight: 700;
+  font-size: 1.6rem; 
+  margin-bottom: 0.8rem;
 }
 .pricing { 
   display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
-  gap: 2.5rem; 
-  margin-bottom: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+  gap: 2rem; 
+  margin-bottom: 3rem;
 }
 .tier { 
-  background: rgba(255,255,255,0.05); 
+  background: rgba(255,255,255,0.08); 
   border: 2px solid var(--metallic-silver); 
-  border-radius: 24px; 
-  padding: 3rem 2.5rem; 
+  border-radius: 20px; 
+  padding: 2.5rem 2rem; 
   text-align: center; 
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  position: relative;
-  overflow: hidden;
-}
-.tier::before {
-  content: ''; 
-  position: absolute; 
-  top: 0; left: 0; right: 0; 
-  height: 4px; 
-  background: linear-gradient(90deg, var(--ocean-blue), var(--sea-serpent));
+  transition: all 0.3s ease;
 }
 .tier:hover { 
-  transform: translateY(-12px); 
   border-color: var(--ocean-blue); 
-  box-shadow: 0 32px 64px rgba(9,132,192,0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(9,132,192,0.2);
 }
 .tier h3 { 
-  font-size: 2.2rem; 
+  font-size: 1.8rem; 
   color: var(--sea-serpent); 
-  margin-bottom: 1.5rem; 
-  font-weight: 700;
+  margin-bottom: 1rem; 
 }
 .price { 
-  font-size: clamp(3rem, 10vw, 5.5rem); 
+  font-size: 3rem; 
   font-weight: 900; 
   color: var(--ocean-blue); 
-  text-shadow: 0 4px 16px rgba(9,132,192,0.4);
-  margin: 1rem 0 2rem 0;
+  margin: 0.5rem 0 1.5rem 0;
 }
-button { 
+.btn { 
   background: linear-gradient(135deg, var(--ocean-blue), var(--sea-serpent)); 
-  color: var(--white); 
+  color: #FFFFFF; 
   border: none; 
-  padding: 1.4rem 3.5rem; 
-  border-radius: 16px; 
-  font-size: 1.3rem; 
+  padding: 1rem 2.5rem; 
+  border-radius: 12px; 
+  font-size: 1.1rem; 
   font-weight: 700; 
   cursor: pointer; 
   transition: all 0.3s ease; 
-  box-shadow: 0 8px 32px rgba(9,132,192,0.4);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  width: 100%;
+  box-sizing: border-box;
 }
-button:hover { 
-  transform: translateY(-4px); 
-  box-shadow: 0 16px 48px rgba(9,132,192,0.6);
+.btn:hover { 
+  transform: translateY(-2px); 
+  box-shadow: 0 12px 24px rgba(9,132,192,0.4);
 }
 .contact { 
-  background: rgba(170,167,176,0.15); 
-  border-radius: 20px; 
-  padding: 3rem; 
+  background: rgba(170,167,176,0.2); 
+  border-radius: 16px; 
+  padding: 2rem; 
   text-align: center; 
   border: 2px solid var(--metallic-silver);
 }
-.contact h4 { color: var(--sea-serpent); font-size: 1.6rem; margin-bottom: 1rem; }
-.contact p { 
-  font-size: 1.4rem; 
-  background: linear-gradient(135deg, var(--ocean-blue), var(--sea-serpent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
+.contact h4 { color: var(--sea-serpent); font-size: 1.3rem; margin-bottom: 0.8rem; }
 @media (max-width: 768px) {
-  .pricing { grid-template-columns: 1fr; gap: 2rem; }
-  .tier { padding: 2.5rem 2rem; }
+  .pricing { grid-template-columns: 1fr; }
+  .tier { padding: 2rem 1.5rem; }
 }
 </style>
 </head>
 <body>
 <div class="container">
   <header class="header">
-    <h1>Thomas IT</h1>
-    <p class="tagline">Pharma Transport Compliance Platform</p>
+    <h1>Pharma Transport</h1>
+    <p class="tagline">Thomas IT Compliance Platform</p>
   </header>
   
   <section class="compliance">
@@ -226,17 +207,17 @@ button:hover {
     <div class="tier">
       <h3>💉 Insulin</h3>
       <div class="price">$49</div>
-      <button onclick="pay('insulin')">Pay with Stripe</button>
+      <button class="btn" onclick="pay('insulin')">Pay with Stripe</button>
     </div>
     <div class="tier">
       <h3>🛡️ Vaccines</h3>
       <div class="price">$79</div>
-      <button onclick="pay('vaccines')">Pay with Stripe</button>
+      <button class="btn" onclick="pay('vaccines')">Pay with Stripe</button>
     </div>
     <div class="tier">
       <h3>🧬 Biologics</h3>
       <div class="price">$129</div>
-      <button onclick="pay('biologics')">Pay with Stripe</button>
+      <button class="btn" onclick="pay('biologics')">Pay with Stripe</button>
     </div>
   </section>
   
@@ -248,7 +229,7 @@ button:hover {
 
 <script>
 async function pay(type) {
-  const email = prompt('Customer email:') || 'brett@pharmatransport.com';
+  const email = 'brett.thomas29.97@gmail.com'; // Your private email
   try {
     const res = await fetch('/pay', {
       method: 'POST',
