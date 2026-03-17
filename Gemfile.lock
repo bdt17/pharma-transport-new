@@ -2,6 +2,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     rack (3.2.5)
+    rackup (2.3.1)
+      rack (>= 3)
 
 PLATFORMS
   ruby
@@ -9,9 +11,11 @@ PLATFORMS
 
 DEPENDENCIES
   rack (~> 3.0)
+  rackup (~> 2.3)
 
 CHECKSUMS
   rack (3.2.5) sha256=4cbd0974c0b79f7a139b4812004a62e4c60b145cba76422e288ee670601ed6d3
+  rackup (2.3.1) sha256=6c79c26753778e90983761d677a48937ee3192b3ffef6bc963c0950f94688868
 
 BUNDLED WITH
   4.0.3
