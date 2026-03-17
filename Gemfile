@@ -1,8 +1,13 @@
 source 'https://rubygems.org'
-gem 'rack', '~> 3.2'
-gem 'rackup', '~> 2.3'
-gem 'puma', '~> 6.4'
-gem 'prawn', '~> 2.5'
-gem 'redis', '~> 5.0'
-gem 'stripe', '~> 10.0.0'
-gem 'pony', '~> 1.13'
+ruby '3.2.2'
+
+gem 'rails', '~> 7.1.0'
+gem 'stripe'
+gem 'pg', group: :production  # PG only for Render
+gem 'puma'
+gem 'bootsnap', require: false
+gem 'sqlite3', '~> 1.4'       # ADD THIS LINE HERE
+
+group :development, :test do
+  gem 'web-console'
+end

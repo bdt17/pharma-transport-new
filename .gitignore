@@ -1,2 +1,6 @@
 pharma_transport.ru.backup.*
 .env
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+
