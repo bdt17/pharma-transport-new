@@ -1,0 +1,86 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bigdecimal (3.3.1)
+    connection_pool (3.0.2)
+    date (3.5.1)
+    logger (1.7.0)
+    mail (2.9.0)
+      logger
+      mini_mime (>= 0.1.1)
+      net-imap
+      net-pop
+      net-smtp
+    matrix (0.4.3)
+    mini_mime (1.1.5)
+    net-imap (0.6.3)
+      date
+      net-protocol
+    net-pop (0.1.2)
+      net-protocol
+    net-protocol (0.2.2)
+      timeout
+    net-smtp (0.5.1)
+      net-protocol
+    nio4r (2.7.5)
+    pdf-core (0.10.0)
+    pony (1.13.1)
+      mail (>= 2.0)
+    prawn (2.5.0)
+      matrix (~> 0.4)
+      pdf-core (~> 0.10.0)
+      ttfunk (~> 1.8)
+    puma (6.6.1)
+      nio4r (~> 2.0)
+    rack (3.2.5)
+    rackup (2.3.1)
+      rack (>= 3)
+    redis (5.4.1)
+      redis-client (>= 0.22.0)
+    redis-client (0.27.0)
+      connection_pool
+    stripe (10.0.0)
+    timeout (0.6.1)
+    ttfunk (1.8.0)
+      bigdecimal (~> 3.1)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  pony (~> 1.13)
+  prawn (~> 2.5)
+  puma (~> 6.4)
+  rack (~> 3.2)
+  rackup (~> 2.3)
+  redis (~> 5.0)
+  stripe (~> 10.0.0)
+
+CHECKSUMS
+  bigdecimal (3.3.1) sha256=eaa01e228be54c4f9f53bf3cc34fe3d5e845c31963e7fcc5bedb05a4e7d52218
+  connection_pool (3.0.2) sha256=33fff5ba71a12d2aa26cb72b1db8bba2a1a01823559fb01d29eb74c286e62e0a
+  date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
+  logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
+  mail (2.9.0) sha256=6fa6673ecd71c60c2d996260f9ee3dd387d4673b8169b502134659ece6d34941
+  matrix (0.4.3) sha256=a0d5ab7ddcc1973ff690ab361b67f359acbb16958d1dc072b8b956a286564c5b
+  mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
+  net-imap (0.6.3) sha256=9bab75f876596d09ee7bf911a291da478e0cd6badc54dfb82874855ccc82f2ad
+  net-pop (0.1.2) sha256=848b4e982013c15b2f0382792268763b748cce91c9e91e36b0f27ed26420dff3
+  net-protocol (0.2.2) sha256=aa73e0cba6a125369de9837b8d8ef82a61849360eba0521900e2c3713aa162a8
+  net-smtp (0.5.1) sha256=ed96a0af63c524fceb4b29b0d352195c30d82dd916a42f03c62a3a70e5b70736
+  nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
+  pdf-core (0.10.0) sha256=0a5d101e2063c01e3f941e1ee47cbb97f1adfc1395b58372f4f65f1300f3ce91
+  pony (1.13.1) sha256=ab507c8ade8b35de96f1e75c0ae4566a3c40ac8a0d5101433969b6fd29c718a7
+  prawn (2.5.0) sha256=f4e20e3b4f30bf5b9ae37dad15eb421831594553aa930b2391b0fa0a99c43cb6
+  puma (6.6.1) sha256=b9b56e4a4ea75d1bfa6d9e1972ee2c9f43d0883f011826d914e8e37b3694ea1e
+  rack (3.2.5) sha256=4cbd0974c0b79f7a139b4812004a62e4c60b145cba76422e288ee670601ed6d3
+  rackup (2.3.1) sha256=6c79c26753778e90983761d677a48937ee3192b3ffef6bc963c0950f94688868
+  redis (5.4.1) sha256=b5e675b57ad22b15c9bcc765d5ac26f60b675408af916d31527af9bd5a81faae
+  redis-client (0.27.0) sha256=00e5918c1ba3fcd54b28e7be24b36fbf7b073e842c3c021ac072173c3eac42bd
+  stripe (10.0.0) sha256=8e28af4042e759cc7692611968eb51a2744e3e35a3da28f7506ac30b868a44d5
+  timeout (0.6.1) sha256=78f57368a7e7bbadec56971f78a3f5ecbcfb59b7fcbb0a3ed6ddc08a5094accb
+  ttfunk (1.8.0) sha256=a7cbc7e489cc46e979dde04d34b5b9e4f5c8f1ee5fc6b1a7be39b829919d20ca
+
+BUNDLED WITH
+  4.0.3

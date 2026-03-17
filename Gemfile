@@ -2,12 +2,7 @@ source 'https://rubygems.org'
 gem 'rack', '~> 3.2'
 gem 'rackup', '~> 2.3'
 gem 'puma', '~> 6.4'
-gem 'prawn', '~> 2.5'  # Latest stable with tables/GPS
-gem 'redis'  # Add to Gemfile
-gem 'stripe'
-gem 'pony'  # Send PDFs 
-
+gem 'prawn', '~> 2.5'
 gem 'redis', '~> 5.0'
-
 gem 'stripe', '~> 10.0.0'
 gem 'pony', '~> 1.13'
