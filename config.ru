@@ -79,31 +79,51 @@ class PharmaTransportApp
     .price { font-size: clamp(2.5rem,8vw,4rem); color: #10b981; font-weight: 800; margin-bottom: 1.5rem; }
     button { background: linear-gradient(45deg,#10b981,#059669); color: white; border: none; padding: 1.2rem 3rem; border-radius: 12px; font-size: 1.2rem; font-weight: 600; cursor: pointer; }
     button:hover { transform: translateY(-3px); }
-    .demo { background: rgba(0,0,0,0.4); padding: 2rem; border-radius: 16px; font-family: monospace; }
-    pre { background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 12px; overflow-x: auto; font-size: 0.9rem; white-space: pre-wrap; }
+    .contact { background: rgba(0,0,0,0.4); padding: 2rem; border-radius: 16px; text-align: center; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Pharma Transport Dashboard</h1>
-    <div class="compliance"><strong>21 CFR Part 11 Compliant</strong> | REAL PDF + GPS</div>
-    <div class="pricing">
-      <div class="tier"><h2>Insulin</h2><div class="price">$49</div><button onclick="pay('insulin')">Pay & Generate CoC PDF</button></div>
-      <div class="tier"><h2>Vaccines</h2><div class="price">$79</div><button onclick="pay('vaccines')">Pay & Generate CoC PDF</button></div>
-      <div class="tier"><h2>Biologics</h2><div class="price">$129</div><button onclick="pay('biologics')">Pay & Generate CoC PDF</button></div>
+    <div class="compliance">
+      <strong>21 CFR Part 11 Compliant</strong> | REAL PDF + GPS Tracking
     </div>
-    <div class="demo">
-      <h3>Test REAL PDF:</h3>
-      <pre>SESSION=$(curl -s -X POST /pay -d "email=test@pharma.com&type=biologics" | grep -o '"session":"[^"]*"' | cut -d'"' -f4)
-curl "/pdf?session=$SESSION&type=biologics" -o coc.pdf</pre>
+    <div class="pricing">
+      <div class="tier">
+        <h2>Insulin</h2>
+        <div class="price">$49</div>
+        <button onclick="pay('insulin')">Generate CoC PDF</button>
+      </div>
+      <div class="tier">
+        <h2>Vaccines</h2>
+        <div class="price">$79</div>
+        <button onclick="pay('vaccines')">Generate CoC PDF</button>
+      </div>
+      <div class="tier">
+        <h2>Biologics</h2>
+        <div class="price">$129</div>
+        <button onclick="pay('biologics')">Generate CoC PDF</button>
+      </div>
+    </div>
+    <div class="contact">
+      <h3>Contact for Demo</h3>
+      <p><strong>brett@pharmatransport.com</strong></p>
     </div>
   </div>
   <script>
     async function pay(type) {
-      const res = await fetch('/pay', {method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: `email=brett@pharmatransport.com&type=${type}`});
+      const res = await fetch('/pay', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `email=brett@pharmatransport.com&type=${type}`
+      });
       const data = await res.json();
-      if (data.session) window.open(`/pdf?session=${data.session}&type=${type}`), alert(`✅ PDF downloading! ${data.session}`);
-      else alert('Error: ' + data.error);
+      if (data.session) {
+        window.open(`/pdf?session=${data.session}&type=${type}`);
+        alert('✅ PDF downloading!');
+      } else {
+        alert('Error: Contact brett@pharmatransport.com');
+      }
     }
   </script>
 </body>
