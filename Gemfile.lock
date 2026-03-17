@@ -2,18 +2,24 @@ GEM
   remote: https://rubygems.org/
   specs:
     nio4r (2.7.5)
+    pdf-core (0.1.6)
+    prawn (0.15.0)
+      pdf-core (~> 0.1.3)
+      ttfunk (~> 1.1.0)
     puma (6.6.1)
       nio4r (~> 2.0)
     rack (3.2.5)
     rackup (2.3.1)
       rack (>= 3)
     securerandom (0.4.1)
+    ttfunk (1.1.1)
 
 PLATFORMS
   ruby
   x86_64-linux
 
 DEPENDENCIES
+  prawn (~> 0.8)
   puma (~> 6.4)
   rack (~> 3.2)
   rackup (~> 2.3)
@@ -21,10 +27,13 @@ DEPENDENCIES
 
 CHECKSUMS
   nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
+  pdf-core (0.1.6) sha256=d1bb930f62b7d23f8785762bc4ae5348c4d76533f7fe0ca695d5c16abf0e22f4
+  prawn (0.15.0) sha256=4c7646de86b40b4c2d363be04952928bc45fbcaf35c0fdc75e46215fabfbfd12
   puma (6.6.1) sha256=b9b56e4a4ea75d1bfa6d9e1972ee2c9f43d0883f011826d914e8e37b3694ea1e
   rack (3.2.5) sha256=4cbd0974c0b79f7a139b4812004a62e4c60b145cba76422e288ee670601ed6d3
   rackup (2.3.1) sha256=6c79c26753778e90983761d677a48937ee3192b3ffef6bc963c0950f94688868
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
+  ttfunk (1.1.1) sha256=124e7b2bd5b415972e81c1b10e9a47a0c4373510b6f1adda69699b082ec46fcb
 
 BUNDLED WITH
   4.0.3
