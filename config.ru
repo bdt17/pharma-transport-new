@@ -58,7 +58,6 @@ class PharmaTransportApp
       
       pdf.font_size 12
       pdf.text "Session: #{session_id}", align: :center
-      pdf.text "Customer: #{email}", align: :center
       pdf.text "Generated: #{Time.now.utc}", align: :center
       pdf.move_down 30
       pdf.fill_color '#0984C0'
@@ -177,14 +176,18 @@ h1 {
   transform: translateY(-2px); 
   box-shadow: 0 12px 24px rgba(9,132,192,0.4);
 }
-.contact { 
-  background: rgba(170,167,176,0.2); 
-  border-radius: 16px; 
-  padding: 2rem; 
+.contact-us { 
   text-align: center; 
-  border: 2px solid var(--metallic-silver);
+  padding: 2rem; 
+  opacity: 0.8;
 }
-.contact h4 { color: var(--sea-serpent); font-size: 1.3rem; margin-bottom: 0.8rem; }
+.contact-us a { 
+  color: var(--sea-serpent); 
+  text-decoration: none; 
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.contact-us a:hover { color: var(--ocean-blue); }
 @media (max-width: 768px) {
   .pricing { grid-template-columns: 1fr; }
   .tier { padding: 2rem 1.5rem; }
@@ -221,15 +224,14 @@ h1 {
     </div>
   </section>
   
-  <section class="contact">
-    <h4>Enterprise Sales</h4>
-    <p>brett@pharmatransport.com</p>
-  </section>
+  <footer class="contact-us">
+    <a href="mailto:brett@pharmatransport.com">Contact Us</a>
+  </footer>
 </div>
 
 <script>
 async function pay(type) {
-  const email = 'brett.thomas29.97@gmail.com'; // Your private email
+  const email = 'brett.thomas29.97@gmail.com';
   try {
     const res = await fetch('/pay', {
       method: 'POST',
