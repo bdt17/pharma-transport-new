@@ -8,3 +8,6 @@ gem 'stripe'
 gem 'pony'  # Send PDFs 
 
 gem 'redis', '~> 5.0'
+
+gem 'stripe', '~> 10.0.0'
+gem 'pony', '~> 1.13'
