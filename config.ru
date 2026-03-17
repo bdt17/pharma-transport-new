@@ -1,3 +1,3 @@
-# config.ru - Standard Rack config for Render
-require './pharma_transport'
-run PharmaTransportProPortal.new
+require_relative "config/environment"
+
+run Rails.application
