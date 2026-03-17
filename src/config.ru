@@ -1,3 +1,9 @@
-require_relative "config/environment"
-run Rails.application
-# Deploy Mon Mar 16 05:41:46 PM MST 2026
+require 'rack'
+
+class PharmaTransportApp
+  def self.call(env)
+    [200, {"Content-Type" => "text/html"}, ["Pharma Transport Dashboard - Deployed!"]]
+  end
+end
+
+run PharmaTransportApp
