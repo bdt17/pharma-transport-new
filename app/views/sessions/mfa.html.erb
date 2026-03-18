@@ -1,40 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>MFA - Pharma Transport</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    body { font-family: system-ui,-apple-system,sans-serif; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; margin: 0; padding: 20px; }
-    .card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); max-width: 400px; width: 100%; text-align: center; }
-    h2 { color: #1e40af; margin: 0 0 10px 0; font-size: 28px; }
-    p { color: #6b7280; margin: 0 0 30px 0; }
-    .code-input { font-size: 48px; font-family: monospace; width: 100%; max-width: 280px; padding: 20px; border: 3px solid #e5e7eb; border-radius: 12px; text-align: center; letter-spacing: 8px; margin: 20px 0; box-sizing: border-box; }
-    .code-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); outline: none; }
-    button { width: 100%; background: #10b981; color: white; padding: 16px; border: none; border-radius: 12px; font-size: 18px; font-weight: 600; cursor: pointer; margin-top: 10px; }
-    button:hover { background: #059669; }
-    .alert { background: #fef2f2; color: #dc2626; padding: 15px; border-radius: 8px; border-left: 4px solid #dc2626; margin: 20px 0; }
-    .hint { background: #f0f9ff; border: 1px solid #0ea5e9; color: #0369a1; padding: 12px; border-radius: 8px; font-family: monospace; font-weight: 600; margin-top: 20px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MFA - Pharma Transport</title>
+<style>
+* {margin:0;padding:0;box-sizing:border-box;}
+body {font-family:system-ui,-apple-system,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.mfa-box {background:white;padding:2.5rem;border-radius:1rem;box-shadow:0 1rem 3rem rgba(0,0,0,0.2);width:100%;max-width:400px;text-align:center;}
+h1 {color:#1e40af;font-size:2rem;margin-bottom:1rem;}
+p {color:#6b7280;margin-bottom:2rem;font-size:1.1rem;}
+.code-input {font-size:3rem;font-family:monospace;width:100%;max-width:300px;padding:1.5rem;border:3px solid #e5e7eb;border-radius:0.75rem;text-align:center;letter-spacing:0.5rem;margin:1.5rem 0;font-weight:600;}
+.code-input:focus {outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
+button {width:100%;background:#10b981;color:white;padding:1rem;border:none;border-radius:0.5rem;font-size:1.2rem;font-weight:600;cursor:pointer;margin-top:1rem;}
+button:hover {background:#059669;}
+.alert {background:#fef2f2;color:#dc2626;padding:1rem;border-radius:0.5rem;border-left:4px solid #dc2626;margin:1.5rem 0;}
+.demo {background:#ecfdf5;border:1px solid #22c55e;color:#166534;padding:1rem;border-radius:0.5rem;font-family:monospace;font-weight:600;margin-top:1.5rem;}
+</style>
 </head>
 <body>
-  <div class="card">
-    <h2>🔐 2FA Code</h2>
-    <p>Enter 6-digit code from authenticator</p>
-    
-    <% if flash[:alert] %>
-      <div class="alert"><%= flash[:alert] %></div>
-    <% end %>
-    
-    <%= form_with url: verify_mfa_path, local: true do |f| %>
-      <%= f.text_field :code, placeholder: "123456", 
-                       class: "code-input", maxlength: 6, 
-                       autocomplete: "one-time-code", autofocus: true %>
-      <%= f.submit "Verify MFA", class: "button" %>
-    <% end %>
-    
-    <div class="hint">
-      Demo Code: <strong>123456</strong>
-    </div>
-  </div>
+<div class="mfa-box">
+<h1>🔐 2FA Verification</h1>
+<p>Enter 6-digit code</p>
+
+<% if flash[:alert] %><div class="alert"><%= flash[:alert] %></div><% end %>
+
+<%= form_with url: verify_mfa_path, local: true do |f| %>
+  <%= f.text_field :code, placeholder: "123456", maxlength: 6, 
+                   class: "code-input", autofocus: true, autocomplete: "one-time-code" %>
+  <%= f.submit "Verify & Login", class: "button" %>
+<% end %>
+
+<div class="demo">Demo Code: <strong>123456</strong></div>
+</div>
 </body>
 </html>
