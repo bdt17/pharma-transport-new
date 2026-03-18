@@ -11,3 +11,4 @@ gem 'bootsnap', require: false
 group :development, :test do
   gem 'sqlite3', '~> 1.4'   # Local development only
 end
+gem 'sidekiq'

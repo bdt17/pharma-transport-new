@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root "home#index"
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+  get "pdf-health", to: "home#pdf_health"
+  
   resources :shipments
-  # Emergency PDF endpoint
-  get '/pdf-health', to: 'home#pdf_health'
 end
