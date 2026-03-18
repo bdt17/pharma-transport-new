@@ -1,47 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Dashboard - Pharma Transport</title>
-<style>
-* {margin:0;padding:0;box-sizing:border-box;}
-body {font-family:system-ui,-apple-system,sans-serif;background:#f8fafc;color:#1f2937;}
-.container {max-width:1200px;margin:0 auto;padding:2rem;}
-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;}
-h1 {color:#1e40af;font-size:2.5rem;}
-.logout-btn {background:#ef4444;color:white;padding:0.75rem 1.5rem;border:none;border-radius:0.5rem;font-weight:600;font-size:1rem;cursor:pointer;}
-.logout-btn:hover {background:#dc2626;}
-.hero {background:linear-gradient(135deg,#10b981 0%,#059669 100%);color:white;padding:3rem;border-radius:1rem;margin-bottom:2rem;text-align:center;}
-.hero h2 {font-size:2.2rem;margin-bottom:0.5rem;}
-.hero p {font-size:1.3rem;opacity:0.95;}
-.features {background:white;padding:2.5rem;border-radius:1rem;box-shadow:0 4px 6px rgba(0,0,0,0.05);}
-.features h3 {color:#1e40af;font-size:1.5rem;margin-bottom:1.5rem;}
-.grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;list-style:none;}
-.grid li {padding:1.5rem;border-left:5px solid;border-radius:0.5rem;background:#f8fafc;}
-</style>
-</head>
-<body>
-<div class="container">
-<header>
-<h1>Pharma Transport</h1>
-<%= button_to "Logout", logout_path, method: :delete, class: "logout-btn" %>
-</header>
+<!-- YOUR EXISTING DASHBOARD HTML UNTIL LEAD FORM SECTION -->
 
-<div class="hero">
-<h2>✅ PRODUCTION LIVE</h2>
-<p>Secure pharma logistics platform</p>
+<div class="lead-form">
+  <h3>💼 Interested in Pharma Transport?</h3>
+  <p style="text-align:center;color:#64748b;margin-bottom:2rem;">Demo shipment tracking for your pharma logistics</p>
+  
+  <!-- YOUR FORMSPREE ID: xnjglwpe -->
+  <form action="https://formspree.io/f/xnjglwpe" method="POST" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+    <input type="email" name="email" placeholder="your@pharma.com" required style="padding:1rem;border:2px solid #e2e8f0;border-radius:12px;font-size:1rem;">
+    <input type="text" name="company" placeholder="Company Name" required style="padding:1rem;border:2px solid #e2e8f0;border-radius:12px;font-size:1rem;">
+    <button type="submit" class="lead-btn" style="grid-column:1/-1;">Get Demo Access →</button>
+  </form>
 </div>
 
-<div class="features">
-<h3>Core Features</h3>
-<ul class="grid">
-<li style="border-color:#10b981;"><strong>📄 Chain of Custody</strong><br>21 CFR Part 11 PDFs</li>
-<li style="border-color:#3b82f6;"><strong>💳 Payments</strong><br>Stripe production</li>
-<li style="border-color:#f59e0b;"><strong>📍 Real-time GPS</strong><br>Cold chain tracking</li>
-<li style="border-color:#8b5cf6;"><strong>🏢 Multi-tenant</strong><br>SaaS ready</li>
-</ul>
-</div>
-</div>
-</body>
-</html>
+<!-- REST OF YOUR DASHBOARD HTML -->
