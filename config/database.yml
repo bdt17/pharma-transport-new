@@ -1,22 +1,12 @@
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
 
 development:
-  <<: *default
+  adapter: sqlite3
   database: db/development.sqlite3
-
-test:
-  <<: *default
-  database: db/test.sqlite3
 
 production:
   <<: *default
-  adapter: postgresql
-  encoding: unicode
-  host: <%= ENV['DATABASE_HOST'] %>
-  database: <%= ENV['DATABASE_NAME'] %>
-  username: <%= ENV['DATABASE_USERNAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  port: <%= ENV['DATABASE_PORT'] || 5432 %>
+  database: <%= ENV['DATABASE_URL']&.split('?')&.first %>
