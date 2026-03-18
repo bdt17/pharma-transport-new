@@ -4,11 +4,10 @@ ruby '3.2.2'
 gem 'rails', '~> 7.1.0'
 gem 'puma'
 gem 'stripe'
-gem 'pg'
-gem 'sqlite3', '~> 1.4'  # Add globally for dev
+gem 'pg'                    # PostgreSQL only (Render)
 gem 'sprockets-rails'
 gem 'bootsnap', require: false
 
 group :development, :test do
-  gem 'sqlite3', '~> 1.4'
+  gem 'sqlite3', '~> 1.4'   # Local only
 end
