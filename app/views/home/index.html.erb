@@ -74,16 +74,16 @@
         <span class="feature-icon">📄</span>
         <h3>Chain of Custody PDF</h3>
         <p>21 CFR Part 11 compliant documentation</p>
-        <%= link_to "Generate PDF", pdf_health_path, class: "pdf-btn" %>
+        <%= link_to "Generate PDF", chain_of_custody_pdf_path(shipment_id: "SHIP-#{Time.current.strftime('%Y%m%d')}-001"), class: "pdf-btn" %>
       </div>
-      
+
       <div class="feature">
         <span class="feature-icon">💳</span>
         <h3>Stripe Payments</h3>
         <p>Production ready billing system</p>
         <span class="pdf-btn coming-soon">Coming Soon</span>
       </div>
-      
+
       <div class="feature">
         <span class="feature-icon">📍</span>
         <h3>GPS Tracking</h3>

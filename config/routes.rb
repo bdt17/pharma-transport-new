@@ -10,3 +10,4 @@ Rails.application.routes.draw do
   post "lead_capture", to: "leads#create"
   resources :shipments
 end
+get 'pdf/chain-of-custody', to: 'pdf#chain_of_custody', as: :chain_of_custody_pdf
