@@ -207,3 +207,14 @@ Started GET "/dashboard" for ::1 at 2026-03-17 17:33:56 -0700
   
 ActionController::RoutingError (No route matches [GET] "/dashboard"):
   
+Started GET "/health" for ::1 at 2026-03-17 17:38:42 -0700
+Processing by HealthController#show as */*
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 1)
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.0ms | Allocations: 143)
+
+
+Started GET "/dashboard" for ::1 at 2026-03-17 17:38:42 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/dashboard"):
+  
