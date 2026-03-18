@@ -5,6 +5,8 @@ gem 'rails', '~> 7.1.0'
 gem 'puma'
 gem 'stripe'
 gem 'pg'
+gem 'sqlite3', '~> 1.4'  # Add globally for dev
+gem 'sprockets-rails'
 gem 'bootsnap', require: false
 
 group :development, :test do

@@ -123,3 +123,87 @@ Processing by CheckoutController#show as */*
 Completed 200 OK in 18ms (Views: 13.1ms | ActiveRecord: 0.0ms | Allocations: 3069)
 
 
+Started GET "/health" for ::1 at 2026-03-17 17:32:10 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by HealthController#show as */*
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 4)
+Completed 200 OK in 6ms (Views: 3.4ms | ActiveRecord: 0.0ms | Allocations: 1977)
+
+
+Started GET "/pay" for ::1 at 2026-03-17 17:32:10 -0700
+Processing by CheckoutController#show as */*
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 301)
+
+
+  
+Stripe::AuthenticationError (No API key provided. Set your API key using "Stripe.api_key = <API-KEY>". You can generate API keys from the Stripe web interface. See https://stripe.com/api for details, or email support@stripe.com if you have any questions.):
+  
+app/controllers/checkout_controller.rb:37:in `generate_checkout_session'
+app/controllers/checkout_controller.rb:6:in `show'
+Started GET "/success" for ::1 at 2026-03-17 17:32:10 -0700
+Processing by CheckoutController#success as */*
+  Rendering layout layouts/application.html.erb
+  Rendering checkout/success.html.erb within layouts/application
+  Rendered checkout/success.html.erb within layouts/application (Duration: 0.4ms | Allocations: 96)
+  Rendered layout layouts/application.html.erb (Duration: 183.3ms | Allocations: 39516)
+Completed 200 OK in 186ms (Views: 185.3ms | ActiveRecord: 0.0ms | Allocations: 39912)
+
+
+Started HEAD "/health" for ::1 at 2026-03-17 17:32:58 -0700
+Processing by HealthController#show as */*
+  Rendering text template
+  Rendered text template (Duration: 0.1ms | Allocations: 1)
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.0ms | Allocations: 136)
+
+
+Started GET "/pay" for ::1 at 2026-03-17 17:32:58 -0700
+Processing by CheckoutController#show as */*
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms | Allocations: 140)
+
+
+  
+Stripe::AuthenticationError (No API key provided. Set your API key using "Stripe.api_key = <API-KEY>". You can generate API keys from the Stripe web interface. See https://stripe.com/api for details, or email support@stripe.com if you have any questions.):
+  
+app/controllers/checkout_controller.rb:37:in `generate_checkout_session'
+app/controllers/checkout_controller.rb:6:in `show'
+Started GET "/success" for ::1 at 2026-03-17 17:32:58 -0700
+Processing by CheckoutController#success as */*
+  Rendering layout layouts/application.html.erb
+  Rendering checkout/success.html.erb within layouts/application
+  Rendered checkout/success.html.erb within layouts/application (Duration: 0.1ms | Allocations: 9)
+  Rendered layout layouts/application.html.erb (Duration: 5.3ms | Allocations: 930)
+Completed 200 OK in 7ms (Views: 6.8ms | ActiveRecord: 0.0ms | Allocations: 1140)
+
+
+Started GET "/health" for ::1 at 2026-03-17 17:33:56 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by HealthController#show as */*
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 4)
+Completed 200 OK in 5ms (Views: 3.5ms | ActiveRecord: 0.0ms | Allocations: 1977)
+
+
+Started GET "/pay" for ::1 at 2026-03-17 17:33:56 -0700
+Processing by CheckoutController#show as */*
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 301)
+
+
+  
+Stripe::AuthenticationError (No API key provided. Set your API key using "Stripe.api_key = <API-KEY>". You can generate API keys from the Stripe web interface. See https://stripe.com/api for details, or email support@stripe.com if you have any questions.):
+  
+app/controllers/checkout_controller.rb:37:in `generate_checkout_session'
+app/controllers/checkout_controller.rb:6:in `show'
+Started GET "/success" for ::1 at 2026-03-17 17:33:56 -0700
+Processing by CheckoutController#success as */*
+  Rendering layout layouts/application.html.erb
+  Rendering checkout/success.html.erb within layouts/application
+  Rendered checkout/success.html.erb within layouts/application (Duration: 0.4ms | Allocations: 96)
+  Rendered layout layouts/application.html.erb (Duration: 36.2ms | Allocations: 9673)
+Completed 200 OK in 41ms (Views: 40.7ms | ActiveRecord: 0.0ms | Allocations: 10069)
+
+
+Started GET "/dashboard" for ::1 at 2026-03-17 17:33:56 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/dashboard"):
+  

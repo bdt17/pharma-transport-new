@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pharma Transport Pro Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= stylesheet_link_tag 'dashboard', media: 'all' %>
+</head>
+<body class="bg-gray-50">
+  <nav class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-2xl font-bold text-gray-900">Pharma Transport Pro</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a href="/batches" class="text-gray-700 hover:text-gray-900">Batches</a>
+          <a href="/vehicles" class="text-gray-700 hover:text-gray-900">Vehicles</a>
+          <a href="/pay" class="bg-blue-600 text-white px-4 py-2 rounded">Upgrade</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto py-6 px-4">
+    <%= yield %>
+  </main>
+</body>
+</html>

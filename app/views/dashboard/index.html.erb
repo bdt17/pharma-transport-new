@@ -1,2 +1,21 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-semibold mb-4">Recent Payments</h2>
+    <% @recent_payments.each do |payment| %>
+      <div class="mb-4 p-4 border rounded">
+        <span>$<%= payment[:amount] %> - <%= payment[:date] %></span>
+      </div>
+    <% end %>
+    <p class="text-gray-500">No payments yet</p>
+  </div>
+
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-semibold mb-4">Active Batches</h2>
+    <p class="text-gray-500"><%= @active_batches.count %> FDA batches in transit</p>
+  </div>
+
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-semibold mb-4">Vehicles Online</h2>
+    <p class="text-green-600 font-semibold"><%= @vehicles_online.count %> trucks GPS tracked</p>
+  </div>
+</div>
