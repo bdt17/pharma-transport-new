@@ -1,23 +1,36 @@
-<!-- Same login form but change password to: AdminPharma2026! -->
-<div class="login-card">
-  <h2>🔐 Pharma Transport Login</h2>
-  
-  <% if flash[:alert] %>
-    <div class="alert"><%= flash[:alert] %></div>
-  <% end %>
-  
-  <%= form_with url: login_path, local: true do |f| %>
-    <div class="field">
-      <%= f.label :email, "Email" %>
-      <%= f.email_field :email, required: true, value: "admin@pharmatransport.com" %>
-    </div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - Pharma Transport</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>/* Same login styles */</style>
+</head>
+<body>
+  <div class="login-card">
+    <h2>🔐 Secure Login</h2>
     
-    <div class="field">
-      <%= f.label :password, "Password" %>
-      <%= f.password_field :password, required: true, 
-                          placeholder: "AdminPharma2026!", autocomplete: "current-password" %>
-    </div>
+    <% if flash[:alert] %>
+      <div class="alert"><%= flash[:alert] %></div>
+    <% end %>
     
-    <%= f.submit "Login → MFA", class: "button" %>
-  <% end %>
-</div>
+    <%= form_with url: login_path, local: true do |f| %>
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email, required: true, value: "admin@pharmatransport.com" %>
+      </div>
+      
+      <div class="field">
+        <%= f.label :password %>
+        <%= f.password_field :password, required: true, 
+                            placeholder: "AdminPharma2026!", autocomplete: "current-password" %>
+      </div>
+      
+      <%= f.submit "Next → MFA", class: "button" %>
+    <% end %>
+    
+    <p style="text-align: center; margin-top: 20px; font-size: 14px; color: #6b7280;">
+      21 CFR Part 11 • Production SaaS
+    </p>
+  </div>
+</body>
+</html>

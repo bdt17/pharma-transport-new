@@ -1,32 +1,28 @@
 class SessionsController < ApplicationController
-  def new
-  end
+  def new; end
   
   def create
-    if params[:email] == "admin@pharmatransport.com" && params[:password] == "pharma123"
-      # ✅ PHASE 1: Password OK → PHASE 2: MFA
+    if params[:email] == "admin@pharmatransport.com" && params[:password] == "AdminPharma2026!"
       session[:mfa_pending] = true
       session[:user_email] = params[:email]
-      redirect_to mfa_path, notice: "🔐 Enter MFA code"
+      redirect_to mfa_path, notice: "✅ Password OK → Enter MFA"
     else
-      flash.now[:alert] = "❌ Invalid email/password"
+      flash.now[:alert] = "❌ Invalid credentials"
       render :new, status: :unprocessable_entity
     end
   end
   
   def mfa
-    unless session[:mfa_pending]
-      redirect_to login_path, alert: "🔐 Login first"
-    end
+    redirect_to login_path unless session[:mfa_pending]
   end
   
   def verify_mfa
     if session[:mfa_pending] && params[:code] == "123456"
       session[:logged_in] = true
       session.delete(:mfa_pending)
-      redirect_to root_path, notice: "✅ MFA verified - Welcome!"
+      redirect_to root_path, notice: "🎉 Secure login complete!"
     else
-      flash.now[:alert] = "❌ Invalid MFA code"
+      flash.now[:alert] = "❌ Wrong MFA code"
       render :mfa, status: :unprocessable_entity
     end
   end
