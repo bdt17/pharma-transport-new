@@ -1,7 +1,8 @@
 Rails.application.configure do
   # Core settings
   config.cache_classes = true
-#  config.consider_all_requests_local = false
+  config.eager_load = false  # ← THIS FIXES CRASH
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Logging
@@ -22,8 +23,8 @@ Rails.application.configure do
   config.hosts << ".onrender.com"
 
   # Security
-  config.force_ssl = true  # Optional, if using Render's HTTPS
+  config.force_ssl = true
 
-  # Mailer (if needed)
+  # Mailer
   config.action_mailer.default_url_options = { host: 'pharma-transport-new.onrender.com' }
 end
