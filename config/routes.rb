@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  get '/health', to: 'health#show'
-  get '/pay', to: 'checkout#show'
-  get '/success', to: 'checkout#success'  
-  get '/dashboard', to: 'dashboard#index'
-  root 'health#show'
+  root "home#index"
+  resources :shipments
+  # Emergency PDF endpoint
+  get '/pdf-health', to: 'home#pdf_health'
 end
