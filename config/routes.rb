@@ -1,15 +1,9 @@
 Rails.application.routes.draw do
   root "home#index"
-  get "login", to: "sessions#new", as: :login
-  post "login", to: "sessions#create"
-  get "mfa", to: "sessions#mfa", as: :mfa
-  post "mfa", to: "sessions#verify_mfa", as: :verify_mfa
-  delete "logout", to: "sessions#destroy", as: :logout
-  get "pdf-health", to: "home#pdf_health"
-  
-  post "lead_capture", to: "leads#create"
-  resources :shipments
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  get 'mfa', to: 'sessions#mfa'
+  post 'mfa', to: 'sessions#verify_mfa'
+  delete 'logout', to: 'sessions#destroy'
+  get 'pdf-health', to: 'home#pdf_health'
 end
-get 'pdf/chain-of-custody', to: 'pdf#chain_of_custody', as: :chain_of_custody_pdf
-
-get 'pdf/chain-of-custody', to: 'pdf#chain_of_custody', as: :chain_of_custody_pdf
