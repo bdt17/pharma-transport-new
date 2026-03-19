@@ -216,7 +216,7 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.7.3-x86_64-linux)
     stringio (3.2.0)
-    stripe (18.4.2)
+    stripe (10.15.0)
     thor (1.5.0)
     timeout (0.6.1)
     tsort (0.2.0)
@@ -242,7 +242,7 @@ DEPENDENCIES
   sidekiq
   sprockets-rails
   sqlite3 (~> 1.4)
-  stripe
+  stripe (~> 10.0)
 
 CHECKSUMS
   actioncable (7.1.6) sha256=ad428d5f0a810452160820ae3cf3d9d68d8f59e7c76de3bd1f1de2a5ad03c3da
@@ -316,7 +316,7 @@ CHECKSUMS
   sprockets-rails (3.5.2) sha256=a9e88e6ce9f8c912d349aa5401509165ec42326baf9e942a85de4b76dbc4119e
   sqlite3 (1.7.3-x86_64-linux) sha256=522a3285660dec8253465880c97980e873db0d79060900be8d14194217a3ee73
   stringio (3.2.0) sha256=c37cb2e58b4ffbd33fe5cd948c05934af997b36e0b6ca6fdf43afa234cf222e1
-  stripe (18.4.2) sha256=fd08a73ab87fc0b0ad938ca71293e1051e593001b70de5e9fcf12d1097133831
+  stripe (10.15.0) sha256=fe2a4355171fc41f9d5fe147d20e817280d9a1c0272a1325520c8a7d235bc02a
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73
   timeout (0.6.1) sha256=78f57368a7e7bbadec56971f78a3f5ecbcfb59b7fcbb0a3ed6ddc08a5094accb
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f

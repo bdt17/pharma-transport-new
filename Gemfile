@@ -6,7 +6,7 @@ gem 'puma'
 gem 'pg'                    # Production PostgreSQL
 gem 'sprockets-rails'
 gem 'bootsnap', require: false
-gem 'stripe'
+gem 'stripe', '~> 10.0'
 gem 'prawn', '~> 2.4'       # 21 CFR PDF generator
 gem 'sidekiq'
 
