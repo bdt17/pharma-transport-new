@@ -1,2 +1,30 @@
-<h1>Payments#checkout</h1>
-<p>Find me in app/views/payments/checkout.html.erb</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body p-5">
+          <h2 class="text-center mb-4">💳 Secure Payment Required</h2>
+          <h4 class="text-center mb-3">$299 - Cold Chain Shipment</h4>
+          <p class="text-center text-muted mb-4">SHIP-20260319-001<br>Insulin + Vaccines • PHX→LAX</p>
+          
+          <% if Rails.env.production? && ENV['STRIPE_PUBLISHABLE_KEY'].present? %>
+            <p class="alert alert-info">Stripe keys configured - ready for live payments!</p>
+          <% else %>
+            <div class="alert alert-warning">
+              <strong>🚧 Setup Required:</strong> Add Stripe keys to Render Environment:
+              <ul class="mb-0 mt-2">
+                <li>STRIPE_PUBLISHABLE_KEY=pk_test_...</li>
+                <li>STRIPE_SECRET_KEY=sk_test_...</li>
+                <li>STRIPE_WEBHOOK_SECRET=whsec_...</li>
+              </ul>
+            </div>
+          <% end %>
+          
+          <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary btn-lg">← Back to Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
