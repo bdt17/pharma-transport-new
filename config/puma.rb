@@ -1,30 +1,26 @@
 # Puma can serve each request in a thread from an internal thread pool.
-# The `threads` method setting takes two numbers: a minimum and maximum.
-# Any libraries that use thread pools should be configured to match
-# the maximum value specified for Puma. Default is "0, 5"
-
 max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
 min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
 threads min_threads_count, max_threads_count
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+# Render PORT
 port        ENV.fetch("PORT") { 3000 }
 
-# Specifies the `environment` that Puma will run in.
+# Production
 environment ENV.fetch("RAILS_ENV") { "production" }
 
-# Use multiple worker processes to serve requests, recommended for Rails apps
-# Render sets WEB_CONCURRENCY automatically
+# Render workers
 workers ENV.fetch("WEB_CONCURRENCY") { 1 }
 
-# Use short timeouts for cold starts (Render free tier)
+# Timeouts
 worker_timeout 60
+worker_shutdown_timeout 30
 
-# FIX: Silence Render's single worker warning
-silence_single_worker_warning true
+# FIX: Puma 6.6+ syntax - set before workers
+@options[:silence_single_worker_warning] = true
 
-# Preload app for better memory usage
+# Preload app
 preload_app!
 
-# Allow puma to be restarted by `rails restart` command.
+# Allow restart
 plugin :tmp_restart
