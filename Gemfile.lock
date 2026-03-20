@@ -254,6 +254,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  devise (~> 4.9)
   devise-two-factor
   pg
   prawn (~> 2.4)

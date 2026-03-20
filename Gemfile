@@ -14,3 +14,5 @@ group :development, :test do
   gem 'sqlite3', '~> 1.4'   # Local development only
 end
 gem 'devise-two-factor'
+gem 'devise', '~> 4.9'
+ 
