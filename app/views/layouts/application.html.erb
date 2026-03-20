@@ -21,7 +21,14 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application" %>
   </head>
-
+<div class="pdf-links btn-group fixed-bottom p-3" style="background: rgba(0,0,0,0.8);">
+  <a href="/pdf/chain-of-custody?shipment_id=SHIP-20260319-001&format=coc" 
+     class="btn btn-primary btn-sm me-2" target="_blank">📄 21 CFR COC</a>
+  <a href="/pdf/chain-of-custody?shipment_id=SHIP-20260319-001&format=manifest" 
+     class="btn btn-success btn-sm me-2" target="_blank">📋 Manifest</a>
+  <a href="/pdf/chain-of-custody?shipment_id=SHIP-20260319-001&format=cert" 
+     class="btn btn-info btn-sm" target="_blank">✅ Temp Cert</a>
+</div>
   <body>
     <%= yield %>
   </body>

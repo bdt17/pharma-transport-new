@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shipment_id: MyString
+  status: MyString
+  biologics: MyText
+  origin: MyString
+  destination: MyString
+  temperature: MyString
+
+two:
+  shipment_id: MyString
+  status: MyString
+  biologics: MyText
+  origin: MyString
+  destination: MyString
+  temperature: MyString

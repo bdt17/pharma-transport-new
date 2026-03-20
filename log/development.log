@@ -1,0 +1,28 @@
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (73.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-03-19 22:24:23.622619', '2026-03-19 22:24:23.622624') RETURNING "key" /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to CreateShipments (20260319222414)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "shipments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "shipment_id" varchar, "status" varchar, "biologics" text, "origin" varchar, "destination" varchar, "temperature" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260319222414') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mShipment Create (0.8ms)[0m  [1m[32mINSERT INTO "shipments" ("shipment_id", "status", "biologics", "origin", "destination", "temperature", "created_at", "updated_at") VALUES ('SHIP-001', 'delivered', 'Insulin+mRNA', 'PHX', 'LAX', '2-8C', '2026-03-19 22:24:46.734832', '2026-03-19 22:24:46.734832') RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (67.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mShipment Load (0.1ms)[0m  [1m[34mSELECT "shipments".* FROM "shipments" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mShipment Destroy (0.5ms)[0m  [1m[31mDELETE FROM "shipments" WHERE "shipments"."id" = 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (133.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mShipment Create (1.2ms)[0m  [1m[32mINSERT INTO "shipments" ("shipment_id", "status", "biologics", "origin", "destination", "temperature", "created_at", "updated_at") VALUES ('SHIP-20260319-001', 'delivered', 'Insulin 100U/ml (2x10ml vials), mRNA Vaccines Lot#VAX456 (100 doses)', 'Phoenix AZ Cold Chain Facility', 'Los Angeles Medical Center - ICU', '2-8°C (Continuously monitored)', '2026-03-19 22:27:56.944541', '2026-03-19 22:27:56.944541') RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mShipment Create (0.6ms)[0m  [1m[32mINSERT INTO "shipments" ("shipment_id", "status", "biologics", "origin", "destination", "temperature", "created_at", "updated_at") VALUES ('SHIP-20260319-002', 'in_transit', 'Biologics Batch BIO-789 (50 units)', 'Phoenix AZ', 'Tucson Medical Center', '2-8°C stable', '2026-03-19 22:27:56.949236', '2026-03-19 22:27:56.949236') RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mShipment Create (0.2ms)[0m  [1m[32mINSERT INTO "shipments" ("shipment_id", "status", "biologics", "origin", "destination", "temperature", "created_at", "updated_at") VALUES ('SHIP-20260319-003', 'pending', 'Hepatitis B Vaccine (200 doses)', 'Phoenix AZ', 'Flagstaff Regional Hospital', '-20°C Frozen', '2026-03-19 22:27:56.951661', '2026-03-19 22:27:56.951661') RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
