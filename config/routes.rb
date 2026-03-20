@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root "home#index"
+get '/webhook-test', to: ->(_) { [200, {'Content-Type' => 'text/plain'}, ['OK']] }
 
   # AUTH
   get "login", to: "sessions#new", as: :login
