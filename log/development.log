@@ -26,3 +26,217 @@ Migrating to CreateShipments (20260319222414)
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mShipment Create (0.2ms)[0m  [1m[32mINSERT INTO "shipments" ("shipment_id", "status", "biologics", "origin", "destination", "temperature", "created_at", "updated_at") VALUES ('SHIP-20260319-003', 'pending', 'Hepatitis B Vaccine (200 doses)', 'Phoenix AZ', 'Flagstaff Regional Hospital', '-20°C Frozen', '2026-03-19 22:27:56.951661', '2026-03-19 22:27:56.951661') RETURNING "id" /*application='PharmaTransportClean'*/[0m
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/zero/pharma-transport-clean/config/environment.rb:5)
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/zero/pharma-transport-clean/config/environment.rb:5)
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/zero/pharma-transport-clean/config/environment.rb:5)
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddShipmentFields (20260320023137)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260320023137') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (130.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddFieldsToShipments (20260320023241)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "shipments" ADD "status" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[35m (272.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-03-20 22:13:52.188826', '2026-03-20 22:13:52.188830') RETURNING "key" /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to CreateShipments (20260319222414)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "shipments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "shipment_id" varchar, "status" varchar, "biologics" text, "origin" varchar, "destination" varchar, "temperature" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260319222414') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddShipmentFields (20260320023137)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260320023137') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddFieldsToShipments (20260320023241)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.8ms)[0m  [1m[35mALTER TABLE "shipments" ADD "status" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[35m (135.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-03-20 22:15:26.566653', '2026-03-20 22:15:26.566657') RETURNING "key" /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to CreateShipments (20260319222414)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "shipments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "shipment_id" varchar, "status" varchar, "biologics" text, "origin" varchar, "destination" varchar, "temperature" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260319222414') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddShipmentFields (20260320023137)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260320023137') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddMissingFieldsToShipments (20260320023421)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (3.0ms)[0m  [1m[35mALTER TABLE "shipments" ADD "status" varchar DEFAULT 'PENDING' NOT NULL /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[35m (260.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-03-20 22:16:31.707599', '2026-03-20 22:16:31.707603') RETURNING "key" /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to CreateShipments (20260319222414)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "shipments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "shipment_id" varchar, "status" varchar, "biologics" text, "origin" varchar, "destination" varchar, "temperature" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260319222414') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to DeviseCreateUsers (20260320032757)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime(6), "remember_created_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token") /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260320032757') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddMfaToUsers (20260320033430)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_otp_secret" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "otp_backup_codes" text /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "consumed_timestep" integer /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260320033430') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddNameToUsers (20260320040559)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (26.3ms)[0m  [1m[35mALTER TABLE "users" ADD "name" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260320040559') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddDeviseTrackableToUsers (20260320040750)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.3ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_at" datetime(6) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "users" ADD "sign_in_count" integer /*application='PharmaTransportClean'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "users" ADD "current_sign_in_ip" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_ip" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "last_sign_in_at" datetime(6) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "failed_attempts" integer /*application='PharmaTransportClean'*/[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "users" ADD "unlock_token" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "users" ADD "locked_at" datetime(6) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260320040750') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Started GET "/" for ::1 at 2026-03-20 15:18:29 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by HomeController#index as HTML
+Redirected to http://localhost:3000/login
+Completed 302 Found in 11ms (ActiveRecord: 0.0ms | Allocations: 1413)
+
+
+Started GET "/login" for ::1 at 2026-03-20 15:18:29 -0700
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 11.4ms | Allocations: 1585)
+  Rendered layout layouts/application.html.erb (Duration: 14.4ms | Allocations: 2262)
+Completed 200 OK in 34ms (Views: 25.2ms | ActiveRecord: 0.0ms | Allocations: 5476)
+
+
+Started POST "/login" for ::1 at 2026-03-20 15:19:20 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "email"=>"[FILTERED]", "password"=>"[FILTERED]", "commit"=>"→ Secure Login + MFA"}
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.9ms | Allocations: 303)
+  Rendered layout layouts/application.html.erb (Duration: 1.8ms | Allocations: 533)
+Completed 200 OK in 9ms (Views: 2.5ms | ActiveRecord: 0.0ms | Allocations: 1899)
+
+
+Started POST "/login" for ::1 at 2026-03-20 15:19:35 -0700
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "email"=>"[FILTERED]", "password"=>"[FILTERED]", "commit"=>"→ Secure Login + MFA"}
+Redirected to http://localhost:3000/
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms | Allocations: 402)
+
+
+Started GET "/" for ::1 at 2026-03-20 15:19:35 -0700
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb
+  Rendered home/index.html.erb (Duration: 3.0ms | Allocations: 650)
+Completed 200 OK in 5ms (Views: 4.2ms | ActiveRecord: 0.0ms | Allocations: 1153)
+
+
+Started GET "/payments/checkout" for ::1 at 2026-03-20 15:19:39 -0700
+Processing by PaymentsController#checkout as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 226)
+
+
+  
+NameError (undefined local variable or method `success_payments_url' for #<PaymentsController:0x0000000000b310>):
+  
+app/controllers/payments_controller.rb:19:in `checkout'
+Started GET "/" for ::1 at 2026-03-20 15:21:42 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb
+  Rendered home/index.html.erb (Duration: 6.7ms | Allocations: 929)
+Completed 200 OK in 35ms (Views: 25.6ms | ActiveRecord: 0.0ms | Allocations: 5868)
+
+
+Started GET "/payments/checkout" for ::1 at 2026-03-20 15:21:44 -0700
+Processing by PaymentsController#checkout as HTML
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 226)
+
+
+  
+NameError (undefined local variable or method `success_payments_url' for #<PaymentsController:0x0000000000b338>):
+  
+app/controllers/payments_controller.rb:19:in `checkout'
+Started GET "/payments/checkout" for ::1 at 2026-03-20 15:23:32 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by PaymentsController#checkout as HTML
+Completed 500 Internal Server Error in 257ms (ActiveRecord: 0.0ms | Allocations: 3011)
+
+
+  
+Stripe::AuthenticationError (Invalid API Key provided: sk_test_********************XXXX):
+  
+app/controllers/payments_controller.rb:6:in `checkout'
+Started GET "/payments/checkout" for ::1 at 2026-03-20 15:23:40 -0700
+Processing by PaymentsController#checkout as HTML
+Completed 500 Internal Server Error in 210ms (ActiveRecord: 0.0ms | Allocations: 1498)
+
+
+  
+Stripe::AuthenticationError (Invalid API Key provided: sk_test_********************XXXX):
+  
+app/controllers/payments_controller.rb:6:in `checkout'
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/zero/pharma-transport-clean/config/environment.rb:5)
+Started GET "/payments/checkout" for ::1 at 2026-03-20 15:27:24 -0700
+Processing by PaymentsController#checkout as HTML
+Completed 500 Internal Server Error in 229ms (ActiveRecord: 0.0ms | Allocations: 1513)
+
+
+  
+Stripe::AuthenticationError (Invalid API Key provided: sk_test_********************XXXX):
+  
+app/controllers/payments_controller.rb:6:in `checkout'
+Started GET "/payments/checkout" for ::1 at 2026-03-20 15:27:31 -0700
+Processing by PaymentsController#checkout as HTML
+Completed 500 Internal Server Error in 230ms (ActiveRecord: 0.0ms | Allocations: 1483)
+
+
+  
+Stripe::AuthenticationError (Invalid API Key provided: sk_test_********************XXXX):
+  
+app/controllers/payments_controller.rb:6:in `checkout'
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/zero/pharma-transport-clean/config/environment.rb:5)

@@ -1,0 +1,16 @@
+GEM
+  specs:
+    stripe (10.15.0)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  stripe (~> 10.0)
+
+CHECKSUMS
+  stripe (10.15.0)
+
+BUNDLED WITH
+  4.0.3

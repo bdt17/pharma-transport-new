@@ -33,7 +33,7 @@
     .feature-icon{font-size:3rem;margin-bottom:1rem;display:block;color:var(--accent-silver)}
     .feature h3{font-size:1.25rem;font-weight:600;color:var(--mid-grey);margin-bottom:0.5rem}
     .feature p{color:var(--mid-grey);opacity:0.8}
-    .pdf-btn{display:inline-flex;align-items:center;background:var(--primary-blue);color:var(--pure-white);padding:0.75rem 1.5rem;border:none;border-radius:8px;font-weight:500;text-decoration:none;font-size:0.95rem;transition:all 0.2s;margin-top:1rem}
+    .pdf-btn{display:inline-flex;align-items:center;background:var(--primary-blue);color:var(--pure-white);padding:0.75rem 1.5rem;border:none;border-radius:8px;font-weight:500;text-decoration:none;font-size:1.1rem;transition:all 0.2s}
     .pdf-btn:hover{background:var(--lighter-blue);transform:translateY(-1px)}
     .coming-soon{background:var(--accent-silver);cursor:not-allowed}
     .lead-section{background:linear-gradient(135deg,var(--primary-blue),var(--lighter-blue));color:var(--pure-white);padding:3rem;border-radius:16px;text-align:center;margin-top:3rem}
@@ -81,7 +81,7 @@
         <span class="feature-icon">💳</span>
         <h3>Stripe Payments</h3>
         <p>Production ready billing system</p>
-        <span class="pdf-btn coming-soon">Coming Soon</span>
+        <%= link_to "Buy Now", payments_checkout_path, class: "pdf-btn pdf-coc" %>
       </div>
 
       <div class="feature">

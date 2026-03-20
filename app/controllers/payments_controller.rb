@@ -1,67 +1,66 @@
 class PaymentsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: :webhook
-  
+  protect_from_forgery except: :webhook
+
+  # Open Stripe Checkout (shipment fee)
   def checkout
-    @shipment = {
-      id: 'SHIP-20260319-001',
-      name: 'Insulin Cold Chain Shipment PHX→LAX',
-      price: 299.00,
-      biologics: ['Insulin 100U', 'Vaccines Lot#456']
-    }
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'Pharma Transport Shipment Fee',
+          },
+          unit_amount: 50_00,  # $50
+        },
+        quantity: 1
+      }],
+      mode: 'payment',
+      success_url: payments_success_url,
+      cancel_url: payments_cancel_url
+    )
+
+    # In your app, store session.id with shipment, etc.
+    redirect_to session.url, allow_other_host: true
   end
 
-  def create_payment_intent
-    Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-    
-    intent = Stripe::PaymentIntent.create({
-      amount: (params[:amount].to_f * 100).to_i,
-      currency: 'usd',
-      automatic_payment_methods: {
-        enabled: true,
-      },
-      metadata: {
-        shipment_id: params[:shipment_id],
-        biologics: params[:biologics]
-      }
-    })
-    
-    render json: { 
-      client_secret: intent.client_secret,
-      public_key: ENV['STRIPE_PUBLISHABLE_KEY']
-    }
+  def success
+    render plain: "Payment succeeded. Shipments are now billable."
   end
 
+  def cancel
+    render plain: "Payment canceled."
+  end
+
+  # Stripe webhook handler
   def webhook
     payload = request.body.read
     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-    
+    event = nil
+
     begin
       event = Stripe::Webhook.construct_event(
-        payload, sig_header, ENV['STRIPE_WEBHOOK_SECRET']
+        payload,
+        sig_header,
+        Rails.application.credentials.stripe[:webhook_secret]
       )
-    rescue Stripe::SignatureVerificationError
-      head 400
+    rescue JSON::ParserError, Stripe::SignatureVerificationError
+      head :bad_request
       return
     end
-    
+
+    Rails.logger.info("Stripe event: #{event.type} (id: #{event.id})")
+
     case event.type
-    when 'payment_intent.succeeded'
-      shipment_id = event.data.object.metadata['shipment_id']
-      
-      # 21 CFR Part 11 Audit Trail
-      AuditTrail.create!(
-        user_id: nil, # Anonymous payment
-        action: 'stripe_payment_confirmed',
-        record_type: 'shipment_payment',
-        record_id: shipment_id,
-        details: {
-          stripe_payment_intent: event.data.object.id,
-          amount: event.data.object.amount / 100.0,
-          biologics: event.data.object.metadata['biologics']
-        }.to_json
-      )
+    when 'checkout.session.completed'
+      session = event.data.object
+      Rails.logger.info("Handling checkout.session.completed: #{session.id}")
+      # In your app, e.g.:
+      # Shipment.find_by(stripe_checkout_session_id: session.id)&.update(paid: true, paid_at: Time.current)
+    else
+      Rails.logger.info("Unhandled event type: #{event.type}")
     end
-    
-    head 200
+
+    head :ok
   end
 end
