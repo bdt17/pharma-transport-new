@@ -1,0 +1,47 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+  <div class="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 space-y-8">
+    
+    <!-- Header -->
+    <div class="text-center">
+      <div class="mx-auto h-16 w-16 bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl flex items-center justify-center">
+        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <h2 class="mt-6 text-3xl font-bold text-gray-900">Pharma Transport</h2>
+      <p class="mt-2 text-sm text-gray-600">21 CFR Part 11 Compliant Logistics</p>
+    </div>
+
+    <!-- Form -->
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'space-y-6' }) do |f| %>
+      <div>
+        <%= f.label :email, "Email", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", 
+            class: "w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <div>
+        <%= f.label :password, "Password", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <%= f.password_field :password, autocomplete: "current-password", 
+            class: "w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="flex items-center">
+          <%= f.check_box :remember_me, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
+          <%= f.label :remember_me, class: "ml-2 block text-sm text-gray-900" %>
+        </div>
+      <% end %>
+
+      <div class="flex justify-between">
+        <%= link_to "Forgot password?", new_user_password_path(resource_name), class: "text-sm text-blue-600 hover:text-blue-500" %>
+      </div>
+
+      <%= f.submit "Sign in", class: "w-full bg-gradient-to-r from-green-500 to-blue-600 text-white py-3 px-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-200" %>
+    <% end %>
+
+    <div class="text-center">
+      <%= link_to "Sign up", new_user_registration_path(resource_name), class: "text-blue-600 hover:text-blue-800 font-medium" %>
+    </div>
+  </div>
+</div>
