@@ -3,25 +3,35 @@ class PaymentsController < ApplicationController
 
   # Open Stripe Checkout (shipment fee)
   def checkout
-    session = Stripe::Checkout::Session.create(
-      payment_method_types: ['card'],
-      line_items: [{
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: 'Pharma Transport Shipment Fee',
-          },
-          unit_amount: 50_00,  # $50
-        },
-        quantity: 1
-      }],
-      mode: 'payment',
-      success_url: payments_success_url,
-      cancel_url: payments_cancel_url
-    )
+    Rails.logger.info("PaymentsController#checkout starting")
 
-    # In your app, store session.id with shipment, etc.
-    redirect_to session.url, allow_other_host: true
+    begin
+      session = Stripe::Checkout::Session.create(
+        payment_method_types: ['card'],
+        line_items: [{
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Pharma Transport Shipment Fee',
+            },
+            unit_amount: 50_00,  # $50
+          },
+          quantity: 1
+        }],
+        mode: 'payment',
+        success_url: payments_success_url,
+        cancel_url: payments_cancel_url
+      )
+
+      Rails.logger.info("Stripe::Checkout::Session created: #{session.id}")
+
+      # In your app, store session.id with shipment, etc.
+      redirect_to session.url, allow_other_host: true
+    rescue => e
+      Rails.logger.error("PaymentsController#checkout FAIL: #{e.class}: #{e.message}")
+      Rails.logger.error(e.backtrace.join("\n"))
+      render plain: "Payment error (see logs)", status: 500
+    end
   end
 
   def success
