@@ -21,5 +21,6 @@ Rails.application.routes.draw do
   # LEADS
   post "lead_capture",                  to: "leads#create"
   get '/webhook-test', to: ->(_) { [200, {'Content-Type' => 'text/plain'}, ['OK']] }
+  get '/checkout-test', to: proc { [200, {'Content-Type' => 'text/plain'}, ['OK']] }
 
 end
