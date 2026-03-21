@@ -30,7 +30,7 @@ class PaymentsController < ApplicationController
     rescue => e
       Rails.logger.error("PaymentsController#checkout FAIL: #{e.class}: #{e.message}")
       Rails.logger.error(e.backtrace.join("\n"))
-      render plain: "Payment error (see logs)", status: 500
+      render plain: "Payment error (see logs)", status: :internal_server_error
     end
   end
 
