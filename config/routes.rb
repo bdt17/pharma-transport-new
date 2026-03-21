@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'payments/checkout',              to: 'payments#checkout'
   post 'payments/create_payment_intent', to: 'payments#create_payment_intent'
   get  'payments/success',              to: 'payments#success'
+  get '/payments/debug', to: 'payments#debug'
   get  'payments/cancel',               to: 'payments#cancel'
   post '/stripe/webhook',              to: 'payments#webhook'
 

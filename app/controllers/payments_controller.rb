@@ -1,3 +1,4 @@
+  GNU nano 7.2                                    app/controllers/payments_controller.rb                                             
 class PaymentsController < ApplicationController
   protect_from_forgery except: :webhook
 
@@ -74,3 +75,8 @@ class PaymentsController < ApplicationController
     head :ok
   end
 end
+
+
+
+
+
