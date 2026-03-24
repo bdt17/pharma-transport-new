@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "application#index"
+  get '/batches/:id/chain-of-custody.pdf', to: 'batches#show'
   
   get "/batches", to: proc { 
     [200, {"Content-Type" => "text/plain"}, ["Batches page coming soon..."]]
