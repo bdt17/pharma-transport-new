@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  root "pages#index"  # Fixed!
+  root "pages#index"
   
-  get '/batches/:id/chain-of-custody.pdf', to: 'batches#show'
+  # Dashboard + Batch routes (NEW)
+  get '/batches', to: 'batches#index', as: :batches
+  get '/batches/:id', to: 'batches#show', as: :batch
+  get '/batches/:id/chain-of-custody.pdf', to: 'batches#show', as: :batch_pdf
   
-  get "/batches", to: proc {
-    [200, {"Content-Type" => "text/plain"}, ["Batches page coming soon..."]]
-  }
-
+  # Health check (KEEP)
   get "/health", to: proc {
     [200, {"Content-Type" => "application/json"},
      [{ok: true, service: "pharma-transport", ts: Time.now.utc.iso8601}.to_json]]

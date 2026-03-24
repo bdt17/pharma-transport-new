@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pharma Batches Dashboard - Thomas IT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%); 
+      min-height: 100vh; 
+      color: #333;
+    }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    .header { 
+      background: rgba(255,255,255,0.95); 
+      backdrop-filter: blur(20px); 
+      border-radius: 20px; 
+      padding: 2rem; 
+      margin-bottom: 2rem; 
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+    }
+    h1 { color: #1e3c72; font-size: 2.8rem; font-weight: 700; }
+    .stats { display: flex; gap: 2rem; }
+    .stat { text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: 700; color: #ff6b35; }
+    .stat-label { color: #666; font-size: 0.9rem; }
+    
+    .batches-table { 
+      background: white; 
+      border-radius: 20px; 
+      overflow: hidden; 
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th { 
+      background: #1e3c72; 
+      color: white; 
+      padding: 1.5rem; 
+      text-align: left; 
+      font-weight: 600;
+    }
+    td { padding: 1.2rem 1.5rem; border-bottom: 1px solid #f0f0f0; }
+    tr:hover { background: #f8f9ff; }
+    
+    .status { 
+      padding: 0.4rem 1rem; 
+      border-radius: 25px; 
+      font-weight: 600; 
+      font-size: 0.85rem;
+    }
+    .delivered { background: #d4edda; color: #155724; }
+    .in-transit { background: #fff3cd; color: #856404; }
+    .pending { background: #cce5ff; color: #004085; }
+    
+    .pdf-btn { 
+      background: linear-gradient(135deg, #ff6b35, #f7931e); 
+      color: white; 
+      padding: 0.7rem 1.5rem; 
+      text-decoration: none; 
+      border-radius: 10px; 
+      font-weight: 600; 
+      transition: all 0.3s;
+      box-shadow: 0 5px 15px rgba(255,107,53,0.3);
+    }
+    .pdf-btn:hover { 
+      transform: translateY(-2px); 
+      box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+    }
+    
+    @media (max-width: 768px) {
+      .container { padding: 1rem; }
+      .header { flex-direction: column; gap: 1rem; text-align: center; }
+      .stats { justify-content: center; }
+      table { font-size: 0.9rem; }
+      th, td { padding: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🚚 Active Batches Dashboard</h1>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number"><%= @batches.count %></div>
+          <div class="stat-label">Active Batches</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">99.9%</div>
+          <div class="stat-label">Compliance</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">0.03s</div>
+          <div class="stat-label">Avg Response</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="batches-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Batch ID</th>
+            <th>Status</th>
+            <th>Temperature</th>
+            <th>Location</th>
+            <th>ETA</th>
+            <th>21 CFR PDF</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @batches.each do |batch| %>
+          <tr>
+            <td style="font-family: monospace; font-weight: 600; color: #1e3c72;">
+              <%= batch[:id] %>
+            </td>
+            <td>
+              <span class="status <%= batch[:status].downcase.gsub(' ', '-') %>">
+                <%= batch[:status] %>
+              </span>
+            </td>
+            <td style="font-family: monospace; font-weight: 500;">
+              <%= batch[:temp] %>
+            </td>
+            <td><%= batch[:location] %></td>
+            <td style="font-family: monospace;">
+              <%= batch[:eta] %>
+            </td>
+            <td>
+              <%= link_to "📄 Chain of Custody", batch_pdf_path(batch[:id]), class: "pdf-btn" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
