@@ -1,11 +1,13 @@
 services:
   - type: web
-    name: pharma-transport
+    name: pharma-transport-new
     env: ruby
-    repo: https://github.com/bdt17/pharma-transport-new
-    branch: main
     buildCommand: bundle install
-    startCommand: bundle exec puma -C config.ru -p $PORT -b tcp://0.0.0.0
+    startCommand: bundle exec puma -C config/puma.rb
     envVars:
-      - key: RACK_ENV
+      - key: RAILS_ENV
         value: production
+      - key: RAILS_SERVE_STATIC_FILES
+        value: true
+      - key: RAILS_LOG_TO_STDOUT
+        value: true
