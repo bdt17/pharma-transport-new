@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thomas IT | Pharma Transport SaaS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); min-height: 100vh; }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    
+    header { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .logo { font-size: 1.8rem; font-weight: 700; color: #1e3c72; text-decoration: none; }
+    .nav-links { display: flex; list-style: none; gap: 2rem; }
+    .nav-links a { color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: #1e3c72; }
+    
+    .hero { text-align: center; padding: 8rem 0 6rem; color: white; }
+    .hero h1 { font-size: 4rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.2; }
+    .hero .subtitle { font-size: 1.5rem; margin-bottom: 2rem; opacity: 0.95; }
+    .cta-button { display: inline-block; background: #ff6b35; color: white; padding: 1.2rem 3rem; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all 0.3s; box-shadow: 0 10px 30px rgba(255,107,53,0.3); }
+    .cta-button:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255,107,53,0.4); }
+    
+    .features { background: white; padding: 6rem 0; }
+    .features h2 { text-align: center; font-size: 3rem; margin-bottom: 4rem; color: #1e3c72; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; }
+    .feature-card { text-align: center; padding: 3rem 2rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); transition: transform 0.3s; }
+    .feature-card:hover { transform: translateY(-10px); }
+    .feature-card .icon { font-size: 4rem; margin-bottom: 1.5rem; display: block; }
+    .feature-card h3 { font-size: 1.8rem; margin-bottom: 1rem; color: #1e3c72; }
+    
+    .compliance { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 6rem 0; }
+    .compliance-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .compliance h2 { font-size: 3rem; margin-bottom: 2rem; }
+    .compliance-badges { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .badge { background: rgba(255,255,255,0.2); padding: 0.8rem 1.5rem; border-radius: 50px; font-weight: 500; backdrop-filter: blur(10px); }
+    
+    .stats { background: white; padding: 4rem 0; text-align: center; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; }
+    .stat { }
+    .stat-number { font-size: 4rem; font-weight: 700; color: #ff6b35; display: block; }
+    .stat-label { font-size: 1.2rem; color: #666; }
+    
+    footer { background: #1a1a1a; color: white; text-align: center; padding: 3rem 0 1.5rem; }
+    .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; }
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a { color: white; font-size: 1.5rem; transition: opacity 0.3s; }
+    .social-links a:hover { opacity: 0.7; }
+    
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .hero .subtitle { font-size: 1.2rem; }
+      .nav-links { display: none; }
+      .compliance-content { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+    
+    .pulse { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <a href="#" class="logo">Thomas IT 🚚💉</a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#compliance">Compliance</a></li>
+        <li><a href="/batches">Batches</a></li>
+        <li><a href="/health">Status</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Pharma Transport SaaS</h1>
+      <p class="subtitle">21 CFR Part 11 Compliant Cold Chain Tracking</p>
+      <a href="#features" class="cta-button pulse">Start Tracking Now</a>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <h2>Enterprise Grade Features</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="icon">📍</span>
+          <h3>Real-Time GPS</h3>
+          <p>Live location tracking with geofencing alerts and route optimization for biologics transport.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">🔬</span>
+          <h3>Cold Chain Monitoring</h3>
+          <p>Temperature, humidity, and shock sensors with automated compliance reporting.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">🔒</span>
+          <h3>Chain of Custody</h3>
+          <p>Digital signatures, tamper-proof logs, and multi-party validation workflows.</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">⚡</span>
+          <h3>Instant Alerts</h3>
+          <p>SMS/Email notifications for temperature excursions, delays, and security events.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="compliance" class="compliance">
+    <div class="container">
+      <div class="compliance-content">
+        <div>
+          <h2>21 CFR Part 11 Compliant</h2>
+          <p>Built for pharmaceutical logistics with full regulatory compliance including electronic signatures, audit trails, and data integrity validation.</p>
+          <div class="compliance-badges">
+            <span class="badge">21 CFR Part 11</span>
+            <span class="badge">FDA Compliant</span>
+            <span class="badge">HIPAA Ready</span>
+            <span class="badge">GDPR</span>
+          </div>
+        </div>
+        <div>
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZmZmIiByeD0iMjAiLz4KPHRleHQgeD0iMTUwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzFlM2M3MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNvbXBsaWFudCBQbGF0Zm9ybTwvdGV4dD4KPC9zdmc+" alt="Compliance Dashboard" style="width:100%; border-radius:15px; box-shadow:0 20px 40px rgba(0,0,0,0.2);">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-number">99.9%</span>
+          <span class="stat-label">Uptime SLA</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">1,247</span>
+          <span class="stat-label">Active Batches</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">0.02s</span>
+          <span class="stat-label">API Response</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Compliance Rate</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <strong>Thomas IT</strong><br>
+          <small>Phoenix, AZ | Pharma Transport SaaS</small>
+        </div>
+        <div class="social-links">
+          <a href="#">📧 contact@thomasit.com</a>
+          <a href="/health">🟢 Status</a>
+          <a href="/batches">📦 Batches</a>
+        </div>
+      </div>
+      <p>&copy; 2026 Thomas IT. All rights reserved. 21 CFR Part 11 Compliant.</p>
+    </div>
+  </footer>
+</body>
+</html>
