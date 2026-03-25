@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "pages#index"
+  get '/pay', to: 'payments#create'
   
   resources :batches, only: [:index, :show] do
     member do
