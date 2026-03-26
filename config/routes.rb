@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   }
 
   # Devise (login/signup - ready for later)
-#  devise_for :users
+  devise_for :users
 
   # Legacy redirects (optional)
   get "/batches/:id", to: redirect("/batches/%{id}")
