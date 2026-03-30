@@ -1,3 +1,4 @@
+# Gemfile
 source 'https://rubygems.org'
 ruby '3.2.2'
 
@@ -13,6 +14,9 @@ gem 'sidekiq'
 group :development, :test do
   gem 'sqlite3', '~> 1.4'   # Local development only
 end
+
 gem 'devise-two-factor'
 gem 'devise', '~> 4.9'
- 
+
+# Tailwind CSS (from earlier)
+gem 'tailwindcss-rails', '~> 2.0'

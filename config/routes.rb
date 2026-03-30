@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "pages#index"
 
   # 🔐 Authentication (Devise)
-  devise_for :users, controllers: { 
+  devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
@@ -38,7 +38,7 @@ Rails.application.routes.draw do
 
   # 🚚 Quick actions
   get '/demo', to: 'pages#demo'
-  
+
   # Legacy redirects
   get '/login', to: redirect('/users/sign_in')
   get '/register', to: redirect('/users/sign_up')

@@ -258,6 +258,16 @@ GEM
     sqlite3 (1.7.3-x86_64-linux)
     stringio (3.2.0)
     stripe (10.15.0)
+    tailwindcss-rails (2.7.9-aarch64-linux)
+      railties (>= 7.0.0)
+    tailwindcss-rails (2.7.9-arm-linux)
+      railties (>= 7.0.0)
+    tailwindcss-rails (2.7.9-arm64-darwin)
+      railties (>= 7.0.0)
+    tailwindcss-rails (2.7.9-x86_64-darwin)
+      railties (>= 7.0.0)
+    tailwindcss-rails (2.7.9-x86_64-linux)
+      railties (>= 7.0.0)
     thor (1.5.0)
     timeout (0.6.1)
     tsort (0.2.0)
@@ -297,6 +307,7 @@ DEPENDENCIES
   sprockets-rails
   sqlite3 (~> 1.4)
   stripe (~> 10.0)
+  tailwindcss-rails (~> 2.0)
 
 CHECKSUMS
   actioncable (7.1.6) sha256=ad428d5f0a810452160820ae3cf3d9d68d8f59e7c76de3bd1f1de2a5ad03c3da
@@ -394,6 +405,11 @@ CHECKSUMS
   sqlite3 (1.7.3-x86_64-linux) sha256=522a3285660dec8253465880c97980e873db0d79060900be8d14194217a3ee73
   stringio (3.2.0) sha256=c37cb2e58b4ffbd33fe5cd948c05934af997b36e0b6ca6fdf43afa234cf222e1
   stripe (10.15.0) sha256=fe2a4355171fc41f9d5fe147d20e817280d9a1c0272a1325520c8a7d235bc02a
+  tailwindcss-rails (2.7.9-aarch64-linux) sha256=e445c0761bcdc8fab423f35a9c6f2791ca73e46ef558a0e02601c9a2cf83dcb3
+  tailwindcss-rails (2.7.9-arm-linux) sha256=95ec559d3478b9ef42232548ebe810570266b795b08822bfc472f5e9c98630b6
+  tailwindcss-rails (2.7.9-arm64-darwin) sha256=9fd0e0f45e6695bf09c9275170d81ba47fdf6af4b7b6352d97467b7bb8e019f5
+  tailwindcss-rails (2.7.9-x86_64-darwin) sha256=55a361c43ff8a65209e6d46f4d7dd901badb3b8a26ab603991789a2e5f4f79a9
+  tailwindcss-rails (2.7.9-x86_64-linux) sha256=6ac0523506cb122e3e26bb07c2f6e150542530d0d13d8a4e8466ed7a69fbfce2
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73
   timeout (0.6.1) sha256=78f57368a7e7bbadec56971f78a3f5ecbcfb59b7fcbb0a3ed6ddc08a5094accb
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
