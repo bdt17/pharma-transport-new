@@ -3,9 +3,16 @@
 <head>
   <title>Pharma Transport</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <!-- Tailwind CSS (from tailwindcss-rails gem) -->
+  <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
+  <!-- Legacy app.css, if you still use it -->
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
 </head>
+
 <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
   <%= yield %>
 </body>
