@@ -257,7 +257,9 @@ GEM
     sqlite3 (1.7.3-x86_64-darwin)
     sqlite3 (1.7.3-x86_64-linux)
     stringio (3.2.0)
-    stripe (10.15.0)
+    stripe (19.0.0)
+      bigdecimal
+      logger
     tailwindcss-rails (2.7.9-aarch64-linux)
       railties (>= 7.0.0)
     tailwindcss-rails (2.7.9-arm-linux)
@@ -306,7 +308,7 @@ DEPENDENCIES
   sidekiq
   sprockets-rails
   sqlite3 (~> 1.4)
-  stripe (~> 10.0)
+  stripe (~> 19.0)
   tailwindcss-rails (~> 2.0)
 
 CHECKSUMS
@@ -404,7 +406,7 @@ CHECKSUMS
   sqlite3 (1.7.3-x86_64-darwin) sha256=b88e117ae14b2c5b61a7eb14da24b3b0e93cd3e1c17774ff3b6e5a03ffe4e5b7
   sqlite3 (1.7.3-x86_64-linux) sha256=522a3285660dec8253465880c97980e873db0d79060900be8d14194217a3ee73
   stringio (3.2.0) sha256=c37cb2e58b4ffbd33fe5cd948c05934af997b36e0b6ca6fdf43afa234cf222e1
-  stripe (10.15.0) sha256=fe2a4355171fc41f9d5fe147d20e817280d9a1c0272a1325520c8a7d235bc02a
+  stripe (19.0.0) sha256=dc8cf11700638e6d0c0ca10063e7829ee90b26feb8e87811dcbbffc31645a656
   tailwindcss-rails (2.7.9-aarch64-linux) sha256=e445c0761bcdc8fab423f35a9c6f2791ca73e46ef558a0e02601c9a2cf83dcb3
   tailwindcss-rails (2.7.9-arm-linux) sha256=95ec559d3478b9ef42232548ebe810570266b795b08822bfc472f5e9c98630b6
   tailwindcss-rails (2.7.9-arm64-darwin) sha256=9fd0e0f45e6695bf09c9275170d81ba47fdf6af4b7b6352d97467b7bb8e019f5
