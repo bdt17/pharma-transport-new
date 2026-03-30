@@ -1,28 +1,51 @@
+# config/routes.rb - FULL PHARMA ENTERPRISE ROUTES
 Rails.application.routes.draw do
   root "pages#index"
 
-  # Pharma Dashboard
-  resources :batches, only: [:index, :show] do
+  # 🔐 Authentication (Devise)
+  devise_for :users, controllers: { 
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
+  }
+
+  # 📊 Dashboard (login protected)
+  get '/dashboard', to: 'dashboard#index'
+
+  # 💳 Stripe Payments ✨ LIVE
+  post '/pay', to: 'payments#create'
+  get '/success', to: 'payments#success'
+  get '/cancel', to: 'payments#cancel'
+
+  # 📦 Batches (existing + enhanced)
+  resources :batches, only: [:index, :new, :create, :show] do
     member do
-      get :chain_of_custody, path: 'chain-of-custody', defaults: {format: 'pdf'}
+      get :chain_of_custody  # PDF
+    end
+    collection do
+      get :demo  # Sample data
     end
   end
 
-  # Stripe Payments
-  get '/pay', to: 'payments#checkout', as: :pay
-  post '/webhook/stripe', to: 'payments#webhook'
-  get '/payments/success', to: 'payments#success', as: :payments_success
-  get '/payments/cancel', to: 'payments#cancel', as: :payments_cancel
+  # 🛰️ GPS API (Queclink GV55)
+  namespace :api do
+    get '/gps', to: 'gps#index'
+    post '/gps/track', to: 'gps#track'
+    get '/health', to: 'health#index'
+  end
 
-  # Health & Status
-  get "/health", to: proc { 
-    [200, {"Content-Type" => "application/json"}, 
-     [{ok: true, service: "pharma-transport", ts: Time.now.utc.iso8601}.to_json]] 
-  }
+  # 📄 PDF Chain of Custody (21 CFR)
+  get '/pdf', to: 'pdfs#show', as: :pdf
 
-  # Devise (login/signup - ready for later)
-#  devise_for :users
+  # 🚚 Quick actions
+  get '/demo', to: 'pages#demo'
+  
+  # Legacy redirects
+  get '/login', to: redirect('/users/sign_in')
+  get '/register', to: redirect('/users/sign_up')
 
-  # Legacy redirects (optional)
-  get "/batches/:id", to: redirect("/batches/%{id}")
+  # Health check (Render)
+  get '/health', to: proc { [200, {}, ['OK']] }
+
+  # Catch-all for SPA (future-proof)
+  get '*path', to: 'pages#index', constraints: ->(req) { !req.xhr? && req.format.html? }
 end
