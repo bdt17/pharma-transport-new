@@ -16,7 +16,7 @@ group :development, :test do
 end
 
 gem 'devise-two-factor'
-gem 'devise', '~> 4.9'
+gem 'devise', '~> 5.0'
 
 # Tailwind CSS (from earlier)
 gem 'tailwindcss-rails', '~> 2.0'
