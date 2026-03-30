@@ -1,106 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pharma Transport Dashboard</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-blue: #0984C0;
-      --accent-silver: #AAA7B0;
-      --mid-grey: #565759;
-      --pure-white: #FFFFFF;
-      --light-variant: #C0BEC6;
-      --lighter-blue: #60BDD1;
-    }
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter',sans-serif;background:var(--pure-white);color:var(--mid-grey);line-height:1.6}
-    .container{max-width:1200px;margin:0 auto;padding:2rem}
-    .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:3rem;border-bottom:1px solid var(--accent-silver);padding-bottom:2rem}
-    h1{font-size:2rem;font-weight:600;color:var(--primary-blue);margin:0}
-    .logout{background:var(--primary-blue);color:var(--pure-white);padding:0.75rem 1.5rem;border:none;border-radius:8px;font-weight:500;cursor:pointer;font-size:0.95rem;transition:all 0.2s}
-    .logout:hover{background:var(--lighter-blue)}
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:3rem}
-    .stat-card{background:var(--pure-white);padding:1.5rem;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.07);border-left:4px solid var(--accent-silver)}
-    .stat-card.live{border-left-color:var(--primary-blue)}
-    .stat-card.compliance{border-left-color:var(--lighter-blue)}
-    .stat-card.chain{border-left-color:var(--accent-silver)}
-    .stat-number{font-size:2rem;font-weight:700;color:var(--primary-blue)}
-    .stat-label{color:var(--mid-grey);font-weight:500}
-    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-bottom:3rem}
-    .feature{background:var(--pure-white);padding:2rem;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,0.07);transition:all 0.2s;border:1px solid var(--light-variant)}
-    .feature:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,0.1);border-color:var(--primary-blue)}
-    .feature-icon{font-size:3rem;margin-bottom:1rem;display:block;color:var(--accent-silver)}
-    .feature h3{font-size:1.25rem;font-weight:600;color:var(--mid-grey);margin-bottom:0.5rem}
-    .feature p{color:var(--mid-grey);opacity:0.8}
-    .pdf-btn{display:inline-flex;align-items:center;background:var(--primary-blue);color:var(--pure-white);padding:0.75rem 1.5rem;border:none;border-radius:8px;font-weight:500;text-decoration:none;font-size:1.1rem;transition:all 0.2s}
-    .pdf-btn:hover{background:var(--lighter-blue);transform:translateY(-1px)}
-    .coming-soon{background:var(--accent-silver);cursor:not-allowed}
-    .lead-section{background:linear-gradient(135deg,var(--primary-blue),var(--lighter-blue));color:var(--pure-white);padding:3rem;border-radius:16px;text-align:center;margin-top:3rem}
-    .lead-section h2{font-size:1.75rem;margin-bottom:1rem}
-    .lead-section p{font-size:1.1rem;margin-bottom:2rem;opacity:0.95}
-    .lead-form{max-width:500px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-    .lead-form input{padding:1rem;border:2px solid rgba(255,255,255,0.3);border-radius:8px;background:rgba(255,255,255,0.1);color:var(--pure-white);font-size:1rem}
-    .lead-form input::placeholder{color:rgba(255,255,255,0.7)}
-    .lead-submit{grid-column:1/-1;background:var(--pure-white);color:var(--primary-blue);padding:1.125rem;border:none;border-radius:8px;font-size:1.1rem;font-weight:600;cursor:pointer;transition:all 0.2s}
-    .lead-submit:hover{background:#f7fafc;color:var(--primary-blue);transform:translateY(-1px);box-shadow:0 8px 25px rgba(9,132,192,0.3)}
-    @media(max-width:768px){.container{padding:1rem}.header{flex-direction:column;gap:1rem;text-align:center}.lead-form{grid-template-columns:1fr}}
-  </style>
+  <title>Pharma Transport SaaS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="container">
-    <header class="header">
-      <h1>🚚 Pharma Transport Dashboard</h1>
-      <%= button_to "Logout", logout_path, method: :delete, class: "logout" %>
-    </header>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
+  <!-- Navbar -->
+  <nav class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <div class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          🚚 Pharma Transport
+        </div>
+        <div class="space-x-4">
+          <a href="/dashboard" class="text-blue-600 hover:text-blue-800 font-medium px-4 py-2 rounded-lg hover:bg-blue-50 transition-all">Dashboard</a>
+          <a href="/login" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all">Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-    <div class="stats-grid">
-      <div class="stat-card live">
-        <div class="stat-number">✅ LIVE</div>
-        <div class="stat-label">Production SaaS</div>
+  <!-- Hero -->
+  <main class="pt-24 pb-20 px-4 md:px-8">
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-slate-800 to-black bg-clip-text text-transparent mb-8">
+        Enterprise Grade
+      </h1>
+      <p class="text-xl text-slate-700 mb-16 max-w-2xl mx-auto leading-relaxed">
+        Real-time pharma logistics with 21 CFR Part 11 compliance. Track biologics cold chain end-to-end.
+      </p>
+    </div>
+
+    <!-- Metrics Row -->
+    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 mb-20 px-4 text-center">
+      <div class="bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-white/50">
+        <div class="text-3xl font-bold text-blue-600">98%</div>
+        <div class="text-sm font-medium text-slate-600 mt-1">Uptime</div>
       </div>
-      <div class="stat-card compliance">
-        <div class="stat-number">21 CFR</div>
-        <div class="stat-label">Part 11 Compliance</div>
+      <div class="bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-white/50">
+        <div class="text-3xl font-bold text-emerald-600">1.247</div>
+        <div class="text-sm font-medium text-slate-600 mt-1">Loads/Day</div>
       </div>
-      <div class="stat-card chain">
-        <div class="stat-number">24/7</div>
-        <div class="stat-label">Cold Chain</div>
+      <div class="bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-white/50">
+        <div class="text-3xl font-bold text-purple-600">0.02%</div>
+        <div class="text-sm font-medium text-slate-600 mt-1">Loss Rate</div>
+      </div>
+      <div class="bg-white/70 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-white/50">
+        <div class="text-3xl font-bold text-orange-600">100%</div>
+        <div class="text-sm font-medium text-slate-600 mt-1">Compliant</div>
       </div>
     </div>
 
-    <div class="features">
-      <div class="feature">
-        <span class="feature-icon">📄</span>
-        <h3>Chain of Custody PDF</h3>
-        <p>21 CFR Part 11 compliant documentation</p>
-        <%= link_to "Generate PDF", chain_of_custody_pdf_path(shipment_id: "SHIP-#{Time.current.strftime('%Y%m%d')}-001"), class: "pdf-btn" %>
+    <!-- Feature Cards -->
+    <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4">
+      <!-- Real-time GPS -->
+      <div class="group bg-white rounded-3xl shadow-2xl hover:shadow-3xl p-10 border border-slate-100 hover:border-blue-200 transform hover:-translate-y-2 transition-all duration-300">
+        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:scale-110 transition-transform">
+          📍
+        </div>
+        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Real-time GPS</h3>
+        <p class="text-slate-600 leading-relaxed text-center mb-8">Queclink GV55 live tracking for cold chain biologics. 98% uptime SLA.</p>
+        <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-8 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+          View Demo
+        </button>
       </div>
 
-      <div class="feature">
-        <span class="feature-icon">💳</span>
-        <h3>Stripe Payments</h3>
-        <p>Production ready billing system</p>
-        <%= link_to "Buy Now", payments_checkout_path, class: "pdf-btn pdf-coc" %>
+      <!-- Chain of Custody -->
+      <div class="group bg-white rounded-3xl shadow-2xl hover:shadow-3xl p-10 border border-slate-100 hover:border-emerald-200 transform hover:-translate-y-2 transition-all duration-300">
+        <div class="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:scale-110 transition-transform">
+          🔗
+        </div>
+        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Chain of Custody</h3>
+        <p class="text-slate-600 leading-relaxed text-center mb-8">Immutable PDF logs with e-signatures. 21 CFR Part 11 ready.</p>
+        <button class="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 text-white py-4 px-8 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+          Generate PDF
+        </button>
       </div>
 
-      <div class="feature">
-        <span class="feature-icon">📍</span>
-        <h3>GPS Tracking</h3>
-        <p>Real-time biologics monitoring</p>
-        <span class="pdf-btn coming-soon">Coming Soon</span>
+      <!-- 21 CFR Compliant -->
+      <div class="group bg-white rounded-3xl shadow-2xl hover:shadow-3xl p-10 border border-slate-100 hover:border-purple-200 transform hover:-translate-y-2 transition-all duration-300">
+        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl group-hover:scale-110 transition-transform">
+          📋
+        </div>
+        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">21 CFR Part 11</h3>
+        <p class="text-slate-600 leading-relaxed text-center mb-8">FDA-validated platform for pharma transport compliance.</p>
+        <button class="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-4 px-8 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+          Compliance Audit
+        </button>
       </div>
     </div>
+  </main>
 
-    <div class="lead-section">
-      <h2>💼 Pharma Logistics Demo</h2>
-      <p>Track biologics shipments with full 21 CFR Part 11 compliance</p>
-      <form action="https://formspree.io/f/xnjglwpe" method="POST" class="lead-form">
-        <input type="email" name="email" placeholder="pharma@company.com" required>
-        <input type="text" name="company" placeholder="Company" required>
-        <button type="submit" class="lead-submit">Get Demo Access →</button>
-      </form>
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-slate-900 to-gray-900 text-white/90 py-12 mt-24 border-t-4 border-blue-600/30">
+    <div class="max-w-7xl mx-auto px-8 text-center">
+      © 2026 Thomas IT Network • Phoenix, AZ • Enterprise Pharma SaaS
     </div>
-  </div>
+  </footer>
 </body>
 </html>
