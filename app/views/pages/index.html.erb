@@ -9,10 +9,13 @@
         21 CFR Part 11 Compliant Cold Chain Tracking
       </h2>
       <div class="flex flex-col sm:flex-row gap-4">
-        <%= link_to "🚀 Start Tracking Now", "#features",
-          class: "bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300" %>
-        <%= link_to "📊 View Dashboard", batches_path,
-          class: "border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-2xl font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300" %>
+        <%= link_to "🚀 Start Tracking Now",
+                    "#features",
+                    class: "bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300" %>
+
+        <%= link_to "📊 View Dashboard",
+                    batches_path,
+                    class: "border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-2xl font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300" rescue "Dashboard" %>
       </div>
     </div>
 
@@ -89,8 +92,9 @@
       <p class="text-xl text-slate-600 mb-8 leading-relaxed">
         Onboard your fleet and begin tracking cold‑chain shipments in under 10 minutes.
       </p>
-      <%= link_to "👉 Get Started", new_user_registration_path,
-        class: "inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-12 py-6 rounded-3xl text-xl font-semibold shadow-2xl hover:shadow-3xl hover:-translate-y-1 transition-all duration-300" %>
+      <%= link_to "👉 Get Started",
+                  new_user_registration_path,
+                  class: "inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-12 py-6 rounded-3xl text-xl font-semibold shadow-2xl hover:shadow-3xl hover:-translate-y-1 transition-all duration-300" rescue "Get Started" %>
     </div>
   </section>
 </div>
