@@ -2,11 +2,11 @@ Rails.application.configure do
   # Core settings
   config.cache_classes = true
   config.eager_load = false  # ← THIS FIXES CRASH
-  config.consider_all_requests_local = false
+  config.consider_all_requests_local = true
   config.action_controller.perform_caching = true
 
   # Logging
-  config.log_level = :info
+  config.log_level = :debug
 
   # Static assets
   config.public_file_server.enabled = true
