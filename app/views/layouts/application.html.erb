@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Pharma Transport</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <title>Pharma Transport</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-  <!-- Tailwind CSS (from tailwindcss-rails gem) -->
-  <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
+    <!-- Tailwind CSS (from tailwindcss-rails gem) -->
+    <%= stylesheet_link_tag "application.tailwind", "data-turbo-track": "reload" %>
+  </head>
 
-  <!-- Legacy application CSS (if you still use it) -->
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-</head>
-
-<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
-  <%= yield %>
-</body>
+  <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
+    <%= yield %>
+  </body>
 </html>
