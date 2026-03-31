@@ -4,3 +4,34 @@ Migrating to CreateShipments (20260319222414)
 Migrating to AddMissingFieldsToShipments (20260320023421)
 Migrating to CreateShipments (20260319222414)
 Migrating to CreateShipments (20260319222414)
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: localhost:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: localhost:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 0.0.0.0:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 0.0.0.0:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 127.0.0.1:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 127.0.0.1:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 127.0.0.1:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 127.0.0.1:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 127.0.0.1:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 127.0.0.1:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 127.0.0.1:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: 127.0.0.1:3000
+Started GET "/" for 127.0.0.1 at 2026-03-30 18:43:47 -0700
+Processing by PagesController#index as */*
+  Rendered layout layouts/application.html.erb (Duration: 7.4ms | Allocations: 1845)
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 0.0ms | Allocations: 5827)
+  
+ActionView::Template::Error (undefined local variable or method `javascript_importmap_tags' for #<ActionView::Base:0x0000000000b680>):
+    12:   <!-- Legacy application CSS (if you still use it) -->
+    13:   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    14: 
+    15:   <%= javascript_importmap_tags %>
+    16: </head>
+    17: 
+    18: <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
+  
+app/views/layouts/application.html.erb:15
+Started GET "/" for 127.0.0.1 at 2026-03-30 19:18:02 -0700
+Processing by PagesController#index as */*
+  Rendered layout layouts/application.html.erb (Duration: 5.9ms | Allocations: 940)
+Completed 200 OK in 15ms (Views: 9.1ms | ActiveRecord: 0.0ms | Allocations: 4987)
