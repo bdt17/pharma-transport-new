@@ -22,8 +22,12 @@ Rails.application.configure do
   config.hosts << "pharma-transport-new.onrender.com"
   config.hosts << ".onrender.com"
 
+  # Allow localhost / 127.0.0.1 for local production debug
+  config.hosts << "localhost"
+  config.hosts << "127.0.0.1"
+
   # Security
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Mailer
   config.action_mailer.default_url_options = { host: 'pharma-transport-new.onrender.com' }
