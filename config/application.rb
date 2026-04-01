@@ -12,3 +12,14 @@ module PharmaTransportClean
     config.active_record.async_query_executor = :global_thread_pool
   end
 end
+
+# Silence Devise Rack deprecation noise
+module Devise
+  module FailureApp
+    def respond
+      super
+    rescue Warning => e
+      nil if e.message.include?("unprocessable_entity")
+    end
+  end
+end

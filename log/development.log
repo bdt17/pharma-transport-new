@@ -828,3 +828,11 @@ Started GET "/favicon.ico" for 127.0.0.1 at 2026-03-29 20:32:10 -0700
   
 ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "encrypted_otp_secret", "otp_backup_codes", "consumed_timestep", "name", "current_sign_in_at", "sign_in_count", "current_sign_in_ip", "last_sign_in_ip", "last_sign_in_at", "failed_attempts", "unlock_token", "locked_at", "otp_required_for_login") VALUES ('admin@pharmatransport.com', '$2a$12$XZr3n9TdFcJFZRoU/J6sFOgw1UwGE3wiGoky66eYZczgZnVCNH1Yq', NULL, NULL, NULL, '2026-04-01 00:56:39.517704', '2026-04-01 00:56:39.517704', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (107.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
