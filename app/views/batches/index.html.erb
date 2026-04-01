@@ -49,8 +49,8 @@
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                     <%= link_to "View", batch, class: "text-indigo-600 hover:text-indigo-900" %>
-                    <%= link_to "CoC PDF", batch_chain_of_custody_path(batch), 
-                        class: "inline-flex items-center px-2 py-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs font-semibold rounded shadow transition-all duration-200", 
+                    <%= link_to "CoC PDF", chain_of_custody_batch_path(batch),
+                        class: "inline-flex items-center px-2 py-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs font-semibold rounded shadow transition-all duration-200",
                         target: "_blank" %>
                   </td>
                 </tr>
@@ -72,8 +72,12 @@
         Showing <span class="font-medium">1-<%= @batches.size %></span> of <span class="font-medium"><%= @batches.total_count %></span> results
       </div>
       <div class="flex gap-2">
-        <%= link_to "← Previous", "#", class: "px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded font-medium" %>
-        <%= link_to "Next →", "#", class: "px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-medium" %>
+        <% if @batches.previous_page %>
+          <%= link_to "← Previous", batches_path(page: @batches.previous_page), class: "px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded font-medium" %>
+        <% end %>
+        <% if @batches.next_page %>
+          <%= link_to "Next →", batches_path(page: @batches.next_page), class: "px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-medium" %>
+        <% end %>
       </div>
     </div>
   </div>
