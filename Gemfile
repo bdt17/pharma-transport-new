@@ -11,12 +11,22 @@ gem 'stripe', '~> 10.0'
 gem 'prawn', '~> 2.4'       # 21 CFR PDF generator
 gem 'sidekiq'
 
+gem 'devise', '~> 4.9'
+gem 'devise-two-factor', '~> 5.0'  # MFA for pharma compliance
+
+# Tailwind CSS (production-ready)
+gem 'tailwindcss-rails', '~> 2.0'
+
 group :development, :test do
   gem 'sqlite3', '~> 1.4'   # Local development only
+  gem 'debug', '~> 1.9'     # Rails console debugging
 end
 
-gem 'devise-two-factor'
-gem 'devise', '~> 4.9'
+group :development do
+  gem 'web-console'
+end
 
-# Tailwind CSS (from earlier)
-gem 'tailwindcss-rails', '~> 2.0'
+group :test do
+  gem 'rspec-rails'
+end
+gem 'rqrcode'

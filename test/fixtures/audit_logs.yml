@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  action: MyString
+  user: one
+  batch: one
+  tenant: one
+  metadata: MyText
+  created_at: 2026-04-01 16:19:54
+
+two:
+  action: MyString
+  user: two
+  batch: two
+  tenant: two
+  metadata: MyText
+  created_at: 2026-04-01 16:19:54

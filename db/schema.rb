@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_28_025459) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_01_232422) do
+  create_table "audit_trails", force: :cascade do |t|
+    t.string "action"
+    t.integer "user_id", null: false
+    t.integer "batch_id", null: false
+    t.integer "tenant_id", null: false
+    t.text "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_id"], name: "index_audit_trails_on_batch_id"
+    t.index ["tenant_id"], name: "index_audit_trails_on_tenant_id"
+    t.index ["user_id"], name: "index_audit_trails_on_user_id"
+  end
+
   create_table "batches", force: :cascade do |t|
     t.string "batch_id"
     t.string "product"
@@ -19,6 +32,21 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_28_025459) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tenant_id", null: false
+    t.index ["tenant_id"], name: "index_batches_on_tenant_id"
+  end
+
+  create_table "event_logs", force: :cascade do |t|
+    t.string "action"
+    t.integer "user_id", null: false
+    t.integer "batch_id", null: false
+    t.integer "tenant_id", null: false
+    t.text "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_id"], name: "index_event_logs_on_batch_id"
+    t.index ["tenant_id"], name: "index_event_logs_on_tenant_id"
+    t.index ["user_id"], name: "index_event_logs_on_user_id"
   end
 
   create_table "shipments", force: :cascade do |t|
@@ -30,6 +58,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_28_025459) do
     t.string "temperature"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tenants", force: :cascade do |t|
+    t.string "name"
+    t.string "subdomain"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "plan"
+    t.string "stripe_id"
+    t.index ["stripe_id"], name: "index_tenants_on_stripe_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,4 +95,11 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_28_025459) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "audit_trails", "batches"
+  add_foreign_key "audit_trails", "tenants"
+  add_foreign_key "audit_trails", "users"
+  add_foreign_key "batches", "tenants"
+  add_foreign_key "event_logs", "batches"
+  add_foreign_key "event_logs", "tenants"
+  add_foreign_key "event_logs", "users"
 end

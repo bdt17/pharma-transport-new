@@ -7,12 +7,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <!-- PRODUCTION Tailwind v3.4 - NO CDN WARNINGS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.4/dist/tailwind.min.css" rel="stylesheet">
+    <!-- PRODUCTION Tailwind v3.4.4 - NO CDN WARNINGS - -->
+    //cdn.jsdelivr.net/npm/tailwindcss@3.4.4/dist/tailwind.min.css" rel="stylesheet">
   </head>
-  
+
   <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen antialiased">
-    
+
     <!-- GLASS NAVBAR -->
     <nav class="bg-white/80 backdrop-blur-xl sticky top-0 z-50 shadow-lg border-b border-white/50">
       <div class="max-w-7xl mx-auto px-6 py-4">
@@ -27,7 +27,7 @@
               <p class="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Pharma Transport</p>
             </div>
           </div>
-          
+
           <!-- LIVE STATS -->
           <div class="hidden md:flex items-center space-x-6 text-sm font-semibold">
             <div class="flex items-center space-x-2 bg-emerald-100 px-3 py-1 rounded-xl">
@@ -35,27 +35,28 @@
               <span class="text-emerald-800">47 Trucks Live</span>
             </div>
             <span class="text-indigo-700 font-bold">21 CFR Part 11 ✓</span>
-            <span class="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-3 py-1 rounded-full text-xs shadow-md">Phase 10</span>
+            <span class="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-3 py-1 rounded-full text-xs shadow-md">Phase 11</span>
           </div>
-          
+
           <!-- ACTIONS -->
           <div class="flex items-center space-x-3">
-            <% if user_signed_in? %>
-              <%= link_to batches_path, class: "px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" do %>
+             <% if user_signed_in? %>
+              <%= link_to dashboard_path, class: "px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5" do %>
                 📊 Dashboard
               <% end %>
-              <%= button_to destroy_user_session_path, method: :delete, class: "px-4 py-2 text-gray-700 hover:text-gray-900 font-medium hover:bg-gray-100 rounded-lg transition-colors" do %>
+              <%= button_to destroy_user_session_path, method: :delete, class: "px-4 py-2.5 text-gray-700 hover:text-gray-900 font-semibold hover:bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300" do %>
                 Logout
               <% end %>
             <% else %>
-              <%= link_to new_user_session_path, class: "px-6 py-2.5 border-2 border-indigo-600 text-indigo-700 hover:bg-indigo-600 hover:text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300" %>
+              <%= link_to new_user_session_path, class: "px-6 py-2.5 border-2 border-indigo-600 text-indigo-700 hover:bg-indigo-600 hover:text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5" do %>
                 🔐 Login
               <% end %>
+            <% end %>
           </div>
         </div>
       </div>
     </nav>
-    
+
     <!-- FLASH -->
     <% if notice %>
       <div class="mx-6 mt-6 max-w-4xl mx-auto bg-emerald-100 border border-emerald-400 text-emerald-800 px-6 py-4 rounded-2xl shadow-lg">
@@ -67,12 +68,12 @@
         <%= alert %>
       </div>
     <% end %>
-    
+
     <!-- CONTENT -->
     <main class="max-w-7xl mx-auto px-6 pb-16">
       <%= yield %>
     </main>
-    
+
     <!-- FOOTER -->
     <footer class="bg-gradient-to-r from-slate-900 via-indigo-900 to-slate-900 text-white/90 py-12 border-t border-white/10">
       <div class="max-w-7xl mx-auto px-6 text-center">
@@ -84,7 +85,7 @@
           <span>🛡️ 2FA Protected</span>
         </div>
         <div class="text-xs opacity-75">
-          © 2026 Thomas Information Technology. Phase 10 Production SaaS.
+          © 2026 Thomas Information Technology. Phase 11 Production SaaS.
         </div>
       </div>
     </footer>

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  action: MyString
+  user: one
+  batch: one
+  tenant: one
+  metadata: MyText
+
+two:
+  action: MyString
+  user: two
+  batch: two
+  tenant: two
+  metadata: MyText

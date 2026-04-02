@@ -836,3 +836,1464 @@ ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
   [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "encrypted_otp_secret", "otp_backup_codes", "consumed_timestep", "name", "current_sign_in_at", "sign_in_count", "current_sign_in_ip", "last_sign_in_ip", "last_sign_in_at", "failed_attempts", "unlock_token", "locked_at", "otp_required_for_login") VALUES ('admin@pharmatransport.com', '$2a$12$XZr3n9TdFcJFZRoU/J6sFOgw1UwGE3wiGoky66eYZczgZnVCNH1Yq', NULL, NULL, NULL, '2026-04-01 00:56:39.517704', '2026-04-01 00:56:39.517704', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
   [1m[36mTRANSACTION (107.7ms)[0m  [1m[36mcommit transaction[0m
   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to CreateTenants (20260401223645)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "tenants" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "subdomain" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260401223645') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (309.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddPlanAndStripeToTenants (20260401223859)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.2ms)[0m  [1m[35mALTER TABLE "tenants" ADD "plan" integer /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "tenants" ADD "stripe_id" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_tenants_on_stripe_id" ON "tenants" ("stripe_id") /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260401223859') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (77.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddMissingColumnsToTenant (20260401223956)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.4ms)[0m  [1m[35mALTER TABLE "tenants" ADD "plan" integer /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mrollback transaction[0m
+Started GET "/" for 127.0.0.1 at 2026-04-01 15:52:40 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 2 pending migrations:
+
+db/migrate/20260401223956_add_missing_columns_to_tenant.rb
+db/migrate/20260401224005_add_tenant_to_batch.rb
+
+
+):
+  
+activerecord (7.1.6) lib/active_record/migration.rb:755:in `check_pending_migrations'
+activerecord (7.1.6) lib/active_record/migration.rb:644:in `block (2 levels) in call'
+activesupport (7.1.6) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (7.1.6) lib/active_record/migration.rb:649:in `block in call'
+activerecord (7.1.6) lib/active_record/migration.rb:641:in `synchronize'
+activerecord (7.1.6) lib/active_record/migration.rb:641:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.6) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.6) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in `block in tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in `tagged'
+activesupport (7.1.6) lib/active_support/broadcast_logger.rb:241:in `method_missing'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.2.5) lib/rack/method_override.rb:28:in `call'
+rack (3.2.5) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.2.5) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.6) lib/rails/engine.rb:536:in `call'
+puma (7.2.0) lib/puma/configuration.rb:296:in `call'
+puma (7.2.0) lib/puma/request.rb:103:in `block in handle_request'
+puma (7.2.0) lib/puma/thread_pool.rb:355:in `with_force_shutdown'
+puma (7.2.0) lib/puma/request.rb:102:in `handle_request'
+puma (7.2.0) lib/puma/server.rb:503:in `process_client'
+puma (7.2.0) lib/puma/server.rb:262:in `block in run'
+puma (7.2.0) lib/puma/thread_pool.rb:182:in `block in spawn_thread'
+Started GET "/favicon.ico" for 127.0.0.1 at 2026-04-01 15:52:41 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 2 pending migrations:
+
+db/migrate/20260401223956_add_missing_columns_to_tenant.rb
+db/migrate/20260401224005_add_tenant_to_batch.rb
+
+
+):
+  
+activerecord (7.1.6) lib/active_record/migration.rb:755:in `check_pending_migrations'
+activerecord (7.1.6) lib/active_record/migration.rb:644:in `block (2 levels) in call'
+activesupport (7.1.6) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (7.1.6) lib/active_record/migration.rb:649:in `block in call'
+activerecord (7.1.6) lib/active_record/migration.rb:641:in `synchronize'
+activerecord (7.1.6) lib/active_record/migration.rb:641:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.6) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.6) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in `block in tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in `tagged'
+activesupport (7.1.6) lib/active_support/broadcast_logger.rb:241:in `method_missing'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.2.5) lib/rack/method_override.rb:28:in `call'
+rack (3.2.5) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.2.5) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.6) lib/rails/engine.rb:536:in `call'
+puma (7.2.0) lib/puma/configuration.rb:296:in `call'
+puma (7.2.0) lib/puma/request.rb:103:in `block in handle_request'
+puma (7.2.0) lib/puma/thread_pool.rb:355:in `with_force_shutdown'
+puma (7.2.0) lib/puma/request.rb:102:in `handle_request'
+puma (7.2.0) lib/puma/server.rb:503:in `process_client'
+puma (7.2.0) lib/puma/server.rb:262:in `block in run'
+puma (7.2.0) lib/puma/thread_pool.rb:182:in `block in spawn_thread'
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddMissingColumnsToTenant (20260401223956)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "tenants" ADD "plan" integer /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddMissingColumnsToTenant (20260401223956)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "tenants" ADD "plan" integer /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddMissingColumnsToTenant (20260401223956)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "tenants" ADD "plan" integer /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "batches" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (197.3ms)[0m  [1m[35mCREATE TABLE "batches" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "batch_id" varchar, "product" varchar, "status" varchar, "temp" varchar, "location" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "shipments" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "shipments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "shipment_id" varchar, "status" varchar, "biologics" text, "origin" varchar, "destination" varchar, "temperature" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "tenants" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "tenants" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "subdomain" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "plan" integer, "stripe_id" varchar) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_tenants_on_stripe_id" ON "tenants" ("stripe_id") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime(6), "remember_created_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "encrypted_otp_secret" varchar, "otp_backup_codes" text, "consumed_timestep" integer, "name" varchar, "current_sign_in_at" datetime(6), "sign_in_count" integer, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "last_sign_in_at" datetime(6), "failed_attempts" integer, "unlock_token" varchar, "locked_at" datetime(6), "otp_required_for_login" boolean DEFAULT 1 NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260401223859) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20260401223645),
+(20260328025459),
+(20260328024926),
+(20260320040750),
+(20260320040559),
+(20260320033430),
+(20260320032757),
+(20260319222414); /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-04-01 22:54:13.753587', '2026-04-01 22:54:13.753594') RETURNING "key" /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'c5d7a74408373799931bf96fef90275d7feca2fe', '2026-04-01 22:54:13.798348', '2026-04-01 22:54:13.798352') RETURNING "key" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "batches" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (56.0ms)[0m  [1m[35mCREATE TABLE "batches" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "batch_id" varchar, "product" varchar, "status" varchar, "temp" varchar, "location" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "shipments" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "shipments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "shipment_id" varchar, "status" varchar, "biologics" text, "origin" varchar, "destination" varchar, "temperature" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "tenants" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "tenants" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "subdomain" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "plan" integer, "stripe_id" varchar) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_tenants_on_stripe_id" ON "tenants" ("stripe_id") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime(6), "remember_created_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "encrypted_otp_secret" varchar, "otp_backup_codes" text, "consumed_timestep" integer, "name" varchar, "current_sign_in_at" datetime(6), "sign_in_count" integer, "current_sign_in_ip" varchar, "last_sign_in_ip" varchar, "last_sign_in_at" datetime(6), "failed_attempts" integer, "unlock_token" varchar, "locked_at" datetime(6), "otp_required_for_login" boolean DEFAULT 1 NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260401223859) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20260401223645),
+(20260328025459),
+(20260328024926),
+(20260320040750),
+(20260320040559),
+(20260320033430),
+(20260320032757),
+(20260319222414); /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-04-01 22:54:14.064188', '2026-04-01 22:54:14.064191') RETURNING "key" /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.1ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2026-04-01 22:54:14.066422' WHERE "ar_internal_metadata"."key" = 'environment' /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'c5d7a74408373799931bf96fef90275d7feca2fe', '2026-04-01 22:54:14.068750', '2026-04-01 22:54:14.068753') RETURNING "key" /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddMissingColumnsToTenant (20260401223956)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "tenants" ADD "plan" integer /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddTenantToBatch (20260401224005)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "abatches" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "batch_id" varchar DEFAULT NULL, "product" varchar DEFAULT NULL, "status" varchar DEFAULT NULL, "temp" varchar DEFAULT NULL, "location" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "abatches" ("id","batch_id","product","status","temp","location","created_at","updated_at")
+                     SELECT "id","batch_id","product","status","temp","location","created_at","updated_at" FROM "batches" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (1.3ms)[0m  [1m[35mDROP TABLE "batches" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "batches" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "batch_id" varchar DEFAULT NULL, "product" varchar DEFAULT NULL, "status" varchar DEFAULT NULL, "temp" varchar DEFAULT NULL, "location" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "tenant_id" integer NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "batches" ("id","batch_id","product","status","temp","location","created_at","updated_at")
+                     SELECT "id","batch_id","product","status","temp","location","created_at","updated_at" FROM "abatches" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "abatches" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_batches_on_tenant_id" ON "batches" ("tenant_id") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "abatches" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "batch_id" varchar DEFAULT NULL, "product" varchar DEFAULT NULL, "status" varchar DEFAULT NULL, "temp" varchar DEFAULT NULL, "location" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "tenant_id" integer NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_abatches_on_tenant_id" ON "abatches" ("tenant_id") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "abatches" ("id","batch_id","product","status","temp","location","created_at","updated_at","tenant_id")
+                     SELECT "id","batch_id","product","status","temp","location","created_at","updated_at","tenant_id" FROM "batches" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "batches" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "batches" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "batch_id" varchar DEFAULT NULL, "product" varchar DEFAULT NULL, "status" varchar DEFAULT NULL, "temp" varchar DEFAULT NULL, "location" varchar DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "tenant_id" integer NOT NULL, CONSTRAINT "fk_rails_7de6c6970a"
+FOREIGN KEY ("tenant_id")
+  REFERENCES "tenants" ("id")
+) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_batches_on_tenant_id" ON "batches" ("tenant_id") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "batches" ("id","batch_id","product","status","temp","location","created_at","updated_at","tenant_id")
+                     SELECT "id","batch_id","product","status","temp","location","created_at","updated_at","tenant_id" FROM "abatches" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "abatches" /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260401224005') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (132.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Started GET "/" for 127.0.0.1 at 2026-04-01 15:57:45 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by PagesController#index as HTML
+Completed 401 Unauthorized in 44ms (ActiveRecord: 0.0ms | Allocations: 2799)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2026-04-01 15:57:45 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 5.1ms | Allocations: 578)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 22.5ms | Allocations: 2449)
+  Rendered layout layouts/application.html.erb (Duration: 30.1ms | Allocations: 4229)
+Completed 200 OK in 115ms (Views: 60.1ms | ActiveRecord: 11.2ms | Allocations: 23031)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2026-04-01 15:57:45 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTenant Create (0.6ms)[0m  [1m[32mINSERT INTO "tenants" ("name", "subdomain", "created_at", "updated_at", "plan", "stripe_id") VALUES ('Banner Pharma', 'banner', '2026-04-01 23:00:52.601945', '2026-04-01 23:00:52.601945', NULL, NULL) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (135.4ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/tenants" for ::1 at 2026-04-01 16:01:18 -0700
+Processing by PagesController#index as HTML
+  Parameters: {"path"=>"tenants"}
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.0ms | Allocations: 933)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 16:01:19 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 3.0ms | Allocations: 543)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 11.0ms | Allocations: 1578)
+  Rendered layout layouts/application.html.erb (Duration: 15.0ms | Allocations: 3222)
+Completed 200 OK in 53ms (Views: 21.1ms | ActiveRecord: 11.4ms | Allocations: 13054)
+
+
+Started GET "/favicon.ico" for ::1 at 2026-04-01 16:01:19 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started POST "/users/sign_in" for ::1 at 2026-04-01 16:01:22 -0700
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'brett.thomas29.97@gmail.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='PharmaTransportClean',controller='sessions'*/[0m
+Completed 401 Unauthorized in 11ms (ActiveRecord: 0.5ms | Allocations: 3472)
+
+
+Processing by Users::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.9ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.7ms | Allocations: 717)
+  Rendered layout layouts/application.html.erb (Duration: 5.1ms | Allocations: 1092)
+Completed 200 OK in 295ms (Views: 6.1ms | ActiveRecord: 0.0ms | Allocations: 2114)
+
+
+Started GET "/users/sign_in?class=px-6+py-2.5+border-2+border-indigo-600+text-indigo-700+hover%3Abg-indigo-600+hover%3Atext-white+font-semibold+rounded-xl+shadow-lg+hover%3Ashadow-xl+transition-all+duration-300" for ::1 at 2026-04-01 16:01:24 -0700
+Processing by Users::SessionsController#new as HTML
+  Parameters: {"class"=>"px-6 py-2.5 border-2 border-indigo-600 text-indigo-700 hover:bg-indigo-600 hover:text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.4ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 11.0ms | Allocations: 719)
+  Rendered layout layouts/application.html.erb (Duration: 13.8ms | Allocations: 1134)
+Completed 200 OK in 19ms (Views: 15.6ms | ActiveRecord: 0.0ms | Allocations: 1810)
+
+
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2026-04-01 16:01:47 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+Started GET "/users/sign_in?class=px-6+py-2.5+border-2+border-indigo-600+text-indigo-700+hover%3Abg-indigo-600+hover%3Atext-white+font-semibold+rounded-xl+shadow-lg+hover%3Ashadow-xl+transition-all+duration-300" for ::1 at 2026-04-01 16:01:51 -0700
+Processing by Users::SessionsController#new as HTML
+  Parameters: {"class"=>"px-6 py-2.5 border-2 border-indigo-600 text-indigo-700 hover:bg-indigo-600 hover:text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.3ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 1.8ms | Allocations: 719)
+  Rendered layout layouts/application.html.erb (Duration: 3.9ms | Allocations: 1134)
+Completed 200 OK in 6ms (Views: 4.5ms | ActiveRecord: 0.0ms | Allocations: 1809)
+
+
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2026-04-01 16:01:51 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+Started POST "/users/sign_in" for ::1 at 2026-04-01 16:02:13 -0700
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'brett.thomas29.97@gmail.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='PharmaTransportClean',controller='sessions'*/[0m
+Completed 401 Unauthorized in 6ms (ActiveRecord: 0.4ms | Allocations: 1655)
+
+
+Processing by Users::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.8ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.8ms | Allocations: 707)
+  Rendered layout layouts/application.html.erb (Duration: 5.9ms | Allocations: 1082)
+Completed 200 OK in 290ms (Views: 6.8ms | ActiveRecord: 0.0ms | Allocations: 1622)
+
+
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2026-04-01 16:02:13 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to CreateAuditLogs (20260401231954)
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to CreateAuditTrails (20260401232128)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.4ms)[0m  [1m[35mCREATE TABLE "audit_trails" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "action" varchar, "user_id" integer NOT NULL, "batch_id" integer NOT NULL, "tenant_id" integer NOT NULL, "metadata" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_d0abbccad0"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_c587e23eab"
+FOREIGN KEY ("batch_id")
+  REFERENCES "batches" ("id")
+, CONSTRAINT "fk_rails_5d1b7c2e5d"
+FOREIGN KEY ("tenant_id")
+  REFERENCES "tenants" ("id")
+) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_audit_trails_on_user_id" ON "audit_trails" ("user_id") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_audit_trails_on_batch_id" ON "audit_trails" ("batch_id") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_audit_trails_on_tenant_id" ON "audit_trails" ("tenant_id") /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260401232128') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (697.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to CreateEventLogs (20260401232422)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "event_logs" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "action" varchar, "user_id" integer NOT NULL, "batch_id" integer NOT NULL, "tenant_id" integer NOT NULL, "metadata" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_61d856fcce"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_d4acc7f5a5"
+FOREIGN KEY ("batch_id")
+  REFERENCES "batches" ("id")
+, CONSTRAINT "fk_rails_7c970d3e7d"
+FOREIGN KEY ("tenant_id")
+  REFERENCES "tenants" ("id")
+) /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_event_logs_on_user_id" ON "event_logs" ("user_id") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_event_logs_on_batch_id" ON "event_logs" ("batch_id") /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_event_logs_on_tenant_id" ON "event_logs" ("tenant_id") /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260401232422') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (148.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Started GET "/" for 127.0.0.1 at 2026-04-01 16:28:58 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+  Rendered pages/index.html.erb within layouts/application (Duration: 2.5ms | Allocations: 438)
+  Rendered layout layouts/application.html.erb (Duration: 25.3ms | Allocations: 3720)
+Completed 200 OK in 49ms (Views: 38.7ms | ActiveRecord: 0.0ms | Allocations: 7741)
+
+
+  [1m[36mEventLog Load (0.2ms)[0m  [1m[34mSELECT "event_logs".* FROM "event_logs" WHERE "event_logs"."action" = 'pdf.chain_of_custody.view' /* loading for pp */ LIMIT 11 /*application='PharmaTransportClean'*/[0m
+Started GET "/batches/:id/chain_of_custody" for ::1 at 2026-04-01 16:31:41 -0700
+Processing by BatchesController#chain_of_custody as HTML
+  Parameters: {"id"=>":id"}
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.0ms | Allocations: 1185)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 16:31:41 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.3ms | Allocations: 570)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 10.8ms | Allocations: 2247)
+  Rendered layout layouts/application.html.erb (Duration: 13.2ms | Allocations: 3895)
+Completed 200 OK in 72ms (Views: 15.6ms | ActiveRecord: 14.9ms | Allocations: 21211)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 16:31:58 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.5ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 6.9ms | Allocations: 719)
+  Rendered layout layouts/application.html.erb (Duration: 12.7ms | Allocations: 1134)
+Completed 200 OK in 22ms (Views: 17.0ms | ActiveRecord: 0.0ms | Allocations: 1828)
+
+
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'banner' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'demo' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTenant Create (2.3ms)[0m  [1m[32mINSERT INTO "tenants" ("name", "subdomain", "created_at", "updated_at", "plan", "stripe_id") VALUES ('Demo Lab', 'demo', '2026-04-01 23:36:12.218991', '2026-04-01 23:36:12.218991', NULL, NULL) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (159.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'thomasit' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTenant Create (4.2ms)[0m  [1m[32mINSERT INTO "tenants" ("name", "subdomain", "created_at", "updated_at", "plan", "stripe_id") VALUES ('Thomas IT', 'thomasit', '2026-04-01 23:36:12.388456', '2026-04-01 23:36:12.388456', NULL, NULL) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'banner' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.8ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'banner' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'demo' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.4ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'thomasit' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mCACHE Tenant Load (0.0ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'banner' LIMIT 1[0m
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'banner' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.4ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'demo' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.4ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'thomasit' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mCACHE Tenant Load (0.0ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'banner' LIMIT 1[0m
+  [1m[36mTenant Load (0.7ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'banner' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'demo' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'thomasit' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mCACHE Tenant Load (0.0ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'banner' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBatch Create (1.5ms)[0m  [1m[32mINSERT INTO "batches" ("batch_id", "product", "status", "temp", "location", "created_at", "updated_at", "tenant_id") VALUES ('BATCH-1775086775', 'Humalog 1', 'in_transit', '2-8°C', 'Phoenix AZ', '2026-04-01 23:39:35.786817', '2026-04-01 23:39:35.786817', 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (362.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBatch Create (1.6ms)[0m  [1m[32mINSERT INTO "batches" ("batch_id", "product", "status", "temp", "location", "created_at", "updated_at", "tenant_id") VALUES ('BATCH-1775086777', 'Humalog 2', 'delivered', '2-8°C', 'Phoenix AZ', '2026-04-01 23:39:36.154344', '2026-04-01 23:39:36.154344', 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBatch Create (1.4ms)[0m  [1m[32mINSERT INTO "batches" ("batch_id", "product", "status", "temp", "location", "created_at", "updated_at", "tenant_id") VALUES ('BATCH-1775086778', 'Humalog 3', 'issue', '2-8°C', 'Phoenix AZ', '2026-04-01 23:39:36.159078', '2026-04-01 23:39:36.159078', 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBatch Create (1.0ms)[0m  [1m[32mINSERT INTO "batches" ("batch_id", "product", "status", "temp", "location", "created_at", "updated_at", "tenant_id") VALUES ('BATCH-1775086779', 'Humalog 4', 'in_transit', '2-8°C', 'Phoenix AZ', '2026-04-01 23:39:36.163120', '2026-04-01 23:39:36.163120', 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBatch Create (1.1ms)[0m  [1m[32mINSERT INTO "batches" ("batch_id", "product", "status", "temp", "location", "created_at", "updated_at", "tenant_id") VALUES ('BATCH-1775086780', 'Humalog 5', 'delivered', '2-8°C', 'Phoenix AZ', '2026-04-01 23:39:36.166295', '2026-04-01 23:39:36.166295', 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTenant Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tenants" /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "batches" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Pluck (0.3ms)[0m  [1m[34mSELECT "tenants"."name", "tenants"."subdomain" FROM "tenants" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."subdomain" = 'banner' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Pluck (0.3ms)[0m  [1m[34mSELECT "batches"."batch_id", "batches"."product", "batches"."status" FROM "batches" WHERE "batches"."tenant_id" = 1 /*application='PharmaTransportClean'*/[0m
+Started GET "/batches" for ::1 at 2026-04-01 16:40:45 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by BatchesController#index as HTML
+Completed 401 Unauthorized in 18ms (ActiveRecord: 0.0ms | Allocations: 2951)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 16:40:46 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.1ms | Allocations: 578)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 10.7ms | Allocations: 2446)
+  Rendered layout layouts/application.html.erb (Duration: 14.9ms | Allocations: 3833)
+Completed 500 Internal Server Error in 58ms (ActiveRecord: 2.7ms | Allocations: 22639)
+
+
+  
+ActionView::Template::Error (undefined method `user_sied_in?' for #<ActionView::Base:0x0000000000cbe8>):
+    40: 
+    41:           <!-- ACTIONS -->
+    42:           <div class="flex items-center space-x-3">
+    43:             <% if user_sied_in? %>
+    44:               <%= link_to dashboard_path, class: "px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5" do %>
+    45:                 📊 Dashboard
+    46:               <% end %>
+  
+app/views/layouts/application.html.erb:43
+Started GET "/batches/:id" for ::1 at 2026-04-01 16:41:10 -0700
+Processing by BatchesController#show as HTML
+  Parameters: {"id"=>":id"}
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 377)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 16:41:10 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.5ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 8.9ms | Allocations: 719)
+  Rendered layout layouts/application.html.erb (Duration: 14.5ms | Allocations: 1071)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 0.0ms | Allocations: 1786)
+
+
+  
+ActionView::Template::Error (undefined method `user_sied_in?' for #<ActionView::Base:0x0000000000ce40>):
+    40: 
+    41:           <!-- ACTIONS -->
+    42:           <div class="flex items-center space-x-3">
+    43:             <% if user_sied_in? %>
+    44:               <%= link_to dashboard_path, class: "px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5" do %>
+    45:                 📊 Dashboard
+    46:               <% end %>
+  
+app/views/layouts/application.html.erb:43
+Started GET "/batches/:id/chain_of_custody" for ::1 at 2026-04-01 16:41:32 -0700
+Processing by BatchesController#chain_of_custody as HTML
+  Parameters: {"id"=>":id"}
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 389)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 16:41:32 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.3ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 3.8ms | Allocations: 719)
+  Rendered layout layouts/application.html.erb (Duration: 6.1ms | Allocations: 1071)
+Completed 500 Internal Server Error in 21ms (ActiveRecord: 0.0ms | Allocations: 1769)
+
+
+  
+ActionView::Template::Error (undefined method `user_sied_in?' for #<ActionView::Base:0x0000000000d020>):
+    40: 
+    41:           <!-- ACTIONS -->
+    42:           <div class="flex items-center space-x-3">
+    43:             <% if user_sied_in? %>
+    44:               <%= link_to dashboard_path, class: "px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5" do %>
+    45:                 📊 Dashboard
+    46:               <% end %>
+  
+app/views/layouts/application.html.erb:43
+Started HEAD "/health" for ::1 at 2026-04-01 16:43:39 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Started GET "/batches" for ::1 at 2026-04-01 16:43:39 -0700
+Processing by BatchesController#index as */*
+Completed 401 Unauthorized in 10ms (ActiveRecord: 0.0ms | Allocations: 1838)
+
+
+Started GET "/batches/1/chain_of_custody" for ::1 at 2026-04-01 16:43:39 -0700
+Processing by BatchesController#chain_of_custody as */*
+  Parameters: {"id"=>"1"}
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms | Allocations: 180)
+
+
+Started HEAD "/health" for ::1 at 2026-04-01 16:44:20 -0700
+Started GET "/batches" for ::1 at 2026-04-01 16:44:20 -0700
+Processing by BatchesController#index as */*
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms | Allocations: 179)
+
+
+Started HEAD "/batches/1/chain_of_custody" for ::1 at 2026-04-01 16:44:20 -0700
+Processing by BatchesController#chain_of_custody as */*
+  Parameters: {"id"=>"1"}
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms | Allocations: 179)
+
+
+  [1m[36mEventLog Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "event_logs" WHERE "event_logs"."action" = 'pdf.chain_of_custody.view' /*application='PharmaTransportClean'*/[0m
+Started HEAD "/health" for ::1 at 2026-04-01 16:44:55 -0700
+Started GET "/batches" for ::1 at 2026-04-01 16:44:55 -0700
+Processing by BatchesController#index as */*
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms | Allocations: 179)
+
+
+Started HEAD "/batches/1/chain_of_custody" for ::1 at 2026-04-01 16:44:55 -0700
+Processing by BatchesController#chain_of_custody as */*
+  Parameters: {"id"=>"1"}
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms | Allocations: 179)
+
+
+  [1m[36mEventLog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "event_logs" WHERE "event_logs"."action" = 'pdf.chain_of_custody.view' /*application='PharmaTransportClean'*/[0m
+Started GET "/batches/demo" for ::1 at 2026-04-01 16:47:55 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+Started GET "/batches/demo" for ::1 at 2026-04-01 16:47:56 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+Started HEAD "/batches/1/chain_of_custody" for ::1 at 2026-04-01 16:47:56 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+  [1m[36mEventLog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "event_logs" /*application='PharmaTransportClean'*/[0m
+Started GET "/batches/demo" for ::1 at 2026-04-01 16:49:31 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+Started GET "/batches/demo" for ::1 at 2026-04-01 16:49:31 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+Started HEAD "/batches/1/public_chain_of_custody" for ::1 at 2026-04-01 16:49:32 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/pages_controller.rb:1:in `<main>'
+Started GET "/batches/demo" for ::1 at 2026-04-01 16:50:54 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+Started GET "/batches/demo" for ::1 at 2026-04-01 16:50:55 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+Started HEAD "/batches/1/public_pdf" for ::1 at 2026-04-01 16:50:55 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/pages_controller.rb:1:in `<main>'
+Started GET "/batches/1/public_pdf" for ::1 at 2026-04-01 16:50:55 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/pages_controller.rb:1:in `<main>'
+Started GET "/batches/demo" for ::1 at 2026-04-01 16:52:43 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+Started GET "/batches/demo" for ::1 at 2026-04-01 16:52:43 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+Started HEAD "/batches/1/public_pdf" for ::1 at 2026-04-01 16:52:43 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+Started GET "/batches/1/public_pdf" for ::1 at 2026-04-01 16:52:44 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:3:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:1:in `<main>'
+app/controllers/batches_controller.rb:1:in `<main>'
+  [1m[36mEventLog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "event_logs" /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "batches" /*application='PharmaTransportClean'*/[0m
+  [1m[36mEventLog Load (0.3ms)[0m  [1m[34mSELECT "event_logs".* FROM "event_logs" /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "batches" /*application='PharmaTransportClean'*/[0m
+  [1m[36mEventLog Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "event_logs" /*application='PharmaTransportClean'*/[0m
+Started GET "/batches/demo" for ::1 at 2026-04-01 17:00:16 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+TypeError (Tenant is not a module
+/home/zero/pharma-transport-clean/app/models/tenant.rb:1: previous definition of Tenant was here):
+  
+app/controllers/tenant/batches_controller.rb:2:in `<main>'
+Started GET "/batches/demo" for ::1 at 2026-04-01 17:09:31 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+TypeError (Tenant is not a module
+/home/zero/pharma-transport-clean/app/models/tenant.rb:1: previous definition of Tenant was here):
+  
+app/controllers/tenant/batches_controller.rb:2:in `<main>'
+Started HEAD "/batches/1/public_pdf" for ::1 at 2026-04-01 17:09:41 -0700
+  
+TypeError (Tenant is not a module
+/home/zero/pharma-transport-clean/app/models/tenant.rb:1: previous definition of Tenant was here):
+  
+app/controllers/tenant/batches_controller.rb:2:in `<main>'
+Started GET "/batches/1/public_pdf" for ::1 at 2026-04-01 17:09:50 -0700
+  
+TypeError (Tenant is not a module
+/home/zero/pharma-transport-clean/app/models/tenant.rb:1: previous definition of Tenant was here):
+  
+app/controllers/tenant/batches_controller.rb:2:in `<main>'
+  [1m[36mEventLog Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "event_logs" /*application='PharmaTransportClean'*/[0m
+  [1m[36mEventLog Load (0.5ms)[0m  [1m[34mSELECT "event_logs".* FROM "event_logs" ORDER BY "event_logs"."id" DESC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+Started GET "/batches/1/public_pdf" for ::1 at 2026-04-01 17:12:58 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+TypeError (Tenant is not a module
+/home/zero/pharma-transport-clean/app/models/tenant.rb:1: previous definition of Tenant was here):
+  
+app/controllers/tenant/batches_controller.rb:2:in `<main>'
+Started HEAD "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 17:15:43 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+TypeError (Tenant is not a module
+/home/zero/pharma-transport-clean/app/models/tenant.rb:1: previous definition of Tenant was here):
+  
+app/controllers/tenant/batches_controller.rb:2:in `<main>'
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 17:15:53 -0700
+  
+TypeError (Tenant is not a module
+/home/zero/pharma-transport-clean/app/models/tenant.rb:1: previous definition of Tenant was here):
+  
+app/controllers/tenant/batches_controller.rb:2:in `<main>'
+Started HEAD "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 17:22:10 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:4:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:2:in `<main>'
+app/controllers/tenant_scope/batches_controller.rb:3:in `<module:TenantScope>'
+app/controllers/tenant_scope/batches_controller.rb:2:in `<main>'
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 17:22:19 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:4:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:2:in `<main>'
+app/controllers/tenant_scope/batches_controller.rb:3:in `<module:TenantScope>'
+app/controllers/tenant_scope/batches_controller.rb:2:in `<main>'
+Started GET "/users/sign_in" for ::1 at 2026-04-01 17:23:17 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:4:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:2:in `<main>'
+app/controllers/users/sessions_controller.rb:1:in `<main>'
+Started GET "/users/sign_in" for ::1 at 2026-04-01 17:23:20 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:4:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:2:in `<main>'
+app/controllers/users/sessions_controller.rb:1:in `<main>'
+Started GET "/users/sign_in" for ::1 at 2026-04-01 17:23:22 -0700
+  
+ArgumentError (Before process_action callback :authenticate_user! has not been defined):
+  
+app/controllers/application_controller.rb:4:in `<class:ApplicationController>'
+app/controllers/application_controller.rb:2:in `<main>'
+app/controllers/users/sessions_controller.rb:1:in `<main>'
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 18:24:05 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+Completed 404 Not Found in 4ms (ActiveRecord: 0.0ms | Allocations: 1409)
+
+
+  
+AbstractController::ActionNotFound (The edit action could not be found for the :set_batch
+callback on TenantScope::BatchesController, but it is listed in the controller's
+:only option.
+
+Raising for missing callback actions is a new default in Rails 7.1, if you'd
+like to turn this off you can delete the option from the environment configurations
+or set `config.action_controller.raise_on_missing_callback_actions` to `false`.
+):
+  
+actionpack (7.1.6) lib/abstract_controller/callbacks.rb:62:in `match?'
+activesupport (7.1.6) lib/active_support/callbacks.rb:426:in `block in make_lambda'
+activesupport (7.1.6) lib/active_support/callbacks.rb:182:in `block (2 levels) in halting_and_conditional'
+activesupport (7.1.6) lib/active_support/callbacks.rb:182:in `all?'
+activesupport (7.1.6) lib/active_support/callbacks.rb:182:in `block in halting_and_conditional'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in `block in invoke_before'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in `each'
+activesupport (7.1.6) lib/active_support/callbacks.rb:598:in `invoke_before'
+activesupport (7.1.6) lib/active_support/callbacks.rb:119:in `block in run_callbacks'
+actiontext (7.1.6) lib/action_text/rendering.rb:23:in `with_renderer'
+actiontext (7.1.6) lib/action_text/engine.rb:69:in `block (4 levels) in <class:Engine>'
+activesupport (7.1.6) lib/active_support/callbacks.rb:130:in `instance_exec'
+activesupport (7.1.6) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.1.6) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.1.6) lib/abstract_controller/callbacks.rb:258:in `process_action'
+actionpack (7.1.6) lib/action_controller/metal/rescue.rb:25:in `process_action'
+actionpack (7.1.6) lib/action_controller/metal/instrumentation.rb:74:in `block in process_action'
+activesupport (7.1.6) lib/active_support/notifications.rb:206:in `block in instrument'
+activesupport (7.1.6) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.1.6) lib/active_support/notifications.rb:206:in `instrument'
+actionpack (7.1.6) lib/action_controller/metal/instrumentation.rb:73:in `process_action'
+actionpack (7.1.6) lib/action_controller/metal/params_wrapper.rb:261:in `process_action'
+activerecord (7.1.6) lib/active_record/railties/controller_runtime.rb:32:in `process_action'
+actionpack (7.1.6) lib/abstract_controller/base.rb:160:in `process'
+actionview (7.1.6) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.1.6) lib/action_controller/metal.rb:227:in `dispatch'
+actionpack (7.1.6) lib/action_controller/metal.rb:309:in `dispatch'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:32:in `serve'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:51:in `block in serve'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:131:in `block in find_routes'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:124:in `each'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:124:in `find_routes'
+actionpack (7.1.6) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (7.1.6) lib/action_dispatch/routing/route_set.rb:882:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.2.5) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.5) lib/rack/etag.rb:29:in `call'
+rack (3.2.5) lib/rack/conditional_get.rb:31:in `call'
+rack (3.2.5) lib/rack/head.rb:15:in `call'
+actionpack (7.1.6) lib/action_dispatch/http/permissions_policy.rb:36:in `call'
+actionpack (7.1.6) lib/action_dispatch/http/content_security_policy.rb:36:in `call'
+rack-session (2.1.1) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.1) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (7.1.6) lib/active_record/migration.rb:655:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+activesupport (7.1.6) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.1.6) lib/action_dispatch/middleware/callbacks.rb:28:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/actionable_exceptions.rb:16:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (7.1.6) lib/rails/rack/logger.rb:37:in `call_app'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in `block in tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:39:in `tagged'
+activesupport (7.1.6) lib/active_support/tagged_logging.rb:139:in `tagged'
+activesupport (7.1.6) lib/active_support/broadcast_logger.rb:241:in `method_missing'
+railties (7.1.6) lib/rails/rack/logger.rb:24:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/remote_ip.rb:92:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/request_id.rb:28:in `call'
+rack (3.2.5) lib/rack/method_override.rb:28:in `call'
+rack (3.2.5) lib/rack/runtime.rb:24:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:59:in `block in call'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:24:in `collect_events'
+actionpack (7.1.6) lib/action_dispatch/middleware/server_timing.rb:58:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/static.rb:25:in `call'
+rack (3.2.5) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.1.6) lib/action_dispatch/middleware/host_authorization.rb:141:in `call'
+railties (7.1.6) lib/rails/engine.rb:536:in `call'
+puma (7.2.0) lib/puma/configuration.rb:296:in `call'
+puma (7.2.0) lib/puma/request.rb:103:in `block in handle_request'
+puma (7.2.0) lib/puma/thread_pool.rb:355:in `with_force_shutdown'
+puma (7.2.0) lib/puma/request.rb:102:in `handle_request'
+puma (7.2.0) lib/puma/server.rb:503:in `process_client'
+puma (7.2.0) lib/puma/server.rb:262:in `block in run'
+puma (7.2.0) lib/puma/thread_pool.rb:182:in `block in spawn_thread'
+  [1m[36mBatch Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "batches" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "tenants" /*application='PharmaTransportClean'*/[0m
+Started HEAD "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 18:28:09 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+  [1m[36mBatch Load (0.2ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 1 LIMIT 1 /*action='public_pdf',application='PharmaTransportClean',controller='batches'*/[0m
+  ↳ app/controllers/tenant_scope/batches_controller.rb:29:in `public_pdf'
+  Rendering text template
+  Rendered text template (Duration: 0.1ms | Allocations: 4)
+Sent data batch-BATCH-1775086775.pdf (11.8ms)
+Completed 200 OK in 218ms (Views: 8.1ms | ActiveRecord: 4.4ms | Allocations: 85992)
+
+
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 18:28:21 -0700
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+  [1m[36mBatch Load (0.8ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 1 LIMIT 1 /*action='public_pdf',application='PharmaTransportClean',controller='batches'*/[0m
+  ↳ app/controllers/tenant_scope/batches_controller.rb:29:in `public_pdf'
+  Rendering text template
+  Rendered text template (Duration: 0.1ms | Allocations: 1)
+Sent data batch-BATCH-1775086775.pdf (3.1ms)
+Completed 200 OK in 24ms (Views: 2.5ms | ActiveRecord: 0.7ms | Allocations: 5409)
+
+
+Started GET "/batches/demo" for ::1 at 2026-04-01 18:28:52 -0700
+Processing by TenantScope::BatchesController#show as */*
+  Parameters: {"id"=>"demo"}
+Completed 401 Unauthorized in 25ms (ActiveRecord: 0.0ms | Allocations: 1877)
+
+
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 18:28:56 -0700
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+  [1m[36mBatch Load (0.8ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 1 LIMIT 1 /*action='public_pdf',application='PharmaTransportClean',controller='batches'*/[0m
+  ↳ app/controllers/tenant_scope/batches_controller.rb:29:in `public_pdf'
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 1)
+Sent data batch-BATCH-1775086775.pdf (1.0ms)
+Completed 200 OK in 20ms (Views: 0.7ms | ActiveRecord: 0.8ms | Allocations: 5396)
+
+
+Started GET "/" for ::1 at 2026-04-01 18:35:33 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 230)
+
+
+Started GET "/" for ::1 at 2026-04-01 18:37:55 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms | Allocations: 168)
+
+
+Started GET "/health" for ::1 at 2026-04-01 18:37:55 -0700
+Started HEAD "/dashboard" for ::1 at 2026-04-01 18:37:55 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms | Allocations: 168)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 18:37:55 -0700
+Processing by Users::SessionsController#new as */*
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.9ms | Allocations: 580)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 7.8ms | Allocations: 2443)
+  Rendered layout layouts/application.html.erb (Duration: 11.4ms | Allocations: 3470)
+Completed 200 OK in 46ms (Views: 14.9ms | ActiveRecord: 4.1ms | Allocations: 19150)
+
+
+Started POST "/users/sign_in" for ::1 at 2026-04-01 18:37:55 -0700
+Processing by Users::SessionsController#create as */*
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='PharmaTransportClean',controller='sessions'*/[0m
+Completed 401 Unauthorized in 10ms (ActiveRecord: 0.2ms | Allocations: 2882)
+
+
+Processing by Users::SessionsController#new as */*
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.9ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 4.6ms | Allocations: 725)
+  Rendered layout layouts/application.html.erb (Duration: 9.5ms | Allocations: 1010)
+Completed 200 OK in 286ms (Views: 10.8ms | ActiveRecord: 0.0ms | Allocations: 1958)
+
+
+Started GET "/batches" for ::1 at 2026-04-01 18:37:56 -0700
+Processing by TenantScope::BatchesController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 269)
+
+
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 18:37:56 -0700
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+  [1m[36mBatch Load (0.5ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 1 LIMIT 1 /*action='public_pdf',application='PharmaTransportClean',controller='batches'*/[0m
+  ↳ app/controllers/tenant_scope/batches_controller.rb:29:in `public_pdf'
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 1)
+Sent data batch-BATCH-1775086775.pdf (0.4ms)
+Completed 200 OK in 11ms (Views: 0.3ms | ActiveRecord: 0.5ms | Allocations: 5398)
+
+
+Started HEAD "/pdf" for ::1 at 2026-04-01 18:37:56 -0700
+  
+ActionController::RoutingError (No route matches [HEAD] "/pdf"):
+  
+Started GET "/api/gps" for ::1 at 2026-04-01 18:37:56 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/api/gps"):
+  
+Started GET "/" for ::1 at 2026-04-01 18:38:47 -0700
+Processing by DashboardsController#index as HTML
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms | Allocations: 409)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 18:38:47 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.3ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.0ms | Allocations: 719)
+  Rendered layout layouts/application.html.erb (Duration: 3.3ms | Allocations: 1091)
+Completed 200 OK in 6ms (Views: 4.2ms | ActiveRecord: 0.0ms | Allocations: 1768)
+
+
+Started POST "/users/sign_in" for ::1 at 2026-04-01 18:38:50 -0700
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'brett.thomas29.97@gmail.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='PharmaTransportClean',controller='sessions'*/[0m
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.2ms | Allocations: 1637)
+
+
+Processing by Users::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.5ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.2ms | Allocations: 707)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | Allocations: 1035)
+Completed 200 OK in 282ms (Views: 5.0ms | ActiveRecord: 0.0ms | Allocations: 1559)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 18:38:53 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.5ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.8ms | Allocations: 719)
+  Rendered layout layouts/application.html.erb (Duration: 4.5ms | Allocations: 1087)
+Completed 200 OK in 7ms (Views: 5.2ms | ActiveRecord: 0.0ms | Allocations: 1759)
+
+
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2026-04-01 18:38:56 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+Started GET "/users/sign_in" for ::1 at 2026-04-01 18:39:02 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.3ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 1.9ms | Allocations: 719)
+  Rendered layout layouts/application.html.erb (Duration: 2.9ms | Allocations: 1087)
+Completed 200 OK in 5ms (Views: 3.5ms | ActiveRecord: 0.0ms | Allocations: 1759)
+
+
+Started GET "/.well-known/appspecific/com.chrome.devtools.json" for ::1 at 2026-04-01 18:39:02 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/.well-known/appspecific/com.chrome.devtools.json"):
+  
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 18:39:16 -0700
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+  [1m[36mBatch Load (0.2ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 1 LIMIT 1 /*action='public_pdf',application='PharmaTransportClean',controller='batches'*/[0m
+  ↳ app/controllers/tenant_scope/batches_controller.rb:29:in `public_pdf'
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 1)
+Sent data batch-BATCH-1775086775.pdf (0.5ms)
+Completed 200 OK in 9ms (Views: 0.4ms | ActiveRecord: 0.1ms | Allocations: 5404)
+
+
+Started GET "/pdf?type=biologics&demo=1" for ::1 at 2026-04-01 18:40:08 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/pdf"):
+  
+Started GET "/pdf?type=biologics&demo=1" for ::1 at 2026-04-01 18:43:12 -0700
+Processing by PdfReportsController#show as */*
+  Parameters: {"type"=>"biologics", "demo"=>"1"}
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 812)
+
+
+Started GET "/pdf?type=biologics&demo=1%20%E2%86%92%20your%20PdfReportsController" for ::1 at 2026-04-01 18:45:24 -0700
+Processing by PdfReportsController#show as HTML
+  Parameters: {"type"=>"biologics", "demo"=>"1 → your PdfReportsController"}
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms | Allocations: 981)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 18:45:25 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.7ms | Allocations: 548)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 4.4ms | Allocations: 1575)
+  Rendered layout layouts/application.html.erb (Duration: 7.3ms | Allocations: 2526)
+Completed 200 OK in 26ms (Views: 11.7ms | ActiveRecord: 2.1ms | Allocations: 12342)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 18:45:29 -0700
+Processing by Users::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.3ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 4.7ms | Allocations: 719)
+  Rendered layout layouts/application.html.erb (Duration: 7.0ms | Allocations: 1087)
+Completed 200 OK in 14ms (Views: 13.1ms | ActiveRecord: 0.0ms | Allocations: 1744)
+
+
+Started POST "/users/sign_in" for ::1 at 2026-04-01 18:45:32 -0700
+Processing by Users::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'brett.thomas29.97@gmail.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='PharmaTransportClean',controller='sessions'*/[0m
+Completed 401 Unauthorized in 5ms (ActiveRecord: 0.2ms | Allocations: 1884)
+
+
+Processing by Users::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.6ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.6ms | Allocations: 710)
+  Rendered layout layouts/application.html.erb (Duration: 4.6ms | Allocations: 1038)
+Completed 200 OK in 297ms (Views: 5.4ms | ActiveRecord: 0.0ms | Allocations: 1582)
+
+
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 18:45:46 -0700
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+  [1m[36mBatch Load (0.6ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 1 LIMIT 1 /*action='public_pdf',application='PharmaTransportClean',controller='batches'*/[0m
+  ↳ app/controllers/tenant_scope/batches_controller.rb:29:in `public_pdf'
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 1)
+Sent data batch-BATCH-1775086775.pdf (1.5ms)
+Completed 200 OK in 63ms (Views: 1.2ms | ActiveRecord: 1.5ms | Allocations: 10555)
+
+
+Started GET "/" for ::1 at 2026-04-01 18:45:57 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms | Allocations: 231)
+
+
+Started GET "/health" for ::1 at 2026-04-01 18:45:57 -0700
+Started HEAD "/dashboard" for ::1 at 2026-04-01 18:45:57 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 168)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 18:45:57 -0700
+Processing by Users::SessionsController#new as */*
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | Allocations: 119)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.2ms | Allocations: 726)
+  Rendered layout layouts/application.html.erb (Duration: 3.5ms | Allocations: 1051)
+Completed 200 OK in 8ms (Views: 5.1ms | ActiveRecord: 0.0ms | Allocations: 1548)
+
+
+Started POST "/users/sign_in" for ::1 at 2026-04-01 18:45:57 -0700
+Processing by Users::SessionsController#create as */*
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='PharmaTransportClean',controller='sessions'*/[0m
+Completed 401 Unauthorized in 5ms (ActiveRecord: 0.2ms | Allocations: 1504)
+
+
+Processing by Users::SessionsController#new as */*
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.4ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.0ms | Allocations: 715)
+  Rendered layout layouts/application.html.erb (Duration: 3.4ms | Allocations: 1000)
+Completed 200 OK in 277ms (Views: 4.3ms | ActiveRecord: 0.0ms | Allocations: 1466)
+
+
+Started GET "/batches" for ::1 at 2026-04-01 18:45:57 -0700
+Processing by TenantScope::BatchesController#index as */*
+Completed 401 Unauthorized in 3ms (ActiveRecord: 0.0ms | Allocations: 275)
+
+
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 18:45:57 -0700
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+  [1m[36mBatch Load (0.3ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 1 LIMIT 1 /*action='public_pdf',application='PharmaTransportClean',controller='batches'*/[0m
+  ↳ app/controllers/tenant_scope/batches_controller.rb:29:in `public_pdf'
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 1)
+Sent data batch-BATCH-1775086775.pdf (0.6ms)
+Completed 200 OK in 21ms (Views: 0.4ms | ActiveRecord: 0.3ms | Allocations: 5381)
+
+
+Started HEAD "/pdf" for ::1 at 2026-04-01 18:45:57 -0700
+Processing by PdfReportsController#show as */*
+Completed 401 Unauthorized in 2ms (ActiveRecord: 0.0ms | Allocations: 168)
+
+
+Started GET "/pdf?type=biologics&demo=1" for ::1 at 2026-04-01 18:45:57 -0700
+Processing by PdfReportsController#show as */*
+  Parameters: {"type"=>"biologics", "demo"=>"1"}
+Completed 401 Unauthorized in 4ms (ActiveRecord: 0.0ms | Allocations: 168)
+
+
+Started GET "/api/gps" for ::1 at 2026-04-01 18:45:57 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/api/gps"):
+  
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at", "encrypted_otp_secret", "otp_backup_codes", "consumed_timestep", "name", "current_sign_in_at", "sign_in_count", "current_sign_in_ip", "last_sign_in_ip", "last_sign_in_at", "failed_attempts", "unlock_token", "locked_at", "otp_required_for_login") VALUES ('admin@pharmatransport.com', '$2a$12$MSsrNh7vS6MdG4zUfoD9e.HCUnFQxq8vUQlDKGo8smA3LxXpSzes.', NULL, NULL, NULL, '2026-04-02 01:50:17.453728', '2026-04-02 01:50:17.453728', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (62.7ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/" for 127.0.0.1 at 2026-04-01 18:51:35 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 13ms (ActiveRecord: 0.0ms | Allocations: 1779)
+
+
+Started GET "/" for ::1 at 2026-04-01 18:54:40 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 10ms (ActiveRecord: 0.0ms | Allocations: 1780)
+
+
+Started GET "/health" for ::1 at 2026-04-01 18:54:40 -0700
+Started HEAD "/dashboard" for ::1 at 2026-04-01 18:54:40 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 0ms (ActiveRecord: 0.0ms | Allocations: 169)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 18:54:40 -0700
+Processing by Users::SessionsController#new as */*
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 1.0ms | Allocations: 578)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 9.3ms | Allocations: 2462)
+  Rendered layout layouts/application.html.erb (Duration: 12.7ms | Allocations: 3513)
+Completed 200 OK in 65ms (Views: 21.0ms | ActiveRecord: 3.6ms | Allocations: 22117)
+
+
+Started POST "/users/sign_in" for ::1 at 2026-04-01 18:54:40 -0700
+Processing by Users::SessionsController#create as */*
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='PharmaTransportClean',controller='sessions'*/[0m
+Completed 401 Unauthorized in 19ms (ActiveRecord: 0.7ms | Allocations: 4276)
+
+
+Processing by Users::SessionsController#new as */*
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.6ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.4ms | Allocations: 725)
+  Rendered layout layouts/application.html.erb (Duration: 4.1ms | Allocations: 1010)
+Completed 200 OK in 284ms (Views: 4.9ms | ActiveRecord: 0.0ms | Allocations: 1960)
+
+
+Started GET "/batches" for ::1 at 2026-04-01 18:54:41 -0700
+Processing by TenantScope::BatchesController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 385)
+
+
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 18:54:41 -0700
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+  [1m[36mBatch Load (0.1ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 1 LIMIT 1 /*action='public_pdf',application='PharmaTransportClean',controller='batches'*/[0m
+  ↳ app/controllers/tenant_scope/batches_controller.rb:29:in `public_pdf'
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 3)
+Sent data batch-BATCH-1775086775.pdf (1.6ms)
+Completed 200 OK in 97ms (Views: 1.2ms | ActiveRecord: 2.8ms | Allocations: 79616)
+
+
+Started HEAD "/pdf" for ::1 at 2026-04-01 18:54:41 -0700
+Processing by PdfReportsController#show as */*
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.0ms | Allocations: 214)
+
+
+  
+NoMethodError (To respond to a custom format, register it as a MIME type first: https://guides.rubyonrails.org/action_controller_overview.html#restful-downloads. If you meant to respond to a variant like :tablet or :phone, not a custom format, be sure to nest your variant response within a format response: format.html { |html| html.tablet { ... } }):
+  
+app/controllers/pdf_reports_controller.rb:21:in `block in show'
+app/controllers/pdf_reports_controller.rb:7:in `show'
+Started GET "/api/gps" for ::1 at 2026-04-01 18:54:41 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/api/gps"):
+  
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+Started GET "/" for ::1 at 2026-04-01 18:58:46 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 169)
+
+
+Started GET "/health" for ::1 at 2026-04-01 18:58:46 -0700
+Started HEAD "/dashboard" for ::1 at 2026-04-01 18:58:46 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 168)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 18:58:46 -0700
+Processing by Users::SessionsController#new as */*
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.6ms | Allocations: 119)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 7.7ms | Allocations: 725)
+  Rendered layout layouts/application.html.erb (Duration: 9.7ms | Allocations: 1050)
+Completed 200 OK in 15ms (Views: 12.5ms | ActiveRecord: 0.0ms | Allocations: 1550)
+
+
+Started POST "/users/sign_in" for ::1 at 2026-04-01 18:58:46 -0700
+Processing by Users::SessionsController#create as */*
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='PharmaTransportClean',controller='sessions'*/[0m
+Completed 401 Unauthorized in 9ms (ActiveRecord: 0.4ms | Allocations: 1553)
+
+
+Processing by Users::SessionsController#new as */*
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.5ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.8ms | Allocations: 715)
+  Rendered layout layouts/application.html.erb (Duration: 4.5ms | Allocations: 1000)
+Completed 200 OK in 283ms (Views: 5.3ms | ActiveRecord: 0.0ms | Allocations: 1464)
+
+
+Started GET "/batches" for ::1 at 2026-04-01 18:58:47 -0700
+Processing by TenantScope::BatchesController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 281)
+
+
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 18:58:47 -0700
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+  [1m[36mBatch Load (0.2ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 1 LIMIT 1 /*action='public_pdf',application='PharmaTransportClean',controller='batches'*/[0m
+  ↳ app/controllers/tenant_scope/batches_controller.rb:29:in `public_pdf'
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 1)
+Sent data batch-BATCH-1775086775.pdf (1.0ms)
+Completed 200 OK in 9ms (Views: 0.8ms | ActiveRecord: 0.1ms | Allocations: 5415)
+
+
+Started HEAD "/pdf" for ::1 at 2026-04-01 18:58:47 -0700
+Processing by PdfReportsController#show as */*
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 126)
+
+
+  
+NoMethodError (To respond to a custom format, register it as a MIME type first: https://guides.rubyonrails.org/action_controller_overview.html#restful-downloads. If you meant to respond to a variant like :tablet or :phone, not a custom format, be sure to nest your variant response within a format response: format.html { |html| html.tablet { ... } }):
+  
+app/controllers/pdf_reports_controller.rb:21:in `block in show'
+app/controllers/pdf_reports_controller.rb:7:in `show'
+Started GET "/api/gps" for ::1 at 2026-04-01 18:58:47 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/api/gps"):
+  
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "encrypted_password" = '$2a$12$SolsoIIal3QiEp6M9NBPAOI8Z09Xta65Cr5B.jlF0f2CqxfZwzd6e', "updated_at" = '2026-04-02 02:03:05.093382' WHERE "users"."id" = 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (73.4ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/" for ::1 at 2026-04-01 19:03:24 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 168)
+
+
+Started GET "/health" for ::1 at 2026-04-01 19:03:24 -0700
+Started HEAD "/dashboard" for ::1 at 2026-04-01 19:03:24 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 168)
+
+
+Started GET "/users/sign_in" for ::1 at 2026-04-01 19:03:24 -0700
+Processing by Users::SessionsController#new as */*
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.2ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 1.7ms | Allocations: 722)
+  Rendered layout layouts/application.html.erb (Duration: 2.9ms | Allocations: 1047)
+Completed 200 OK in 5ms (Views: 3.6ms | ActiveRecord: 0.0ms | Allocations: 1543)
+
+
+Started POST "/users/sign_in" for ::1 at 2026-04-01 19:03:24 -0700
+Processing by Users::SessionsController#create as */*
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' ORDER BY "users"."id" ASC LIMIT 1 /*action='create',application='PharmaTransportClean',controller='sessions'*/[0m
+Completed 401 Unauthorized in 5ms (ActiveRecord: 0.4ms | Allocations: 1520)
+
+
+Processing by Users::SessionsController#new as */*
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"[FILTERED]", "password"=>"[FILTERED]"}, "commit"=>"Log in"}
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 0.4ms | Allocations: 117)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 2.0ms | Allocations: 715)
+  Rendered layout layouts/application.html.erb (Duration: 3.4ms | Allocations: 1000)
+Completed 200 OK in 277ms (Views: 4.2ms | ActiveRecord: 0.0ms | Allocations: 1465)
+
+
+Started GET "/batches" for ::1 at 2026-04-01 19:03:24 -0700
+Processing by TenantScope::BatchesController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 277)
+
+
+Started GET "/batches/1/public_pdf.pdf" for ::1 at 2026-04-01 19:03:24 -0700
+Processing by TenantScope::BatchesController#public_pdf as PDF
+  Parameters: {"id"=>"1"}
+  [1m[36mBatch Load (1.4ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 1 LIMIT 1 /*action='public_pdf',application='PharmaTransportClean',controller='batches'*/[0m
+  ↳ app/controllers/tenant_scope/batches_controller.rb:29:in `public_pdf'
+  Rendering text template
+  Rendered text template (Duration: 0.1ms | Allocations: 1)
+Sent data batch-BATCH-1775086775.pdf (1.0ms)
+Completed 200 OK in 25ms (Views: 0.8ms | ActiveRecord: 1.4ms | Allocations: 5416)
+
+
+Started HEAD "/pdf" for ::1 at 2026-04-01 19:03:24 -0700
+Processing by PdfReportsController#show as */*
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms | Allocations: 126)
+
+
+  
+NoMethodError (To respond to a custom format, register it as a MIME type first: https://guides.rubyonrails.org/action_controller_overview.html#restful-downloads. If you meant to respond to a variant like :tablet or :phone, not a custom format, be sure to nest your variant response within a format response: format.html { |html| html.tablet { ... } }):
+  
+app/controllers/pdf_reports_controller.rb:21:in `block in show'
+app/controllers/pdf_reports_controller.rb:7:in `show'
+Started GET "/api/gps" for ::1 at 2026-04-01 19:03:25 -0700
+  
+ActionController::RoutingError (No route matches [GET] "/api/gps"):
+  
+Started GET "/dashboard" for ::1 at 2026-04-01 19:03:40 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 275)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Update (1.2ms)[0m  [1m[33mUPDATE "users" SET "updated_at" = '2026-04-02 02:17:48.367449', "otp_required_for_login" = 0 WHERE "users"."id" = 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Update (248.6ms)[0m  [1m[33mUPDATE "users" SET "encrypted_otp_secret" = '6F9A613FFBFB746D2961F8DD87CB2F35265015E6', "otp_required_for_login" = 0 WHERE "users"."id" = 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m

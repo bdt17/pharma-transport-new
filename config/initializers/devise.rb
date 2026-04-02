@@ -11,7 +11,6 @@
 Devise.setup do |config|
    config.responder.error_status = :unprocessable_content
    config.responder.redirect_status = :see_other
-
   config.warden do |manager|
     manager.default_strategies(:scope => :user).unshift :two_factor_authenticatable
   end
