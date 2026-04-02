@@ -1,7 +1,0 @@
-/*
- * This is a manifest file that'll be compiled by sprockets-rails, which will include all the files
- * listed below.
- */
-*= require_tree .
-*= require_self
-*/

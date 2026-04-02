@@ -2297,3 +2297,11 @@ Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms | Allocations: 275)
   [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
   [1m[36mUser Update (248.6ms)[0m  [1m[33mUPDATE "users" SET "encrypted_otp_secret" = '6F9A613FFBFB746D2961F8DD87CB2F35265015E6', "otp_required_for_login" = 0 WHERE "users"."id" = 1 /*application='PharmaTransportClean'*/[0m
   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Update (1.3ms)[0m  [1m[33mUPDATE "users" SET "updated_at" = '2026-04-02 04:04:24.942389', "otp_required_for_login" = 1 WHERE "users"."id" = 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (136.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTenant Create (1.5ms)[0m  [1m[32mINSERT INTO "tenants" ("name", "subdomain", "created_at", "updated_at", "plan", "stripe_id") VALUES ('Thomas IT Demo', 'demo', '2026-04-02 04:05:11.636721', '2026-04-02 04:05:11.636721', 0, NULL) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (162.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" /*application='PharmaTransportClean'*/[0m
