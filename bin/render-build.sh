@@ -1,17 +1,15 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+set -o errexit
 
-echo "🌱 Running render-build.sh"
+echo "=== render-build.sh: starting ==="
 
-# 1. Install gems
+echo "Installing Ruby gems..."
 bundle install
 
-# 2. Run migrations
-bin/rails db:migrate
+echo "Precompiling assets..."
+bundle exec bin/rails assets:precompile
 
-# 3. Precompile assets (if you have any)
-if [ -f "bin/rails" ]; then
-  bin/rails assets:precompile 2>/dev/null || true
-fi
+echo "Deploying..."
+bundle exec bin/rails db:migrate
 
-echo "✅ Build complete."
+echo "=== render-build.sh: done ==="
