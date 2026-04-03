@@ -18,7 +18,7 @@ gem 'devise-two-factor', '~> 5.0'  # MFA for pharma compliance
 gem 'tailwindcss-rails', '~> 2.0'
 
 group :development, :test do
-  gem 'sqlite3', '~> 1.4'      # Local development only
+  gem 'sqlite3', '~> 2.9'      # Local development only
   gem 'debug', '~> 1.9'        # Rails console debugging
 end
 
