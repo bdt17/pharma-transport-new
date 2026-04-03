@@ -15,7 +15,7 @@ gem 'devise', '~> 4.9'
 gem 'devise-two-factor', '~> 5.0'  # MFA for pharma compliance
 
 # Tailwind CSS (production-ready; works with Sprockets pipeline)
-gem 'tailwindcss-rails', '~> 2.0'
+gem 'tailwindcss-rails', '~> 4.4'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.4'      # Local development only
