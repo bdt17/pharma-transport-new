@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
-
+  # Public landing page; no auth
   def index
   end
 end
