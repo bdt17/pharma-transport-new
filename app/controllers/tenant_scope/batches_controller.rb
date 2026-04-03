@@ -3,8 +3,7 @@ module TenantScope
   class BatchesController < ApplicationController
     before_action :authenticate_user!
     before_action :set_tenant_batches
-    before_action :set_batch, only: [:show, :update, :destroy, :chain_of_custody]  # removed :edit
-    after_action :log_chain_of_custody_view, only: :chain_of_custody
+    before_action :set_batch, only: [:show, :update, :destroy, :chain_of_custody]
 
     # PUBLIC API - Completely standalone (no auth, no tenant)
     skip_before_action :authenticate_user!, :set_tenant_batches, only: [:demo, :public_pdf]
@@ -34,6 +33,7 @@ module TenantScope
         format.pdf do
           require 'prawn'
           pdf = Prawn::Document.new
+
           pdf.text "Thomas IT - 21 CFR Part 11 (Public API)", size: 18, style: :bold
           pdf.text "Batch ID: #{@batch.batch_id}", size: 16, style: :bold
           pdf.text "Product: #{@batch.product}"
@@ -44,9 +44,9 @@ module TenantScope
           pdf.text "Generated: #{Time.now.utc.iso8601}"
 
           send_data pdf.render,
-            filename: "batch-#{@batch.batch_id}.pdf",
-            type: 'application/pdf',
-            disposition: 'inline'
+                    filename: "batch-#{@batch.batch_id}.pdf",
+                    type: 'application/pdf',
+                    disposition: 'inline'
         end
       end
     end
@@ -109,9 +109,9 @@ module TenantScope
       pdf.text "Generated: #{Time.now.utc.iso8601}"
 
       send_data pdf.render,
-        filename: "chain-of-custody-#{@batch.batch_id}.pdf",
-        type: 'application/pdf',
-        disposition: 'inline'
+                filename: "chain-of-custody-#{@batch.batch_id}.pdf",
+                type: 'application/pdf',
+                disposition: 'inline'
     end
 
     private

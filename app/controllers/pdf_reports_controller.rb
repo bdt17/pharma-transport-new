@@ -1,24 +1,23 @@
-# app/controllers/pdf_reports_controller.rb
 class PdfReportsController < ApplicationController
-  # If you want public /pdf, remove this
-  # before_action :authenticate_user!
-
   def show
-    respond_to do |format|
-      format.pdf do
-        require 'prawn'
-        pdf = Prawn::Document.new
-        pdf.text "THOMAS IT PHARMA TRANSPORT - PDF SERVICE (demo)"
-        pdf.text "Type: #{params[:type]}"
-        pdf.text "Demo: #{params[:demo]}"
+    # 1. For /pdf?type=biologics&demo=1, render a real PDF
+    if params[:type] == "biologics" && params[:demo] == "1"
+      require 'prawn'
 
-        send_data pdf.render,
-          filename: "pharma-demo-#{params[:type] || 'generic'}.pdf",
-          type: 'application/pdf',
-          disposition: 'inline'
-      end
-      # For any other format (HTML, JSON, etc.), send 406 Not Acceptable
-      format.* { head :not_acceptable }
+      pdf = Prawn::Document.new
+      pdf.text "Thomas IT - CoC / Biologics Demo PDF", size: 18, style: :bold
+      pdf.text "Type: #{params[:type] || 'unknown'}"
+      pdf.text "Demo: #{params[:demo] || 'N/A'}"
+      pdf.text "SHA256: #{Digest::SHA256.hexdigest(Time.now.to_s)}"
+      pdf.text "Generated: #{Time.now.utc.iso8601}"
+
+      send_data pdf.render,
+                filename: "biologics-demo.pdf",
+                type: "application/pdf",
+                disposition: "inline"
+    else
+      # 2. Fallback for plain /pdf request (still 200)
+      render plain: "CoC / biologics PDF endpoint (Phase 11)", status: 200
     end
   end
 end

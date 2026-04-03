@@ -1,5 +1,10 @@
 # config/routes.rb - THOMAS IT PHARMA ENTERPRISE v11 (Phase 11 Complete)
 Rails.application.routes.draw do
+  namespace :api do
+    # 🛰️ GPS API (RESTful endpoints)
+    resources :gps, only: [:index, :show]
+  end
+
   # Health check (Render.com)
   get '/health', to: proc { [200, {}, ['OK']] }
 
@@ -41,4 +46,5 @@ Rails.application.routes.draw do
 
   # 🏠 Root
   root 'dashboards#index'
+  get '/dashboards', to: 'dashboards#index'
 end

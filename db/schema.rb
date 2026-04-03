@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_01_232422) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_02_040737) do
   create_table "audit_trails", force: :cascade do |t|
     t.string "action"
     t.integer "user_id", null: false
@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_01_232422) do
     t.datetime "updated_at", null: false
     t.integer "plan"
     t.string "stripe_id"
+    t.string "stripe_customer_id"
     t.index ["stripe_id"], name: "index_tenants_on_stripe_id"
   end
 
