@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     # 🛰️ GPS API (RESTful endpoints)
     resources :gps, only: [:index, :show]
   end
-
+  get "/reports/compliance", to: "reports#compliance"
   # Health check (Render.com)
   get '/health', to: proc { [200, {}, ['OK']] }
 
