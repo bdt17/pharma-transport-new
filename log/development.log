@@ -5257,3 +5257,54 @@ Completed 200 OK in 1ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 72)
   [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Started HEAD "/reports/compliance" for ::1 at 2026-04-03 19:10:54 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by ReportsController#compliance as */*
+Completed 500 Internal Server Error in 91ms (ActiveRecord: 0.0ms | Allocations: 45639)
+
+
+  
+Prawn::Errors::IncompatibleStringEncoding (Your document includes text that's not compatible with the Windows-1252 character set.
+If you need full UTF-8 support, use external fonts instead of PDF's built-in fonts.
+):
+  
+app/controllers/reports_controller.rb:7:in `compliance'
+Started GET "/reports/compliance" for ::1 at 2026-04-03 19:14:13 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  
+ActionController::RoutingError (No route matches [GET] "/reports/compliance"):
+  
+Started HEAD "/reports/compliance.pdf" for ::1 at 2026-04-03 19:14:36 -0700
+  
+ActionController::RoutingError (No route matches [HEAD] "/reports/compliance.pdf"):
+  
+Started GET "/reports/compliance" for ::1 at 2026-04-03 19:17:26 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by ReportsController#compliance as */*
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 4)
+Completed 200 OK in 53ms (Views: 49.7ms | ActiveRecord: 0.0ms | Allocations: 2256)
+
+
+Started HEAD "/reports/compliance.pdf" for ::1 at 2026-04-03 19:17:26 -0700
+Processing by ReportsController#compliance as PDF
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 1)
+Sent data compliance-20260404-021726.pdf (2.5ms)
+Completed 200 OK in 65ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 55953)
+
+
+Started GET "/health" for ::1 at 2026-04-03 19:17:26 -0700
+Started GET "/" for ::1 at 2026-04-03 19:17:26 -0700
+Processing by DashboardsController#index as */*
+Completed 401 Unauthorized in 14ms (ActiveRecord: 0.0ms | Allocations: 1361)
+
+
+Started GET "/reports/compliance.pdf" for ::1 at 2026-04-03 19:17:51 -0700
+Processing by ReportsController#compliance as PDF
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | Allocations: 1)
+Sent data compliance-20260404-021751.pdf (0.4ms)
+Completed 200 OK in 14ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 19564)
+
+

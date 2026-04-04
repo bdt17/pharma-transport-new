@@ -1,10 +1,10 @@
-# config/routes.rb - THOMAS IT PHARMA ENTERPRISE v11 (Phase 11 Complete)
+# config/routes.rb - THOMAS IT PHARMA ENTERPRISE v12 (Compliance PDFs ✅)
 Rails.application.routes.draw do
   namespace :api do
     # 🛰️ GPS API (RESTful endpoints)
     resources :gps, only: [:index, :show]
   end
-  get "/reports/compliance", to: "reports#compliance"
+
   # Health check (Render.com)
   get '/health', to: proc { [200, {}, ['OK']] }
 
@@ -16,21 +16,12 @@ Rails.application.routes.draw do
 
   # 📊 Dashboard
   get '/dashboard', to: 'dashboards#index'
+  get '/dashboards', to: 'dashboards#index'
+  root 'dashboards#index'
 
   # 💳 Stripe (future)
   post '/pay', to: 'payments#create'
   get  '/success', to: 'payments#success'
-
-  # 🏢 Multi‑tenant / subdomain‑style routes (uncomment when you wire up constraints)
-  # constraints(SubdomainConstraint) do
-  #   scope module: :tenant do
-  #     resources :batches, only: [:index, :show] do
-  #       get :public_pdf, on: :member
-  #       get :chain_of_custody, on: :member
-  #     end
-  #     get '/batches/demo', to: 'batches#demo'
-  #   end
-  # end
 
   # 🚣 DEVELOPMENT / SINGLE‑TENANT (current live routes)
   scope module: :tenant_scope do
@@ -44,7 +35,7 @@ Rails.application.routes.draw do
   # 📄 PDF Reports (demo / biologics‑style)
   get '/pdf', to: 'pdf_reports#show'
 
-  # 🏠 Root
-  root 'dashboards#index'
-  get '/dashboards', to: 'dashboards#index'
+  # ✅ COMPLIANCE REPORTS (NEW - HTML + PDF)
+  get '/reports/compliance', to: 'reports#compliance'  # → /reports/compliance (.pdf auto)
+
 end
