@@ -182,3 +182,7 @@ echo ""
 echo "✅ PDF endpoints:"
 echo "   https://pharma-transport-new.onrender.com/batches/1/public_pdf.pdf"
 echo "   https://pharma-transport-new.onrender.com/pdf?type=biologics&demo=1"
+
+echo "🧪 Compliance PDF..."
+curl -s -w "HTTP: %{http_code}\nSize: %{size_download} bytes\n" \
+  "https://pharma-transport-new.onrender.com/reports/compliance.pdf" -o /tmp/test.pdf >/dev/null

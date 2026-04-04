@@ -9,3 +9,6 @@ class DashboardsController < ApplicationController
     @batches = Batch.where(tenant: current_tenant)
   end
 end
+skip_before_action :authenticate_user!, only: :index
+def index
+end

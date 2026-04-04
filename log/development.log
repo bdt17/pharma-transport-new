@@ -5308,3 +5308,10 @@ Sent data compliance-20260404-021751.pdf (0.4ms)
 Completed 200 OK in 14ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 19564)
 
 
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'admin@pharmatransport.com' LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "encrypted_password" = '$2a$12$FvIa//RSrUYt1afVcF0hlupcIVClmrRqKsZcY6EAut19fvI88v9UW', "updated_at" = '2026-04-04 02:35:11.312998' WHERE "users"."id" = 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (79.8ms)[0m  [1m[36mcommit transaction[0m
