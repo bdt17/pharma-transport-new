@@ -132,3 +132,13 @@ const overlay = document.getElementById('mobile-overlay');
 mobileBtn.addEventListener('click', () => { sidebar.classList.toggle('-translate-x-full'); overlay.classList.toggle('hidden'); });
 overlay.addEventListener('click', () => { sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); });
 </script>
+
+<div class="compliance-section mt-6 p-6 bg-blue-50 rounded-lg">
+  <h3 class="text-xl font-bold mb-4">🧪 Compliance Testing</h3>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <%= link_to "📋 Compliance UI", reports_compliance_path, 
+        class: "btn btn-primary p-4 text-center rounded-lg hover:bg-blue-600" %>
+    <%= link_to "📄 Compliance PDF", reports_compliance_path(format: :pdf), 
+        class: "btn btn-success p-4 text-center rounded-lg hover:bg-green-600" %>
+  </div>
+</div>
