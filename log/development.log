@@ -5315,3 +5315,69 @@ Completed 200 OK in 14ms (Views: 0.3ms | ActiveRecord: 0.0ms | Allocations: 1956
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mUser Update (0.4ms)[0m  [1m[33mUPDATE "users" SET "encrypted_password" = '$2a$12$FvIa//RSrUYt1afVcF0hlupcIVClmrRqKsZcY6EAut19fvI88v9UW', "updated_at" = '2026-04-04 02:35:11.312998' WHERE "users"."id" = 1 /*application='PharmaTransportClean'*/[0m
   [1m[36mTRANSACTION (79.8ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/dashboards" for ::1 at 2026-04-06 18:58:52 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by DashboardsController#index as */*
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*action='index',application='PharmaTransportClean',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in `current_tenant'
+  Rendering layout layouts/application.html.erb
+  Rendering dashboards/index.html.erb within layouts/application
+  Rendered dashboards/index.html.erb within layouts/application (Duration: 30.8ms | Allocations: 2137)
+  Rendered layout layouts/application.html.erb (Duration: 480.5ms | Allocations: 26173)
+Completed 200 OK in 836ms (Views: 485.2ms | ActiveRecord: 5.1ms | Allocations: 44255)
+
+
+Started GET "/dashboards" for ::1 at 2026-04-06 20:37:17 -0700
+Processing by DashboardsController#index as */*
+  [1m[36mTenant Load (5.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*action='index',application='PharmaTransportClean',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in `current_tenant'
+  Rendering layout layouts/application.html.erb
+  Rendering dashboards/index.html.erb within layouts/application
+  Rendered dashboards/index.html.erb within layouts/application (Duration: 0.8ms | Allocations: 165)
+  Rendered layout layouts/application.html.erb (Duration: 15.1ms | Allocations: 5524)
+Completed 200 OK in 29ms (Views: 17.5ms | ActiveRecord: 7.9ms | Allocations: 6601)
+
+
+Started GET "/" for 127.0.0.1 at 2026-04-06 20:37:38 -0700
+Processing by DashboardsController#index as HTML
+  [1m[36mTenant Load (3.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*action='index',application='PharmaTransportClean',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in `current_tenant'
+  Rendering layout layouts/application.html.erb
+  Rendering dashboards/index.html.erb within layouts/application
+  Rendered dashboards/index.html.erb within layouts/application (Duration: 4.0ms | Allocations: 165)
+  Rendered layout layouts/application.html.erb (Duration: 15.1ms | Allocations: 5547)
+Completed 200 OK in 33ms (Views: 20.4ms | ActiveRecord: 3.1ms | Allocations: 6370)
+
+
+Started GET "/assets/tailwind-26dc4b2eb087afa8347c98e4f1f63b4862e09399b2f5f087fc22ad86d760eb6f.css" for 127.0.0.1 at 2026-04-06 20:37:38 -0700
+Started GET "/assets/application-b59c3565b5a44b93c2f20f0af0c53b0148dadd119c7be005b1a8cc1b7f20456d.css" for 127.0.0.1 at 2026-04-06 20:37:38 -0700
+Started GET "/assets/inter-font-c2ddab218623d7492890cfad22b9b8365df63dc39799a4d72a04c1b6a9ba0f73.css" for 127.0.0.1 at 2026-04-06 20:37:38 -0700
+Started GET "/assets/Inter-roman.symbols.var-61d7aebe86f365a4a76ebee6881b551af70df604d4edd5d8730ea54cc6a6286a.woff2" for 127.0.0.1 at 2026-04-06 20:37:38 -0700
+Started GET "/assets/Inter-roman.latin.var-5156501c82759bb0891d4a37c4eb6bce023623d762572a946c56a17d8ae37bd8.woff2" for 127.0.0.1 at 2026-04-06 20:37:38 -0700
+Started GET "/" for ::1 at 2026-04-06 20:37:44 -0700
+Processing by DashboardsController#index as HTML
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*action='index',application='PharmaTransportClean',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in `current_tenant'
+  Rendering layout layouts/application.html.erb
+  Rendering dashboards/index.html.erb within layouts/application
+  Rendered dashboards/index.html.erb within layouts/application (Duration: 0.5ms | Allocations: 165)
+  Rendered layout layouts/application.html.erb (Duration: 15.6ms | Allocations: 5524)
+Completed 200 OK in 20ms (Views: 16.5ms | ActiveRecord: 0.2ms | Allocations: 6346)
+
+
+Started GET "/assets/tailwind-26dc4b2eb087afa8347c98e4f1f63b4862e09399b2f5f087fc22ad86d760eb6f.css" for ::1 at 2026-04-06 20:37:44 -0700
+Started GET "/assets/application-b59c3565b5a44b93c2f20f0af0c53b0148dadd119c7be005b1a8cc1b7f20456d.css" for ::1 at 2026-04-06 20:37:44 -0700
+Started GET "/assets/inter-font-c2ddab218623d7492890cfad22b9b8365df63dc39799a4d72a04c1b6a9ba0f73.css" for ::1 at 2026-04-06 20:37:44 -0700
+Started GET "/assets/Inter-roman.latin.var-5156501c82759bb0891d4a37c4eb6bce023623d762572a946c56a17d8ae37bd8.woff2" for ::1 at 2026-04-06 20:37:44 -0700
+Started GET "/assets/Inter-roman.symbols.var-61d7aebe86f365a4a76ebee6881b551af70df604d4edd5d8730ea54cc6a6286a.woff2" for ::1 at 2026-04-06 20:37:44 -0700
+Started GET "/dashboards" for ::1 at 2026-04-06 20:38:03 -0700
+Processing by DashboardsController#index as */*
+  [1m[36mTenant Load (0.3ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*action='index',application='PharmaTransportClean',controller='dashboards'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in `current_tenant'
+  Rendering layout layouts/application.html.erb
+  Rendering dashboards/index.html.erb within layouts/application
+  Rendered dashboards/index.html.erb within layouts/application (Duration: 1.0ms | Allocations: 165)
+  Rendered layout layouts/application.html.erb (Duration: 17.7ms | Allocations: 5597)
+Completed 200 OK in 22ms (Views: 18.9ms | ActiveRecord: 0.3ms | Allocations: 6412)
+
+
