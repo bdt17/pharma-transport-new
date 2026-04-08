@@ -1,4 +1,4 @@
-# config/routes.rb - THOMAS IT PHARMA ENTERPRISE v12 (Phase 11)
+# config/routes.rb - THOMAS IT PHARMA ENTERPRISE v12 (Phase 12)
 Rails.application.routes.draw do
   # 🩺 Health check (Render.com)
   get '/health', to: proc { [200, {}, ['OK']] }
@@ -9,37 +9,52 @@ Rails.application.routes.draw do
     sessions:      'users/sessions'
   }
 
-  # 📊 Dashboard (auth required except for testing)
-  authenticated :user do
-    get '/dashboard', to: 'dashboards#index', as: :dashboard
-    get '/dashboards', to: 'dashboards#index'
-  end
-  # Temporary public access (remove in production)
-  get '/dashboard', to: 'dashboards#index', as: :public_dashboard
+  # 🏠 Landing page (public)
+  root 'home#index'
 
-  root 'dashboards#index'
-
-  # 💳 Stripe (future)
+  # 📊 Dashboard (auth + public)
+  get '/dashboard', to: 'dashboard#index', as: :dashboard
+  
+  # 💳 Stripe payments
   post '/pay', to: 'payments#create'
-  get  '/success', to: 'payments#success'
+  get '/success', to: 'payments#success'
+  get '/cancel', to: 'payments#cancel'
 
-  # 🚣 DEVELOPMENT / SINGLE‑TENANT (current live routes)
-  scope module: :tenant_scope do
-    resources :batches, only: [:index, :show] do
-      get :public_pdf, on: :member        # → /batches/1/public_pdf
-      get :chain_of_custody, on: :member  # → /batches/1/chain_of_custody
+  # 📄 PUBLIC Batch APIs + PDFs (no auth)
+  resources :batches, only: [] do
+    member do
+      get :demo           # /batches/demo → JSON
+      get :public_pdf, defaults: { format: :pdf }     # /batches/1/public_pdf.pdf
+      get :chain_of_custody, defaults: { format: :pdf }  # /batches/1/chain_of_custody.pdf
     end
-    get '/batches/demo', to: 'batches#demo'  # → /batches/demo (JSON API)
   end
 
-  # 📄 PDF Reports (demo / biologics‑style)
+  # 🚣 TENANT-SCOPED (auth required)
+  namespace :tenant_scope do
+    resources :batches
+    resources :tenants
+  end
+
+  # 📄 Legacy PDF endpoints (Phase 11)
   get '/pdf', to: 'pdf_reports#show'
+  get '/reports/compliance', to: 'reports#compliance'
 
-  # ✅ COMPLIANCE REPORTS (NEW - HTML + PDF)
-  get '/reports/compliance', to: 'reports#compliance'  # → /reports/compliance (.pdf auto)
-
-  # 🛰️ GPS API (RESTful endpoints)
+  # 🛰️ GPS API (public)
   namespace :api do
     resources :gps, only: [:index, :show]
+    resources :health, only: [:index]
   end
+
+  # 💰 Webhooks
+  post '/webhooks/stripe', to: 'webhooks#stripe'
+
+  # Dev/debug
+  get '/debug/zeitwerk', to: proc { Rails.application.eager_load!; [200, {}, ['Zeitwerk OK']] }
 end
+
+  resources :batches, only: [] do
+    member do
+      get :demo
+      get :chain_of_custody
+    end
+  end
