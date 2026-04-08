@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
     dashboard_path
   end
 
+   private
+
+  def protect_from_forgery
+    super(prepend: true, with: :exception)
+  end
+
   # Health endpoint (Render.com)
   def health
     head :ok
@@ -36,13 +42,18 @@ class ApplicationController < ActionController::Base
   # Pharma compliance: Audit log every action
   around_action :log_pharma_audit
 
-  private
+private
 
-  def log_pharma_audit
-    Rails.logger.tagged("tenant:#{current_tenant&.id}", "user:#{current_user&.id}") do
-      yield
-    end
-  end
-
-  protect_from_forgery with: :exception
+def protect_from_forgery
+  super(prepend: true, with: :exception)
 end
+
+# ... rest of methods ...
+
+def log_pharma_audit
+  Rails.logger.tagged("tenant:#{current_tenant&.id}", "user:#{current_user&.id}") do
+    yield
+  end
+end
+
+# NO protect_from_forgery here!
