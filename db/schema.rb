@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_02_040737) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_08_035041) do
   create_table "audit_trails", force: :cascade do |t|
     t.string "action"
     t.integer "user_id", null: false
@@ -47,6 +47,13 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_02_040737) do
     t.index ["batch_id"], name: "index_event_logs_on_batch_id"
     t.index ["tenant_id"], name: "index_event_logs_on_tenant_id"
     t.index ["user_id"], name: "index_event_logs_on_user_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.string "sku"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "shipments", force: :cascade do |t|
