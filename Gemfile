@@ -1,33 +1,4 @@
-# Gemfile
-source 'https://rubygems.org'
-ruby '3.2.2'
+source "https://rubygems.org"
 
-gem 'rails', '~> 7.1.0'
-gem 'puma'
-gem 'pg'                       # Production PostgreSQL
-gem 'sprockets-rails'
-gem 'bootsnap', require: false
-gem 'stripe', '~> 10.0'
-gem 'prawn', '~> 2.4'          # 21 CFR PDF generator
-gem 'sidekiq'
-
-gem 'devise', '~> 4.9'
-gem 'devise-two-factor', '~> 5.0'  # MFA for pharma compliance
-
-# Tailwind CSS (production-ready; works with Sprockets pipeline)
-gem 'tailwindcss-rails', '~> 2.0'
-
-group :development, :test do
-  gem 'sqlite3', '~> 1.4'      # Local development only
-  gem 'debug', '~> 1.9'        # Rails console debugging
-end
-
-group :development do
-  gem 'web-console'
-end
-
-group :test do
-  gem 'rspec-rails'
-end
-
-gem 'rqrcode'
+# Delegate to src/ Rails app Gemfile
+eval_gemfile "./src/Gemfile"
