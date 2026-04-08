@@ -6,4 +6,8 @@ class Tenant < ApplicationRecord
   def to_param
     subdomain
   end
+
+  def subdomain_url
+    "#{subdomain}.#{ENV['APP_DOMAIN'] || 'lvh.me:3000'}"
+  end
 end

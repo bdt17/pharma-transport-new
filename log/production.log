@@ -93,3 +93,10 @@ Migrating to CreateShipments (20260319222414)
   [1m[35m (597.1ms)[0m  [1m[35mCREATE TABLE "shipments" ("id" bigserial primary key, "shipment_id" character varying, "status" character varying, "biologics" text, "origin" character varying, "destination" character varying, "temperature" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
   [1m[36mTRANSACTION (0.4ms)[0m  [1m[31mROLLBACK[0m
   [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(5921190443203720650)[0m
+Migrating to CreateShipments (20260319222414)
+Migrating to CreateShipments (20260319222414)
+Migrating to CreateShipments (20260319222414)
+Migrating to CreateShipments (20260319222414)
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: localhost:3000
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: localhost:3000
+Migrating to CreateShipments (20260319222414)

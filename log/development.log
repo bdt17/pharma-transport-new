@@ -6097,3 +6097,72 @@ Processing by DashboardsController#index as HTML
 Completed 200 OK in 19ms (Views: 10.7ms | ActiveRecord: 1.0ms | Allocations: 2372)
 
 
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTenant Create (1.5ms)[0m  [1m[32mINSERT INTO "tenants" ("name", "subdomain", "created_at", "updated_at", "plan", "stripe_id", "stripe_customer_id") VALUES ('Thomas IT Demo', 'demo', '2026-04-08 03:49:47.823629', '2026-04-08 03:49:47.823629', NULL, NULL, NULL) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (346.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to CreateProducts (20260408035041)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "sku" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260408035041') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (63.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("name", "sku", "created_at", "updated_at") VALUES ('Insulin Vials', 'INS-001', '2026-04-08 03:56:38.310227', '2026-04-08 03:56:38.310227') RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (121.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Load (0.2ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 123456 LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTenant Load (0.5ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."id" = 1 LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Create (0.2ms)[0m  [1m[32mINSERT INTO "batches" ("id", "batch_id", "product", "status", "temp", "location", "created_at", "updated_at", "tenant_id") VALUES (123456, 'BATCH-20260408-001', 'Insulin Vials', 'In Transit', '2°C', 'Phoenix, AZ', '2026-04-08 03:58:54.021380', '2026-04-08 03:58:54.021380', 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mBatch Load (0.1ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 123456 LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Load (0.1ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 123456 LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Load (0.1ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 123456 LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Load (0.2ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 123456 LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.4ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Load (0.1ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 123456 LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Load (0.2ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."batch_id" = 'BATCH-20260408-001' AND "batches"."tenant_id" = 1 LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mBatch Load (0.1ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."batch_id" = 'DEMO-123456' /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBatch Create (6.8ms)[0m  [1m[32mINSERT INTO "batches" ("id", "batch_id", "product", "status", "temp", "location", "created_at", "updated_at", "tenant_id") VALUES (123456, 'DEMO-123456', 'Insulin Vials (21 CFR Part 11)', 'In Transit - Drone PHX→LAX', '2-8°C', 'Phoenix Sky Harbor', '2026-04-08 20:31:55.530592', '2026-04-08 20:31:55.530592', 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (119.0ms)[0m  [1m[31mDELETE FROM batches WHERE id = 123456 /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[33mUPDATE sqlite_sequence SET seq = 1 WHERE name = 'batches' /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM batches WHERE id = 123456 /*application='PharmaTransportClean'*/[0m
+  [1m[35m (167.5ms)[0m  [1m[33mUPDATE sqlite_sequence SET seq = 123455 WHERE name = 'batches' /*application='PharmaTransportClean'*/[0m
+DEPRECATION WARNING: Calling `ActiveRecord::Base.clear_active_connections! is deprecated. Please call the method directly on the connection handler; for example: `ActiveRecord::Base.connection_handler.clear_active_connections!`. (called from <main> at /home/zero/pharma-transport-clean/final_batch_fix.rb:9)
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBatch Create (0.2ms)[0m  [1m[32mINSERT INTO "batches" ("id", "batch_id", "product", "status", "temp", "location", "created_at", "updated_at", "tenant_id") VALUES (123456, 'DEMO-123456', 'Insulin Vials (21 CFR Part 11)', 'In Transit - PHX→LAX', '2-8°C', 'Phoenix Sky Harbor', '2026-04-08 20:33:31.068292', '2026-04-08 20:33:31.068292', 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mBatch Load (0.1ms)[0m  [1m[34mSELECT "batches".* FROM "batches" WHERE "batches"."id" = 123456 LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" WHERE "tenants"."id" = 1 LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[35m (293.7ms)[0m  [1m[31mDELETE FROM batches WHERE id = 123456 /*application='PharmaTransportClean'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[33mUPDATE sqlite_sequence SET seq = 123455 WHERE name = 'batches' /*application='PharmaTransportClean'*/[0m
+DEPRECATION WARNING: Calling `ActiveRecord::Base.clear_active_connections! is deprecated. Please call the method directly on the connection handler; for example: `ActiveRecord::Base.connection_handler.clear_active_connections!`. (called from <main> at /home/zero/pharma-transport-clean/seed_demo_batch.rb:4)
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mBatch Create (0.2ms)[0m  [1m[32mINSERT INTO "batches" ("id", "batch_id", "product", "status", "temp", "location", "created_at", "updated_at", "tenant_id") VALUES (123456, 'DEMO-123456', 'Insulin Vials (21 CFR Part 11)', 'in_transit', '2-8°C', 'Phoenix Sky Harbor → LAX Drone', '2026-04-08 20:53:58.025182', '2026-04-08 20:53:58.025182', 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
