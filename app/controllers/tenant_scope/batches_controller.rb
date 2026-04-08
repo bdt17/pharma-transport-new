@@ -6,7 +6,9 @@ module TenantScope
     before_action :set_batch, only: [:show, :update, :destroy, :chain_of_custody]
 
     # PUBLIC API - Completely standalone (no auth, no tenant)
-    skip_before_action :authenticate_user!, :set_tenant_batches, only: [:demo, :public_pdf, :chain_of_custody]
+    skip_before_action :authenticate_user!, :set_tenant_batches, 
+                       only: [:demo, :public_pdf, :chain_of_custody]
+
     # PUBLIC JSON API - No tenant dependency
     def demo
       batches = Batch.limit(10)
@@ -26,7 +28,6 @@ module TenantScope
     def public_pdf
       @batch = Batch.find(params[:id])
 
-      # Explicitly opt into :pdf format
       respond_to do |format|
         format.html { head :forbidden }  # block HTML
         format.pdf do
@@ -50,8 +51,44 @@ module TenantScope
       end
     end
 
+    # PUBLIC Chain of Custody PDF
+    def chain_of_custody
+      @batch = Batch.find(params[:id])
+      
+      respond_to do |format|
+        format.html { head :forbidden }
+        format.pdf do
+          require 'prawn'
+          pdf = Prawn::Document.new(page_size: 'LETTER')
+
+          # Header
+          pdf.font_size 20
+          pdf.text "CHAIN OF CUSTODY - 21 CFR Part 11", style: :bold, align: :center
+          pdf.text "Thomas IT Pharma Transport", size: 14, align: :center
+          pdf.move_down 10
+
+          # Batch Info
+          pdf.text "Batch ID: #{@batch.batch_id}", style: :bold
+          pdf.text "Product: #{@batch.product}"
+          pdf.text "Status: #{@batch.status}"
+          pdf.text "Temperature: #{@batch.temp}"
+          pdf.text "Location: #{@batch.location}"
+          pdf.move_down 10
+
+          # Compliance Hash
+          pdf.text "Compliance Hash (SHA256): #{Digest::SHA256.hexdigest(Time.now.to_s + @batch.id.to_s)}", style: :bold
+          pdf.text "Generated: #{Time.now.utc.iso8601}"
+
+          send_data pdf.render,
+                    filename: "coc-#{@batch.batch_id}.pdf",
+                    type: 'application/pdf',
+                    disposition: 'inline'
+        end
+      end
+    end
+
     def index
-      @batches = @tenant_batches
+      @batches = @tenant_batches.recent # Add scope in model
     end
 
     def show
@@ -65,8 +102,8 @@ module TenantScope
       @batch = @tenant_batches.build(batch_params)
       respond_to do |format|
         if @batch.save
-          format.html { redirect_to batch_url(@batch), notice: "Batch was successfully created." }
-          format.json { render :show, status: :created, location: @batch }
+          format.html { redirect_to tenant_scope_batch_url(@batch), notice: "Batch created." }
+          format.json { render :show, status: :created }
         else
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @batch.errors, status: :unprocessable_entity }
@@ -77,8 +114,8 @@ module TenantScope
     def update
       respond_to do |format|
         if @batch.update(batch_params)
-          format.html { redirect_to batch_url(@batch), notice: "Batch was successfully updated." }
-          format.json { render :show, status: :ok, location: @batch }
+          format.html { redirect_to tenant_scope_batch_url(@batch), notice: "Batch updated." }
+          format.json { render :show, status: :ok }
         else
           format.html { render :edit, status: :unprocessable_entity }
           format.json { render json: @batch.errors, status: :unprocessable_entity }
@@ -89,36 +126,15 @@ module TenantScope
     def destroy
       @batch.destroy
       respond_to do |format|
-        format.html { redirect_to batches_url, notice: "Batch was successfully destroyed." }
+        format.html { redirect_to tenant_scope_batches_url, notice: "Batch deleted." }
         format.json { head :no_content }
       end
-    end
-
-    # Authenticated PDF (tenant/user tracking)
-    def chain_of_custody
-      require 'prawn'
-      @batch = @tenant_batches.find(params[:id])
-
-      pdf = Prawn::Document.new
-      pdf.text "Thomas IT - 21 CFR Part 11 Chain of Custody", size: 18, style: :bold
-      pdf.text "Tenant: #{current_tenant&.name}", size: 14
-      pdf.text "User: #{current_user&.email}", size: 14
-      pdf.text "Batch ID: #{@batch.batch_id}", size: 16, style: :bold
-      pdf.text "SHA256: #{Digest::SHA256.hexdigest(Time.now.to_s + @batch.id.to_s)}"
-      pdf.text "Generated: #{Time.now.utc.iso8601}"
-
-      send_data pdf.render,
-                filename: "chain-of-custody-#{@batch.batch_id}.pdf",
-                type: 'application/pdf',
-                disposition: 'inline'
     end
 
     private
 
     def set_tenant_batches
-      tenant = current_tenant
-      @tenant_batches = Batch.where(tenant: tenant) if tenant
-      @tenant_batches ||= Batch.none
+      @tenant_batches = current_tenant.batches
     end
 
     def set_batch
@@ -127,23 +143,6 @@ module TenantScope
 
     def batch_params
       params.require(:batch).permit(:batch_id, :product, :status, :temp, :location)
-    end
-
-    def log_chain_of_custody_view
-      EventLog.create!(
-        action: "pdf.chain_of_custody.view",
-        user: current_user,
-        batch: @batch,
-        tenant: current_tenant,
-        metadata: {
-          user_name: current_user&.email,
-          batch_id: @batch.id,
-          batch_batch_id: @batch.batch_id,
-          status: @batch.status,
-          controller: "BatchesController",
-          action: "chain_of_custody"
-        }.to_json
-      )
     end
   end
 end
