@@ -1,32 +1,47 @@
-# app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
-  # Health endpoint
+  # Devise: Redirect after login
+  def after_sign_in_path_for(resource)
+    dashboard_path
+  end
+
+  # Health endpoint (Render.com)
   def health
     head :ok
   end
 
-  # Current tenant (multi‑tenant hook)
+  # Multi-tenant: Current tenant (subdomain/account)
   def current_tenant
-    # Example: Tenant by subdomain
-    # @current_tenant ||= Tenant.find_by(subdomain: request.subdomain)
-    #
-    # If you’re still single‑tenant in dev, you can stub:
-    Tenant.first
+    # Production: Tenant.find_by(subdomain: request.subdomain)
+    # Phase 11 dev: Stub first tenant (single-tenant mode)
+    @current_tenant ||= Tenant.first || Tenant.create!(name: 'Thomas IT Demo', subdomain: 'demo')
   end
-
-  # Current tenant shortcut helper
   helper_method :current_tenant
 
-  # Current user (Devise)
+  # Devise: Current user
   def current_user
     @current_user ||= super
   end
-
   helper_method :current_user
 
-  # Tenant scope shortcut you can use in controllers
+  # Tenant-scoped queries (batches, reports, etc.)
   def current_tenant_scope
-    Batch.where(tenant: current_tenant) if current_tenant
+    if current_tenant
+      { tenant: current_tenant }
+    else
+      {}
+    end
+  end
+  helper_method :current_tenant_scope
+
+  # Pharma compliance: Audit log every action
+  around_action :log_pharma_audit
+
+  private
+
+  def log_pharma_audit
+    Rails.logger.tagged("tenant:#{current_tenant&.id}", "user:#{current_user&.id}") do
+      yield
+    end
   end
 
   protect_from_forgery with: :exception
