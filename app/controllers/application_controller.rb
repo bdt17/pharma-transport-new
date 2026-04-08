@@ -4,12 +4,6 @@ class ApplicationController < ActionController::Base
     dashboard_path
   end
 
-   private
-
-  def protect_from_forgery
-    super(prepend: true, with: :exception)
-  end
-
   # Health endpoint (Render.com)
   def health
     head :ok
@@ -17,19 +11,24 @@ class ApplicationController < ActionController::Base
 
   # Multi-tenant: Current tenant (subdomain/account)
   def current_tenant
-    # Production: Tenant.find_by(subdomain: request.subdomain)
-    # Phase 11 dev: Stub first tenant (single-tenant mode)
     @current_tenant ||= Tenant.first || Tenant.create!(name: 'Thomas IT Demo', subdomain: 'demo')
   end
   helper_method :current_tenant
 
-  # Devise: Current user
+  # ... other public methods ...
+
+  # SINGLE private section
+  private
+
+  def protect_from_forgery
+    super(prepend: true, with: :exception)
+  end
+
   def current_user
     @current_user ||= super
   end
   helper_method :current_user
 
-  # Tenant-scoped queries (batches, reports, etc.)
   def current_tenant_scope
     if current_tenant
       { tenant: current_tenant }
@@ -39,21 +38,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_tenant_scope
 
-  # Pharma compliance: Audit log every action
-  around_action :log_pharma_audit
-
-private
-
-def protect_from_forgery
-  super(prepend: true, with: :exception)
-end
-
-# ... rest of methods ...
-
-def log_pharma_audit
-  Rails.logger.tagged("tenant:#{current_tenant&.id}", "user:#{current_user&.id}") do
-    yield
+  def log_pharma_audit
+    Rails.logger.tagged("tenant:#{current_tenant&.id}", "user:#{current_user&.id}") do
+      yield
+    end
   end
-end
 
-# NO protect_from_forgery here!
+  around_action :log_pharma_audit
+end
