@@ -1,29 +1,66 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      <div class="card shadow">
-        <div class="card-body p-5">
-          <h2 class="text-center mb-4">💳 Pharma Transport Payment</h2>
-          <h4 class="text-center mb-3">$299.00 – Cold Chain Shipment</h4>
-          <p class="text-center text-muted mb-4">
-            Shipment ID: SHIP-20260319-001<br>
-            Insulin + Vaccines • PHX → LAX
-          </p>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 to-sea-serpent py-12 px-4">
+  <div class="max-w-2xl mx-auto">
+    <div class="pharma-card">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold pharma-gradient bg-clip-text text-transparent mb-4">
+          💳 Cold Chain Pro Subscription
+        </h1>
+        <div class="bg-ocean-blue/10 border-2 border-ocean-blue/20 rounded-2xl p-6">
+          <h2 class="text-4xl font-bold text-ocean-blue mb-2">$299</h2>
+          <p class="text-davy-grey font-semibold">Per Shipment (Biologics)</p>
+        </div>
+      </div>
 
-          <div class="alert alert-info">
-            Stripe integration is wired up on the backend.<br>
-            Add your Stripe keys in Render’s Environment to enable live payments:
-            <ul class="mt-2 mb-0">
-              <li>STRIPE_PUBLISHABLE_KEY=pk_test_…</li>
-              <li>STRIPE_SECRET_KEY=sk_test_…</li>
-              <li>STRIPE_WEBHOOK_SECRET=whsec_…</li>
-            </ul>
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="flex items-start space-x-3 p-4 bg-emerald-50/50 rounded-xl border border-emerald-200/50">
+          <div class="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
           </div>
-
-          <div class="text-center mt-4">
-            <a href="/" class="btn btn-primary btn-lg">← Back to Dashboard</a>
+          <div>
+            <h3 class="font-semibold text-davy-grey mb-1">21 CFR Part 11</h3>
+            <p class="text-sm text-slate-600">Chain-of-custody PDFs ✓</p>
           </div>
         </div>
+
+        <div class="flex items-start space-x-3 p-4 bg-blue-50/50 rounded-xl border border-blue-200/50">
+          <div class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-ocean-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.657a1.998 1.998 0 01-2.827 0l-4.244-4.244a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-davy-grey mb-1">GPS Tracking</h3>
+            <p class="text-sm text-slate-600">Real-time cold chain ✓</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200/50 rounded-2xl p-6 mb-8">
+        <h3 class="font-bold text-davy-grey mb-3 flex items-center">
+          🧪 Shipment Details
+        </h3>
+        <div class="grid grid-cols-2 gap-4 text-sm">
+          <div><span class="text-slate-600">ID:</span> <span class="font-semibold">SHIP-20260319-001</span></div>
+          <div><span class="text-slate-600">Route:</span> <span class="font-semibold">PHX → LAX</span></div>
+          <div><span class="text-slate-600">Cargo:</span> <span class="font-semibold">Insulin + Vaccines</span></div>
+          <div><span class="text-slate-600">Temp:</span> <span class="font-semibold">2-8°C</span></div>
+        </div>
+      </div>
+
+      <div class="text-center space-y-4">
+        <p class="text-lg text-davy-grey mb-6">
+          Stripe integration ready. Add keys to Render Environment Variables:
+        </p>
+        <div class="bg-slate-50 border rounded-xl p-4 text-sm space-y-2 max-w-md mx-auto">
+          <div>STRIPE_PUBLISHABLE_KEY=<span class="font-mono text-xs bg-slate-200 px-2 py-1 rounded">pk_live_...</span></div>
+          <div>STRIPE_SECRET_KEY=<span class="font-mono text-xs bg-slate-200 px-2 py-1 rounded">sk_live_...</span></div>
+          <div>STRIPE_WEBHOOK_SECRET=<span class="font-mono text-xs bg-slate-200 px-2 py-1 rounded">whsec_...</span></div>
+        </div>
+        
+        <%= link_to "← Back to Dashboard", dashboard_path, class: "inline-block bg-davy-grey/20 hover:bg-davy-grey/30 text-davy-grey font-semibold py-3 px-8 rounded-xl border-2 border-davy-grey/30 transition-all" %>
       </div>
     </div>
   </div>
