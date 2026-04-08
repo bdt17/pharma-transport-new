@@ -6,8 +6,7 @@ module TenantScope
     before_action :set_batch, only: [:show, :update, :destroy, :chain_of_custody]
 
     # PUBLIC API - Completely standalone (no auth, no tenant)
-    skip_before_action :authenticate_user!, :set_tenant_batches, only: [:demo, :public_pdf]
-
+    skip_before_action :authenticate_user!, :set_tenant_batches, only: [:demo, :public_pdf, :chain_of_custody]
     # PUBLIC JSON API - No tenant dependency
     def demo
       batches = Batch.limit(10)
