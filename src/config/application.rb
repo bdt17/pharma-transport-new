@@ -9,9 +9,9 @@ Bundler.require(*Rails.groups)
 module PharmaTemp
   class Application < Rails::Application
     # 🚨 FIXED: Rails 7.1.6 compatibility (was 8.1)
-    config.load_defaults 7.1
-
-    # Configuration for the application, engines, and railties goes here.
+    config.load_defaults 7.1  # ✅ FIXED
+    
+  # Configuration for the application, engines, and railties goes here.
     config.time_zone = "Mountain Time (US & Canada)"  # Phoenix AZ
     config.active_record.default_timezone = :utc
 
