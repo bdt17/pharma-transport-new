@@ -6166,3 +6166,83 @@ DEPRECATION WARNING: Calling `ActiveRecord::Base.clear_active_connections! is de
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
   [1m[36mBatch Create (0.2ms)[0m  [1m[32mINSERT INTO "batches" ("id", "batch_id", "product", "status", "temp", "location", "created_at", "updated_at", "tenant_id") VALUES (123456, 'DEMO-123456', 'Insulin Vials (21 CFR Part 11)', 'in_transit', '2-8°C', 'Phoenix Sky Harbor → LAX Drone', '2026-04-08 20:53:58.025182', '2026-04-08 20:53:58.025182', 1) RETURNING "id" /*application='PharmaTransportClean'*/[0m
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/" for ::1 at 2026-04-09 14:14:47 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by HomeController#index as HTML
+  [1m[36mTenant Load (0.2ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*action='index',application='PharmaTransportClean',controller='home'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in `current_tenant'
+Completed 500 Internal Server Error in 144ms (ActiveRecord: 2.6ms | Allocations: 17689)
+
+
+  
+NameError (undefined local variable or method `login_path' for #<HomeController:0x0000000000e6a0>):
+  
+app/controllers/home_controller.rb:6:in `index'
+app/controllers/application_controller.rb:43:in `block in log_pharma_audit'
+app/controllers/application_controller.rb:42:in `log_pharma_audit'
+Started GET "/" for 127.0.0.1 at 2026-04-09 14:14:50 -0700
+Processing by HomeController#index as HTML
+  [1m[36mTenant Load (2.5ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*action='index',application='PharmaTransportClean',controller='home'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in `current_tenant'
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 2.5ms | Allocations: 1008)
+
+
+  
+NameError (undefined local variable or method `login_path' for #<HomeController:0x0000000000e948>):
+  
+app/controllers/home_controller.rb:6:in `index'
+app/controllers/application_controller.rb:43:in `block in log_pharma_audit'
+app/controllers/application_controller.rb:42:in `log_pharma_audit'
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddNameAndRoleToUsers (20260409212152)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "users" ADD "name" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddNameAndRoleToUsers (20260409212152)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (3.6ms)[0m  [1m[35mALTER TABLE "users" ADD "name" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Migrating to AddRoleToUsers (20260409212530)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (2.6ms)[0m  [1m[35mALTER TABLE "users" ADD "role" varchar /*application='PharmaTransportClean'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260409212530') RETURNING "version" /*application='PharmaTransportClean'*/[0m
+  [1m[36mTRANSACTION (128.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Started GET "/" for ::1 at 2026-04-11 15:24:00 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (79.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='PharmaTransportClean'*/[0m
+Processing by HomeController#index as HTML
+  [1m[36mTenant Load (0.1ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*action='index',application='PharmaTransportClean',controller='home'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in `current_tenant'
+Completed 500 Internal Server Error in 160ms (ActiveRecord: 2.4ms | Allocations: 13473)
+
+
+  
+NameError (undefined local variable or method `login_path' for #<HomeController:0x0000000000e678>):
+  
+app/controllers/home_controller.rb:6:in `index'
+app/controllers/application_controller.rb:43:in `block in log_pharma_audit'
+app/controllers/application_controller.rb:42:in `log_pharma_audit'
+Started GET "/" for 127.0.0.1 at 2026-04-11 15:24:02 -0700
+Processing by HomeController#index as HTML
+  [1m[36mTenant Load (0.9ms)[0m  [1m[34mSELECT "tenants".* FROM "tenants" ORDER BY "tenants"."id" ASC LIMIT 1 /*action='index',application='PharmaTransportClean',controller='home'*/[0m
+  ↳ app/controllers/application_controller.rb:14:in `current_tenant'
+Completed 500 Internal Server Error in 32ms (ActiveRecord: 0.8ms | Allocations: 1008)
+
+
+  
+NameError (undefined local variable or method `login_path' for #<HomeController:0x0000000000e948>):
+  
+app/controllers/home_controller.rb:6:in `index'
+app/controllers/application_controller.rb:43:in `block in log_pharma_audit'
+app/controllers/application_controller.rb:42:in `log_pharma_audit'

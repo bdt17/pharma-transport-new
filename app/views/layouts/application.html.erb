@@ -7,9 +7,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <!-- Tailwind CSS via asset pipeline (after rails tailwindcss:install) -->
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "tailwind", "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
   <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen antialiased font-sans">
     <!-- GLASS NAVBAR -->
@@ -39,17 +39,17 @@
           <div class="flex items-center space-x-3">
             <% if user_signed_in? %>
               <%= link_to "/dashboard",
-                class: "px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all" do %>
+                class: "px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200" do %>
                 📊 Dashboard
               <% end %>
               <%= button_to "/users/sign_out",
                 method: :delete,
-                class: "px-4 py-2.5 text-gray-700 hover:text-gray-900 font-semibold hover:bg-gray-100 rounded-xl transition-all" do %>
+                class: "px-4 py-2.5 text-gray-700 hover:text-gray-900 font-semibold hover:bg-gray-100 rounded-xl transition-all duration-200" do %>
                 Logout
               <% end %>
             <% else %>
               <%= link_to "/users/sign_in",
-                class: "px-6 py-2.5 border-2 border-indigo-600 text-indigo-700 hover:bg-indigo-600 hover:text-white font-semibold rounded-xl transition-all" do %>
+                class: "px-6 py-2.5 border-2 border-indigo-600 text-indigo-700 hover:bg-indigo-600 hover:text-white font-semibold rounded-xl transition-all duration-200 shadow-md hover:shadow-lg" do %>
                 🔐 Login
               <% end %>
             <% end %>

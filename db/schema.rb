@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_08_035041) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_09_212530) do
   create_table "audit_trails", force: :cascade do |t|
     t.string "action"
     t.integer "user_id", null: false
@@ -99,6 +99,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_08_035041) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.boolean "otp_required_for_login", default: true, null: false
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

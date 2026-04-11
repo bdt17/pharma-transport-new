@@ -9,11 +9,11 @@ Rails.application.configure do
 
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{1.hour.to_i}"
+    "Cache-Control" => "public, max-age=#{1.hour.to_i}"
   }
 
-  config.assets.compile = false
-  config.assets.digest = true
+  # config.assets.compile = false   ← deleted
+  # config.assets.digest = true     ← deleted
 
   config.hosts << "pharma-transport-new.onrender.com"
   config.hosts << ".onrender.com"
