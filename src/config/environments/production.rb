@@ -29,16 +29,11 @@ Rails.application.configure do
   config.logger&.level = Logger::WARN if config.logger && Rails.env.production?
 
   # Assets
-# Assets - Render optimized
-config.assets.compile = false
-config.assets.digest = true
-
-# Serve assets reliably
-config.public_file_server.enabled = true  # Always serve in production
+  # Assets - Rails 7 Importmap/Tailwind
+config.public_file_server.enabled = true
 config.public_file_server.headers = {
   'Cache-Control' => "public, max-age=#{1.year.to_i}, immutable"
 }
-
   # Storage
   config.active_storage.service = :local
 
