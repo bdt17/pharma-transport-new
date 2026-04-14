@@ -12,8 +12,8 @@ gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[windows jruby]
 
 # PHARMA SAAS - NO SOLID GEMS
-gem "devise", "~> 4.9.4"
-gem "devise-two-factor", "~> 5.1.0"
+#gem "devise", "~> 4.9.4"
+#gem "devise-two-factor", "~> 5.1.0"
 gem "stripe", "~> 10.15.0"
 gem "prawn", "~> 2.5.0"
 gem "rqrcode", "~> 3.2.0"
