@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # 🩺 1. Health check (ALWAYS first for Render.com)
-  get '/health', to: proc { [200, {}, ['OK']] }
+  get "up" => "rails/health#show", as: :rails_health_check
+  get "/health", to: "health#show"
 
   # 🔐 2. Devise authentication (MUST come first)
   devise_for :users, controllers: {
@@ -20,18 +21,9 @@ Rails.application.routes.draw do
   # 📄 5. PUBLIC Batch APIs + PDFs (NO AUTH REQUIRED)
   resources :batches, only: [] do
     member do
-      get :demo                    # /batches/123456/demo → JSON
-      get :public_pdf, defaults: { format: :pdf }    # /batches/123456/public_pdf.pdf
-      get :chain_of_custody, defaults: { format: :pdf }  # /batches/123456/chain_of_custody.pdf
-    end
-  end
-
-  # 🚣 6. TENANT-SCOPED routes (AUTH REQUIRED)
-  authenticate :user do
-    namespace :tenant_scope do
-      resources :batches
-      resources :tenants
-      resources :shipments
+      get :demo
+      get :public_pdf, defaults: { format: :pdf }
+      get :chain_of_custody, defaults: { format: :pdf }
     end
   end
 
@@ -51,8 +43,17 @@ Rails.application.routes.draw do
     end
   end
 
+  # 🚣 6. TENANT-SCOPED routes (AUTH REQUIRED)
+  authenticate :user do
+    namespace :tenant_scope do
+      resources :batches
+      resources :tenants
+      resources :shipments
+    end
+  end
+
   # 🛠️ 10. Debug endpoints (remove in prod)
-  get '/debug/zeitwerk', to: proc { 
+  get '/debug/zeitwerk', to: proc {
     Rails.application.eager_load!
     [200, {}, ['Zeitwerk loader OK']]
   }
