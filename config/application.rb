@@ -1,5 +1,6 @@
 require_relative "boot"
 require "rails/all"
+require 'securerandom'
 Bundler.require(*Rails.groups)
 
 module PharmaTransportClean
